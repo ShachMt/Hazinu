@@ -8,6 +8,8 @@ namespace DalHazinu.Models
     {
         public HazinuProjectContext()
         {
+
+
         }
 
         public HazinuProjectContext(DbContextOptions<HazinuProjectContext> options)

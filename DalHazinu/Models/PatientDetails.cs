@@ -17,6 +17,7 @@ namespace DalHazinu.Models
         public bool? IsMatureCharacter { get; set; }
         public bool? IsTherapeutic { get; set; }
         public bool? IsContact { get; set; }
+        public int Id { get; set; }
 
         public virtual Address Address { get; set; }
         public virtual Family Family { get; set; }

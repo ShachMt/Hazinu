@@ -9,6 +9,7 @@ namespace DalHazinu.Models
         public int? InstitutionId { get; set; }
         public string Status { get; set; }
         public string Details { get; set; }
+        public int Id { get; set; }
 
         public virtual EducationalInstitution Institution { get; set; }
         public virtual User User { get; set; }

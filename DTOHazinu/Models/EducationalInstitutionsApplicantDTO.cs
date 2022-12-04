@@ -10,5 +10,7 @@ namespace DTOHazinu.Models
         public int? InstitutionId { get; set; }
         public string Status { get; set; }
         public string Details { get; set; }
+        public int Id { get; set; }
+
     }
 }

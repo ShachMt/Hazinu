@@ -8,6 +8,7 @@ namespace DalHazinu.Models
         public int? IdApply { get; set; }
         public string FilesName { get; set; }
         public string Url { get; set; }
+        public int Id { get; set; }
 
         public virtual Apply IdApplyNavigation { get; set; }
     }

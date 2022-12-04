@@ -18,6 +18,12 @@ namespace Hazinu.Controllers
         {
             _IUserBL = u;
         }
+        [HttpGet]
+        [Route("GetUsers")]
+        public List<UserDTO> GetUsers()
+        {
+            return _IUserBL.GetUsers();
+        }
 
         [HttpPost]
         [Route("AddUser")]
@@ -27,14 +33,14 @@ namespace Hazinu.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleatUser")]
+        [Route("DeleatUser /{phone}")]
         public bool DeleatUser([FromBody] string phone)
         {
             return _IUserBL.DeleatUser(phone);
         }
         [HttpPut]
-        [Route("UpdateUser")]
-        public bool UpdateFlight(string phone, UserDTO u)
+        [Route("UpdateUser/{phone}")]
+        public bool UpdateUser(string phone, UserDTO u)
         {
             return _IUserBL.UpdateUser(phone, u);
         }

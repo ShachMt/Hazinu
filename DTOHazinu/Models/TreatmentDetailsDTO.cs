@@ -14,5 +14,7 @@ namespace DTOHazinu.Models
         public string Documentation { get; set; }
         public int? NextStepId { get; set; }
         public DateTime? DateTask { get; set; }
+        public int Id { get; set; }
+
     }
 }

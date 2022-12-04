@@ -8,7 +8,7 @@ namespace DTOHazinu.Models
     {
         public int Id { get; set; }
         public DateTime? DateNow { get; set; }
-        public int? UserId { get; set; }
+        public int? EmployeesId { get; set; }
         public int? AskerId { get; set; }
         public int? ApplyCausedId { get; set; }
     }

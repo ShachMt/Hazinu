@@ -1,4 +1,5 @@
 ﻿using DTOHazinu.Models;
+using System.Collections.Generic;
 
 namespace BLHazinu
 {
@@ -7,5 +8,6 @@ namespace BLHazinu
         bool AddUser(UserDTO u);
         bool DeleatUser(string phone);
         bool UpdateUser(string phon, UserDTO u);
+        List<UserDTO> GetUsers();
     }
 }

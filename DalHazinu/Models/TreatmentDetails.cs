@@ -13,10 +13,12 @@ namespace DalHazinu.Models
         public string Documentation { get; set; }
         public int? NextStepId { get; set; }
         public DateTime? DateTask { get; set; }
+        public int Id { get; set; }
 
         public virtual Apply Apply { get; set; }
+        public virtual Task NextStep { get; set; }
         public virtual Status Status { get; set; }
-        public virtual Task StatusNavigation { get; set; }
-        public virtual User Therapist { get; set; }
+        public virtual Task Task { get; set; }
+        public virtual Employees Therapist { get; set; }
     }
 }

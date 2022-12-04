@@ -11,5 +11,7 @@ namespace DTOHazinu.Models
         public int? JobId { get; set; }
         public string Phone { get; set; }
         public string AnotherPhone { get; set; }
+        public int Id { get; set; }
+
     }
 }

@@ -10,6 +10,7 @@ namespace DalHazinu.Models
         public int? JobId { get; set; }
         public string Phone { get; set; }
         public string AnotherPhone { get; set; }
+        public int Id { get; set; }
 
         public virtual EducationalInstitution Education { get; set; }
         public virtual Jobs Job { get; set; }

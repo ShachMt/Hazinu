@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BLHazinu\BLHazinu.csproj" />
     <ProjectReference Include="..\DTOHazinu\DTOHazinu.csproj" />
+    <ProjectReference Include="..\EmailService\EmailService.csproj" />
   </ItemGroup>
 
 

@@ -8,8 +8,6 @@ namespace DalHazinu.Models
     {
         public HazinuProjectContext()
         {
-
-
         }
 
         public HazinuProjectContext(DbContextOptions<HazinuProjectContext> options)
@@ -85,22 +83,28 @@ namespace DalHazinu.Models
                     .HasColumnName("dateNow")
                     .HasColumnType("date");
 
-                entity.Property(e => e.UserId).HasColumnName("userId");
+                entity.Property(e => e.EmployeesId).HasColumnName("employeesId");
 
                 entity.HasOne(d => d.ApplyCaused)
                     .WithMany(p => p.Apply)
                     .HasForeignKey(d => d.ApplyCausedId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Apply_TheCauseReferral");
 
-                entity.HasOne(d => d.User)
+                entity.HasOne(d => d.Asker)
                     .WithMany(p => p.Apply)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.AskerId)
                     .HasConstraintName("FK_Apply_User");
+
+                entity.HasOne(d => d.Employees)
+                    .WithMany(p => p.Apply)
+                    .HasForeignKey(d => d.EmployeesId)
+                    .HasConstraintName("FK_Apply_employees");
             });
 
             modelBuilder.Entity<DetailsAsker>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Affinity)
                     .HasColumnName("affinity")
@@ -119,6 +123,7 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.IdResoneNavigation)
                     .WithMany(p => p.DetailsAsker)
                     .HasForeignKey(d => d.IdResone)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_DetailsAsker_TheCauseReferral");
 
                 entity.HasOne(d => d.User)
@@ -155,31 +160,35 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.EducationalInstitution)
                     .HasForeignKey(d => d.AddressId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_EducationalInstitution_Address");
 
                 entity.HasOne(d => d.IdCategoryNavigation)
                     .WithMany(p => p.EducationalInstitution)
                     .HasForeignKey(d => d.IdCategory)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_EducationalInstitution_InstitutionsCategory");
 
                 entity.HasOne(d => d.IdStyleNavigation)
                     .WithMany(p => p.EducationalInstitution)
                     .HasForeignKey(d => d.IdStyle)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_EducationalInstitution_stylesInstitution");
 
                 entity.HasOne(d => d.Sector)
                     .WithMany(p => p.EducationalInstitution)
                     .HasForeignKey(d => d.SectorId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_EducationalInstitution_Sector");
             });
 
             modelBuilder.Entity<EducationalInstitutionsApplicant>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Details)
                     .HasColumnName("details")
-                    .HasMaxLength(30)
+                    .HasMaxLength(100)
                     .IsFixedLength();
 
                 entity.Property(e => e.InstitutionId).HasColumnName("institutionId");
@@ -192,6 +201,7 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.Institution)
                     .WithMany(p => p.EducationalInstitutionsApplicant)
                     .HasForeignKey(d => d.InstitutionId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_EducationalInstitutionsApplicant_EducationalInstitution");
 
                 entity.HasOne(d => d.User)
@@ -202,9 +212,12 @@ namespace DalHazinu.Models
 
             modelBuilder.Entity<Employees>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("employees");
+
+                entity.HasIndex(e => e.IdUser)
+                    .HasName("IX_employees_1");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Email)
                     .HasColumnName("email")
@@ -217,7 +230,7 @@ namespace DalHazinu.Models
 
                 entity.Property(e => e.Password)
                     .HasColumnName("password")
-                    .HasMaxLength(10)
+                    .HasMaxLength(20)
                     .IsFixedLength();
 
                 entity.HasOne(d => d.IdUserNavigation)
@@ -228,6 +241,7 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.Job)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.JobId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_employees_jobs");
             });
 
@@ -252,7 +266,7 @@ namespace DalHazinu.Models
 
             modelBuilder.Entity<Files>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.FilesName)
                     .HasColumnName("filesName")
@@ -269,6 +283,7 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.IdApplyNavigation)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.IdApply)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Files_Apply");
             });
 
@@ -305,7 +320,7 @@ namespace DalHazinu.Models
 
             modelBuilder.Entity<MatureCharacter>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Framwork)
                     .HasColumnName("framwork")
@@ -321,19 +336,15 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.IdApplicantNavigation)
                     .WithMany(p => p.MatureCharacter)
                     .HasForeignKey(d => d.IdApplicant)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_MatureCharacter_Apply");
-
-                entity.HasOne(d => d.IdMatureNavigation)
-                    .WithMany(p => p.MatureCharacter)
-                    .HasForeignKey(d => d.IdMature)
-                    .HasConstraintName("FK_MatureCharacter_User");
             });
 
             modelBuilder.Entity<PatientDetails>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("patientDetails");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.AddressId).HasColumnName("addressId");
 
@@ -371,16 +382,19 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.AddressId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_Address");
 
                 entity.HasOne(d => d.Family)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.FamilyId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_family");
 
                 entity.HasOne(d => d.Sector)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.SectorId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_Sector");
 
                 entity.HasOne(d => d.User)
@@ -413,9 +427,9 @@ namespace DalHazinu.Models
 
             modelBuilder.Entity<StffDetails>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("stffDetails");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.AnotherPhone)
                     .HasColumnName("anotherPhone")
@@ -436,11 +450,13 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.Education)
                     .WithMany(p => p.StffDetails)
                     .HasForeignKey(d => d.EducationId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_stffDetails_EducationalInstitution");
 
                 entity.HasOne(d => d.Job)
                     .WithMany(p => p.StffDetails)
                     .HasForeignKey(d => d.JobId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_stffDetails_jobs");
 
                 entity.HasOne(d => d.User)
@@ -495,7 +511,7 @@ namespace DalHazinu.Models
 
             modelBuilder.Entity<TreatmentDetails>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.ApplyId).HasColumnName("applyId");
 
@@ -521,22 +537,29 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.Apply)
                     .WithMany(p => p.TreatmentDetails)
                     .HasForeignKey(d => d.ApplyId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_TreatmentDetails_Apply");
+
+                entity.HasOne(d => d.NextStep)
+                    .WithMany(p => p.TreatmentDetailsNextStep)
+                    .HasForeignKey(d => d.NextStepId)
+                    .HasConstraintName("FK_TreatmentDetails_new");
 
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.TreatmentDetails)
                     .HasForeignKey(d => d.StatusId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_TreatmentDetails_status");
 
-                entity.HasOne(d => d.StatusNavigation)
-                    .WithMany(p => p.TreatmentDetails)
-                    .HasForeignKey(d => d.StatusId)
+                entity.HasOne(d => d.Task)
+                    .WithMany(p => p.TreatmentDetailsTask)
+                    .HasForeignKey(d => d.TaskId)
                     .HasConstraintName("FK_TreatmentDetails_task");
 
                 entity.HasOne(d => d.Therapist)
                     .WithMany(p => p.TreatmentDetails)
                     .HasForeignKey(d => d.TherapistId)
-                    .HasConstraintName("FK_TreatmentDetails_User");
+                    .HasConstraintName("FK_TreatmentDetails_employees");
             });
 
             modelBuilder.Entity<User>(entity =>

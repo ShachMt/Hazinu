@@ -9,5 +9,7 @@ namespace DTOHazinu.Models
         public int? IdApply { get; set; }
         public string FilesName { get; set; }
         public string Url { get; set; }
+        public int Id { get; set; }
+
     }
 }

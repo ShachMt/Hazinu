@@ -10,5 +10,7 @@ namespace DTOHazinu.Models
         public string Affinity { get; set; }
         public string ReferredBy { get; set; }
         public int? IdResone { get; set; }
+        public int Id { get; set; }
+
     }
 }

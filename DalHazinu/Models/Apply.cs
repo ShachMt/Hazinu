@@ -14,12 +14,13 @@ namespace DalHazinu.Models
 
         public int Id { get; set; }
         public DateTime? DateNow { get; set; }
-        public int? UserId { get; set; }
+        public int? EmployeesId { get; set; }
         public int? AskerId { get; set; }
         public int? ApplyCausedId { get; set; }
 
         public virtual TheCauseReferral ApplyCaused { get; set; }
-        public virtual User User { get; set; }
+        public virtual User Asker { get; set; }
+        public virtual Employees Employees { get; set; }
         public virtual ICollection<Files> Files { get; set; }
         public virtual ICollection<MatureCharacter> MatureCharacter { get; set; }
         public virtual ICollection<TreatmentDetails> TreatmentDetails { get; set; }

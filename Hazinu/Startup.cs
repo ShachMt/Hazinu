@@ -1,4 +1,5 @@
 using BLHazinu;
+using EmailService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,8 +28,29 @@ namespace Hazinu
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //var emailConfig = Configuration
+            //.GetSection("EmailConfiguration")
+            //.Get<EmailConfiguration>();
+            //services.AddSingleton(emailConfig);
+
             services.AddControllers();
             services.AddScoped<IUserBL, UserBL>();
+            services.AddScoped<IEmployeesBL, EmployeesBL>();
+            services.AddScoped<IApplyBL, ApplyBL>();
+            services.AddScoped<IJobsBL, JobsBL>();
+            services.AddScoped<IAddressBL, AddressBL>();
+            services.AddScoped<ITheCauseReferralBL, TheCauseReferralBL>();
+            services.AddScoped<ITaskBL, TaskBL>();
+            services.AddScoped<IStylesInstitutionBL, StylesInstitutionBL>();
+            services.AddScoped<IInstitutionsCategoryBL, InstitutionsCategoryBL>();
+            services.AddScoped<IStatusBL, StatusBL>();
+            services.AddScoped<ISectorBL, SectorBL>();
+            services.AddScoped<IFilesBL, FilesBL>();
+
+
+            
+
+
             services.AddSwaggerGen(c =>
             {
 

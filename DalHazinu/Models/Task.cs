@@ -7,13 +7,15 @@ namespace DalHazinu.Models
     {
         public Task()
         {
-            TreatmentDetails = new HashSet<TreatmentDetails>();
+            TreatmentDetailsNextStep = new HashSet<TreatmentDetails>();
+            TreatmentDetailsTask = new HashSet<TreatmentDetails>();
         }
 
         public int Id { get; set; }
         public string TaskName { get; set; }
         public string Descreption { get; set; }
 
-        public virtual ICollection<TreatmentDetails> TreatmentDetails { get; set; }
+        public virtual ICollection<TreatmentDetails> TreatmentDetailsNextStep { get; set; }
+        public virtual ICollection<TreatmentDetails> TreatmentDetailsTask { get; set; }
     }
 }

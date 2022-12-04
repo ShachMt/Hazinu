@@ -18,5 +18,7 @@ namespace DTOHazinu.Models
         public bool? IsMatureCharacter { get; set; }
         public bool? IsTherapeutic { get; set; }
         public bool? IsContact { get; set; }
+        public int Id { get; set; }
+
     }
 }

@@ -4,6 +4,7 @@ using DalHazinu.Models;
 using DTOHazinu;
 using DTOHazinu.Models;
 using System;
+using System.Collections.Generic;
 
 namespace BLHazinu
 {
@@ -20,6 +21,13 @@ namespace BLHazinu
             mapper = config.CreateMapper();
         }
         UserDL _UserDL = new UserDL();
+
+        public List<UserDTO> GetUsers()
+        {
+            List<User> users = _UserDL.GetUsers();
+            return mapper.Map<List<User>, List<UserDTO>>(users);
+
+        }
 
         public bool AddUser(UserDTO u)
         {

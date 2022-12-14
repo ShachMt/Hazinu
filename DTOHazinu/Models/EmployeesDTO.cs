@@ -11,6 +11,7 @@ namespace DTOHazinu.Models
         public int? JobId { get; set; }
         public string Email { get; set; }
         public int Id { get; set; }
+        public string VerificationCode { get; set; }
 
     }
 }

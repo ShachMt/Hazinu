@@ -1,5 +1,4 @@
 ﻿using DalHazinu.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,28 +6,29 @@ using System.Text;
 
 namespace DalHazinu
 {
-  public  class FilesDL
+   public class AgeRangeDL
     {
         HazinuProjectContext _context = new HazinuProjectContext();
 
-        //החזרת כלל סוגי הצרופות
-        public List<Files> GetAllFiles()
+        //החזרת כלל סוגי עבודות
+        public List<AgeRange> GetAllAgeRange()
         {
             try
             {
-                return _context.Files.Include(x=>x.IdApplyNavigation).ToList();
+
+                return _context.AgeRange.ToList();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public bool DeleteFiles(int id)
+        public bool DeleteAgeRange(int id)
         {
             try
             {
-                Files u = _context.Files.SingleOrDefault(x => x.Id == id);
-                _context.Files.Remove(u);
+                AgeRange u = _context.AgeRange.SingleOrDefault(x => x.Id == id);
+                _context.AgeRange.Remove(u);
                 _context.SaveChanges();
                 return true;
             }
@@ -37,12 +37,12 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddFiles(Files u)
+        public bool AddAgeRange(AgeRange u)
         {
 
             try
             {
-                _context.Files.Add(u);
+                _context.AgeRange.Add(u);
                 _context.SaveChanges();
                 return true;
             }
@@ -51,13 +51,13 @@ namespace DalHazinu
                 throw ex;
             }
         }
-        public bool UpdateFiles(int id, Files u)
+        public bool UpdateAgeRange(int id, AgeRange u)
         {
             try
             {
-                Files currentFiles = _context.Files.SingleOrDefault(x => x.Id == id);
+                AgeRange currentAgeRange = _context.AgeRange.SingleOrDefault(x => x.Id == id);
 
-                _context.Entry(currentFiles).CurrentValues.SetValues(u);
+                _context.Entry(currentAgeRange).CurrentValues.SetValues(u);
                 _context.SaveChanges();
                 return true;
             }
@@ -68,5 +68,6 @@ namespace DalHazinu
 
 
         }
+
     }
 }

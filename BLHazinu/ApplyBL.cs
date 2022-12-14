@@ -11,8 +11,6 @@ namespace BLHazinu
 {
     public class ApplyBL : IApplyBL
     {
-
-
         IMapper mapper;
         public ApplyBL()
         {
@@ -30,12 +28,39 @@ namespace BLHazinu
             List<Apply> allApplies = _ApplyDL.GetAllApplies();
             return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
         }
-
-        public List<ApplyDTO> GetAllAppliesByStatus(int status)
+        public List<ApplyDTO> GetAllAppliesByPhone(string phon)
         {
-            List<Apply> allApplies = _ApplyDL.GetAllAppliesByStatus(status);
+            List<Apply> allApplies = _ApplyDL.GetAllAppliesByPhone(phon);
             return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
+        }
+        public List<ApplyDTO> GetAllAppliesUserEmployee(string email)
+        {
+            List<Apply> allApplies = _ApplyDL.GetAllAppliesUserEmployee(email);
+            return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
+        }
+
+        public bool AddApply(ApplyDTO u)
+        {
+
+            return _ApplyDL.AddApply(mapper.Map<ApplyDTO, Apply>(u));
 
         }
+        public bool DeleatApply(int id)
+        {
+            return _ApplyDL.DeleteApply(id);
+
+        }
+        public bool UpdateApply(int id, ApplyDTO u)
+        {
+            return _ApplyDL.UpdateApply(id, mapper.Map<ApplyDTO, Apply>(u));
+        }
+
+
+        //public List<ApplyDTO> GetAllAppliesByStatus(int status)
+        //{
+        //    List<Apply> allApplies = _ApplyDL.GetAllAppliesByStatus(status);
+        //    return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
+
+        //}
     }
 }

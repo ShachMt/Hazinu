@@ -16,6 +16,7 @@ namespace DalHazinu.Models
         }
 
         public virtual DbSet<Address> Address { get; set; }
+        public virtual DbSet<AgeRange> AgeRange { get; set; }
         public virtual DbSet<Apply> Apply { get; set; }
         public virtual DbSet<DetailsAsker> DetailsAsker { get; set; }
         public virtual DbSet<EducationalInstitution> EducationalInstitution { get; set; }
@@ -69,6 +70,15 @@ namespace DalHazinu.Models
                     .HasColumnName("street")
                     .HasMaxLength(10)
                     .IsFixedLength();
+            });
+
+            modelBuilder.Entity<AgeRange>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.From).HasColumnName("from");
+
+                entity.Property(e => e.To).HasColumnName("to");
             });
 
             modelBuilder.Entity<Apply>(entity =>
@@ -233,6 +243,11 @@ namespace DalHazinu.Models
                     .HasMaxLength(20)
                     .IsFixedLength();
 
+                entity.Property(e => e.VerificationCode)
+                    .HasColumnName("verificationCode")
+                    .HasMaxLength(4)
+                    .IsUnicode(false);
+
                 entity.HasOne(d => d.IdUserNavigation)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.IdUser)
@@ -291,10 +306,6 @@ namespace DalHazinu.Models
             {
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.AgeRange)
-                    .HasMaxLength(8)
-                    .IsFixedLength();
-
                 entity.Property(e => e.DetailsCategory)
                     .HasColumnName("detailsCategory")
                     .HasMaxLength(30)
@@ -304,6 +315,11 @@ namespace DalHazinu.Models
                     .HasColumnName("gender")
                     .HasMaxLength(10)
                     .IsFixedLength();
+
+                entity.HasOne(d => d.AgeRangeNavigation)
+                    .WithMany(p => p.InstitutionsCategory)
+                    .HasForeignKey(d => d.AgeRange)
+                    .HasConstraintName("FK_InstitutionsCategory_AgeRange");
             });
 
             modelBuilder.Entity<Jobs>(entity =>
@@ -338,6 +354,11 @@ namespace DalHazinu.Models
                     .HasForeignKey(d => d.IdApplicant)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_MatureCharacter_Apply");
+
+                entity.HasOne(d => d.IdMatureNavigation)
+                    .WithMany(p => p.MatureCharacter)
+                    .HasForeignKey(d => d.IdMature)
+                    .HasConstraintName("FK_MatureCharacter_User");
             });
 
             modelBuilder.Entity<PatientDetails>(entity =>
@@ -357,11 +378,16 @@ namespace DalHazinu.Models
                     .HasMaxLength(10)
                     .IsFixedLength();
 
-                entity.Property(e => e.IsContact).HasColumnName("isContact");
+                entity.Property(e => e.IsContact)
+                    .HasColumnName("isContact")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.IsInstition).HasColumnName("isInstition");
 
                 entity.Property(e => e.IsMatureCharacter).HasColumnName("isMatureCharacter");
+
+                entity.Property(e => e.IsStillTerapist).HasColumnName("isStillTerapist");
 
                 entity.Property(e => e.IsTherapeutic).HasColumnName("isTherapeutic");
 
@@ -391,15 +417,28 @@ namespace DalHazinu.Models
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_family");
 
+                entity.HasOne(d => d.MatureCharacter)
+                    .WithMany(p => p.PatientDetails)
+                    .HasForeignKey(d => d.MatureCharacterId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_patientDetails_MatureCharacter");
+
                 entity.HasOne(d => d.Sector)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.SectorId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_Sector");
 
+                entity.HasOne(d => d.Therapeutic)
+                    .WithMany(p => p.PatientDetails)
+                    .HasForeignKey(d => d.TherapeuticId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_patientDetails_employees");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_User");
             });
 
@@ -507,6 +546,11 @@ namespace DalHazinu.Models
                     .HasColumnName("descreption")
                     .HasMaxLength(20)
                     .IsFixedLength();
+
+                entity.Property(e => e.Details)
+                    .HasColumnName("details")
+                    .HasMaxLength(1000)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<TreatmentDetails>(entity =>
@@ -529,6 +573,8 @@ namespace DalHazinu.Models
                     .IsFixedLength();
 
                 entity.Property(e => e.NextStepId).HasColumnName("nextStepId");
+
+                entity.Property(e => e.State).HasColumnName("state");
 
                 entity.Property(e => e.StatusId).HasColumnName("statusId");
 

@@ -24,9 +24,9 @@ namespace BLHazinu
         InstitutionsCategoryDL _InstitutionsCategoryDL = new InstitutionsCategoryDL();
 
         //סיווג קטגוריות מוסדות לימוד לפי מין
-        public List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByGender(string gender)
+        public List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByGender(string gender, int age)
         {
-            List<InstitutionsCategory> listInstitutionsCategory = _InstitutionsCategoryDL.GetAllInstitutionsCategoriesByGender(gender);
+            List<InstitutionsCategory> listInstitutionsCategory = _InstitutionsCategoryDL.GetAllInstitutionsCategoriesByGender(gender,age);
             return mapper.Map<List<InstitutionsCategory>, List<InstitutionsCategoryDTO>>(listInstitutionsCategory);
         }
 

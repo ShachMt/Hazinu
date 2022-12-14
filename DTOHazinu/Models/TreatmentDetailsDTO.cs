@@ -6,7 +6,7 @@ namespace DTOHazinu.Models
 {
   public  class TreatmentDetailsDTO
     {
-        public int? ApplyId { get; set; }
+        public int ApplyId { get; set; }
         public int? TherapistId { get; set; }
         public int? StatusId { get; set; }
         public DateTime? DateNow { get; set; }

@@ -16,12 +16,17 @@ namespace DalHazinu.Models
         public bool? IsInstition { get; set; }
         public bool? IsMatureCharacter { get; set; }
         public bool? IsTherapeutic { get; set; }
-        public bool? IsContact { get; set; }
+        public string IsContact { get; set; }
         public int Id { get; set; }
+        public int? TherapeuticId { get; set; }
+        public bool? IsStillTerapist { get; set; }
+        public int? MatureCharacterId { get; set; }
 
         public virtual Address Address { get; set; }
         public virtual Family Family { get; set; }
+        public virtual MatureCharacter MatureCharacter { get; set; }
         public virtual Sector Sector { get; set; }
+        public virtual Employees Therapeutic { get; set; }
         public virtual User User { get; set; }
     }
 }

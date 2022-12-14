@@ -7,28 +7,33 @@ using System.Text;
 
 namespace DalHazinu
 {
-  public  class FilesDL
+  public  class PatientDetailsDL
     {
         HazinuProjectContext _context = new HazinuProjectContext();
 
-        //החזרת כלל סוגי הצרופות
-        public List<Files> GetAllFiles()
+        //החזרת פרטי הפונים
+        public List<PatientDetails> GetAllPatientDetails()
         {
             try
             {
-                return _context.Files.Include(x=>x.IdApplyNavigation).ToList();
+                return _context.PatientDetails.
+                Include(x=>x.Address).
+                Include(x=>x.Family).
+                Include(x=>x.Sector).
+                Include(x=>x.Therapeutic).
+                Include(x=>x.User).ToList();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public bool DeleteFiles(int id)
+        public bool DeletePatientDetails(int id)
         {
             try
             {
-                Files u = _context.Files.SingleOrDefault(x => x.Id == id);
-                _context.Files.Remove(u);
+                PatientDetails u = _context.PatientDetails.SingleOrDefault(x => x.Id == id);
+                _context.PatientDetails.Remove(u);
                 _context.SaveChanges();
                 return true;
             }
@@ -37,12 +42,12 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddFiles(Files u)
+        public bool AddPatientDetails(PatientDetails u)
         {
 
             try
             {
-                _context.Files.Add(u);
+                _context.PatientDetails.Add(u);
                 _context.SaveChanges();
                 return true;
             }
@@ -51,13 +56,12 @@ namespace DalHazinu
                 throw ex;
             }
         }
-        public bool UpdateFiles(int id, Files u)
+        public bool UpdatePatientDetails(int id, PatientDetails u)
         {
             try
             {
-                Files currentFiles = _context.Files.SingleOrDefault(x => x.Id == id);
-
-                _context.Entry(currentFiles).CurrentValues.SetValues(u);
+                PatientDetails currentPatientDetails = _context.PatientDetails.SingleOrDefault(x => x.Id == id);
+                _context.Entry(currentPatientDetails).CurrentValues.SetValues(u);
                 _context.SaveChanges();
                 return true;
             }

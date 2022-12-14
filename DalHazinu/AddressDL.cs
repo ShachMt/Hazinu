@@ -35,7 +35,7 @@ namespace DalHazinu
         }
         
             public bool DeleteAddress(int id)
-        {
+          {
             try
             {
                 Address address = _context.Address.SingleOrDefault(x => x.Id == id);

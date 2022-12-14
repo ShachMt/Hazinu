@@ -13,8 +13,9 @@ namespace DalHazinu.Models
         public int Id { get; set; }
         public string DetailsCategory { get; set; }
         public string Gender { get; set; }
-        public string AgeRange { get; set; }
+        public int? AgeRange { get; set; }
 
+        public virtual AgeRange AgeRangeNavigation { get; set; }
         public virtual ICollection<EducationalInstitution> EducationalInstitution { get; set; }
     }
 }

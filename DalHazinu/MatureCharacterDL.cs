@@ -7,28 +7,26 @@ using System.Text;
 
 namespace DalHazinu
 {
-  public  class FilesDL
+  public class MatureCharacterDL
     {
         HazinuProjectContext _context = new HazinuProjectContext();
-
-        //החזרת כלל סוגי הצרופות
-        public List<Files> GetAllFiles()
+        //החזרת כלל סוגי עבודות
+        public List<MatureCharacter> GetAllMatureCharacter()
         {
             try
             {
-                return _context.Files.Include(x=>x.IdApplyNavigation).ToList();
-            }
+                return _context.MatureCharacter.Include(x => x.IdApplicantNavigation).ThenInclude(x => x.Employees).ThenInclude(x => x.Job).ThenInclude(x => x.Employees).ThenInclude(x => x.IdUserNavigation).ToList();            }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public bool DeleteFiles(int id)
+        public bool DeleteMatureCharacter(int id)
         {
             try
             {
-                Files u = _context.Files.SingleOrDefault(x => x.Id == id);
-                _context.Files.Remove(u);
+                MatureCharacter u = _context.MatureCharacter.SingleOrDefault(x => x.Id == id);
+                _context.MatureCharacter.Remove(u);
                 _context.SaveChanges();
                 return true;
             }
@@ -37,12 +35,12 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddFiles(Files u)
+        public bool AddMatureCharacter(MatureCharacter u)
         {
 
             try
             {
-                _context.Files.Add(u);
+                _context.MatureCharacter.Add(u);
                 _context.SaveChanges();
                 return true;
             }
@@ -51,13 +49,13 @@ namespace DalHazinu
                 throw ex;
             }
         }
-        public bool UpdateFiles(int id, Files u)
+        public bool UpdateMatureCharacter(int id, MatureCharacter u)
         {
             try
             {
-                Files currentFiles = _context.Files.SingleOrDefault(x => x.Id == id);
+                MatureCharacter currentMatureCharacter = _context.MatureCharacter.SingleOrDefault(x => x.Id == id);
 
-                _context.Entry(currentFiles).CurrentValues.SetValues(u);
+                _context.Entry(currentMatureCharacter).CurrentValues.SetValues(u);
                 _context.SaveChanges();
                 return true;
             }
@@ -70,3 +68,4 @@ namespace DalHazinu
         }
     }
 }
+

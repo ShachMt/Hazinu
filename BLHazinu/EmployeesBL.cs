@@ -28,13 +28,16 @@ namespace BLHazinu
             Employees e = _EmployeesDL.GetEmployeeByEmailPassword(email,pass);
             return mapper.Map<Employees, EmployeesDTO>(e);
         }
+        public string GetEmployeeName(string email, string pass)
+        {
+            return _EmployeesDL.GetEmployeeName(email, pass);
 
+        }
         public List<EmployeesDTO> GetAllEmployees()
         {
             List<Employees> allEmployees = _EmployeesDL.GetAllEmployees();
             return mapper.Map<List<Employees>, List<EmployeesDTO>>(allEmployees);
         }
-
         public bool AddEmployee(EmployeesDTO e)
         {
 
@@ -50,5 +53,13 @@ namespace BLHazinu
         {
             return _EmployeesDL.UpdateEmployee(email, mapper.Map<EmployeesDTO, Employees>(e));
         }
+        public void put(EmployeesDTO employees)
+        {
+           _EmployeesDL.put(mapper.Map<EmployeesDTO, Employees>(employees));
+
+        }
+
+
+
     }
 }

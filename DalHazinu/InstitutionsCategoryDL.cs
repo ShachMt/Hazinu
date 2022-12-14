@@ -1,4 +1,5 @@
 ﻿using DalHazinu.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,12 @@ namespace DalHazinu
         HazinuProjectContext _context = new HazinuProjectContext();
 
         //סיווג קטגוריות מוסדות לימוד לפי מין
-        public List<InstitutionsCategory> GetAllInstitutionsCategoriesByGender(string gender)
+        public List<InstitutionsCategory> GetAllInstitutionsCategoriesByGender(string gender,int age)
         {
             try
             {
-
-                return _context.InstitutionsCategory.Where(x=>x.Gender==gender).ToList();
+                return _context.InstitutionsCategory.Include(x=>x.AgeRangeNavigation).
+                Where(x=>x.Gender==gender&& x.AgeRangeNavigation.From <= age && x.AgeRangeNavigation.To >= age).ToList();
             }
             catch (Exception ex)
             {
@@ -29,7 +30,7 @@ namespace DalHazinu
             try
             {
 
-                return _context.InstitutionsCategory.ToList();
+                return _context.InstitutionsCategory.Include(x=>x.AgeRangeNavigation).ToList();
             }
             catch (Exception ex)
             {

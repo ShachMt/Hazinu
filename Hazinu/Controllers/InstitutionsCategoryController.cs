@@ -20,12 +20,11 @@ namespace Hazinu.Controllers
             }
 
             //סיווג קטגוריות מוסדות לימוד לפי מין
-
             [HttpGet]
-            [Route("GetAllInstitutionsCategoriesByGender")]
-            public List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByGender([FromBody] string gender)
+            [Route("GetAllInstitutionsCategoriesByGenderAndAge")]
+            public List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByGender(string gender,string age)
             {
-                return _IInstitutionsBL.GetAllInstitutionsCategoriesByGender(gender);
+                return _IInstitutionsBL.GetAllInstitutionsCategoriesByGender(gender,int.Parse(age));
             }
 
             //החזרת כל הקטגוריות

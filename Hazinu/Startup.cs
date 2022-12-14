@@ -46,15 +46,35 @@ namespace Hazinu
             services.AddScoped<IStatusBL, StatusBL>();
             services.AddScoped<ISectorBL, SectorBL>();
             services.AddScoped<IFilesBL, FilesBL>();
+            services.AddScoped<IDetailsAskerBL, DetailsAskerBL>();
+            services.AddScoped<IEducationalInstitutionBL, EducationalInstitutionBL>();
+            services.AddScoped<IAgeRangeBL, AgeRangeBL>();
+            services.AddScoped<IEducationalInstitutionsApplicantBL, EducationalInstitutionsApplicantBL>();
+            services.AddScoped<IMatureCharacterBL, MatureCharacterBL>();
+            services.AddScoped<IPatientDetailsBL, PatientDetailsBL>();
+            services.AddScoped<ITreatmentDetailsBL, TreatmentDetailsBL>();
 
 
             
+
+
+
 
 
             services.AddSwaggerGen(c =>
             {
 
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hazinu.API", Version = "v1" });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policyBuilder => policyBuilder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        );
+
             });
         }
 
@@ -68,6 +88,9 @@ namespace Hazinu
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "Hazinu.API v1"));
             }
+
+            app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 

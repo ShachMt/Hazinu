@@ -43,7 +43,31 @@ namespace DTOHazinu
 
             CreateMap<FilesDTO, Files>();
             CreateMap<Files, FilesDTO>();
+
+            CreateMap<DetailsAskerDTO, DetailsAsker>();
+            CreateMap<DetailsAsker, DetailsAskerDTO>();
+
+            CreateMap<EducationalInstitutionDTO, EducationalInstitution>();
+            CreateMap<EducationalInstitution, EducationalInstitutionDTO>();
+
+            CreateMap<AgeRangeDTO, AgeRange>();
+            CreateMap<AgeRange, AgeRangeDTO>();
+
+            CreateMap<EducationalInstitutionsApplicantDTO, EducationalInstitutionsApplicant>();
+            CreateMap<EducationalInstitutionsApplicant, EducationalInstitutionsApplicantDTO>();
+
+            CreateMap<MatureCharacterDTO, MatureCharacter>();
+            CreateMap<MatureCharacter, MatureCharacterDTO>();
+
+            CreateMap<PatientDetailsDTO, PatientDetails>();
+            CreateMap<PatientDetails, PatientDetailsDTO>();
+
+            CreateMap<TreatmentDetailsDTO, TreatmentDetails>();
+            CreateMap<TreatmentDetails, TreatmentDetailsDTO>();
             
+
+
+
         }
     }
 }

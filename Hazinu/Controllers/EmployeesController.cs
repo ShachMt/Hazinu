@@ -42,9 +42,17 @@ namespace Hazinu.Controllers
 
         [HttpGet]
         [Route("GetEmployeeByPasswordEmail")]
-        public EmployeesDTO GetEmployeeByEmailPassword([FromBody] EmployeesDTO obj)
+        //[FromBody] EmployeesDTO obj
+        public EmployeesDTO GetEmployeeByEmailPassword(string email,string password)
         {
-            return _IEmployeesBL.GetEmployeeByEmailPassword(obj.Email,obj.Password);
+            return _IEmployeesBL.GetEmployeeByEmailPassword(email,password);
+        }
+        [HttpGet]
+        [Route("GetEmployeeName")]
+
+        public string GetEmployeeName(string email, string pass)
+        {
+            return _IEmployeesBL.GetEmployeeName(email, pass);
         }
 
         [HttpGet]
@@ -53,6 +61,14 @@ namespace Hazinu.Controllers
         {
             return _IEmployeesBL.GetAllEmployees().ToList();
         }
+        [HttpPut]
+        [Route("UpdateEmployeeCode")]
+        public bool put(EmployeesDTO employees)
+        {
+            _IEmployeesBL.put(employees);
+            return true;
+        }
+
 
     }
 }

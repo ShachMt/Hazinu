@@ -8,7 +8,7 @@ namespace BLHazinu
         bool AddInstitutionsCategory(InstitutionsCategoryDTO u);
         bool DeleteInstitutionsCategory(int id);
         List<InstitutionsCategoryDTO> GetAllInstitutionsCategories();
-        List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByGender(string gender);
+        List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByGender(string gender,int age);
         bool UpdateInstitutionsCategory(int id, InstitutionsCategoryDTO u);
     }
 }

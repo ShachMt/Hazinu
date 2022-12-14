@@ -5,7 +5,7 @@ namespace DalHazinu.Models
 {
     public partial class TreatmentDetails
     {
-        public int? ApplyId { get; set; }
+        public int ApplyId { get; set; }
         public int? TherapistId { get; set; }
         public int? StatusId { get; set; }
         public DateTime? DateNow { get; set; }
@@ -14,6 +14,7 @@ namespace DalHazinu.Models
         public int? NextStepId { get; set; }
         public DateTime? DateTask { get; set; }
         public int Id { get; set; }
+        public bool? State { get; set; }
 
         public virtual Apply Apply { get; set; }
         public virtual Task NextStep { get; set; }

@@ -72,15 +72,16 @@ namespace DalHazinu
                 return false;
             }
         }
-        //הוספת פניה
-        public bool AddApply(Apply u)
+        //ומחזיר מספר פניה הוספת פניה
+        public int AddApply(Apply u)
         {
 
             try
             {
                 _context.Apply.Add(u);
                 _context.SaveChanges();
-                return true;
+
+                return u.Id;
             }
             catch (Exception ex)
             {
@@ -118,8 +119,6 @@ namespace DalHazinu
         //{
 
         //}
-        //החזרת פניות לפי סטטוס 
-
         //החזרת פניות לפי סטטוס ואימייל פעיל
         public List<Apply> GetAllApplyByStatusEmailTerapist(int status, string email)
         {
@@ -143,7 +142,29 @@ namespace DalHazinu
                 throw ex;
             }
         }
-
+        //החזרת פניות לפי ססטוס- בשביל מנהל הפניות לסיווג ובשביל האינטייק 
+        public List<Apply> GetAllApplyByStatus(int status)
+        {
+            try
+            {
+                //מחזיר את כל הרשימה של הפניות הקיימות
+                List<Apply> lstApplies = GetAllApplies();
+                //רשימה חדשה אשר תשמור בתוכה את הפניות שעומדות על הסטטוס המתקבל
+                List<Apply> lstAppliesNew = new List<Apply>();
+                TreatmentDetailsDL treatmentDetailsDL = new TreatmentDetailsDL();
+                //מעבר על כל הפניות הקיימות והכנסה לרשימה החדשה במידה שתענה על הדרישה
+                foreach (var item in lstApplies)
+                {
+                    if (treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id)?.StatusId == status)
+                        lstAppliesNew.Add(item);
+                }
+                return lstAppliesNew;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         //public List<Apply> GetAllAppliesByStatus(int status)
         //{

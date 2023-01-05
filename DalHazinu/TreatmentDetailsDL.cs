@@ -27,9 +27,8 @@ namespace DalHazinu
             }
         }
        ////////////////////////////////////////////////////////////////////////////
-        //החזרת פניות לפי סטטוס
       
-       
+       //מחזיר את הטיפול האחרון שבוצע בפניה
         public TreatmentDetails GetTreatmentDetailsByApplyState(int ApplyId)
         {
             try

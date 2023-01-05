@@ -21,38 +21,89 @@ namespace Hazinu.Controllers
 
         [HttpPost]
         [Route("AddEmployee")]
-        public bool AddEmployees([FromBody] EmployeesDTO e)
+        public IActionResult AddEmployees([FromBody] EmployeesDTO e)
         {
-            return _IEmployeesBL.AddEmployee(e);
+            try
+            {
+                return Ok(_IEmployeesBL.AddEmployee(e));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("DeleatEmployee")]
-        public bool DeleatEmployee([FromBody] string email)
+        public IActionResult DeleatEmployee([FromBody] string email)
         {
-            return _IEmployeesBL.DeleatEmployee(email);
+            try
+            {
+                return Ok(_IEmployeesBL.DeleatEmployee(email));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPut]
-        [Route("UpdateEmployee")]
-        public bool UpdateFlight(string email, EmployeesDTO e)
+        [Route("UpdateEmployee/{email}")]
+        public IActionResult UpdateFlight(string email, EmployeesDTO e)
         {
-            return _IEmployeesBL.UpdateEmployee(email, e);
+            try
+            {
+                return Ok(_IEmployeesBL.UpdateEmployee(email, e));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
 
         [HttpGet]
-        [Route("GetEmployeeByPasswordEmail")]
-        //[FromBody] EmployeesDTO obj
-        public EmployeesDTO GetEmployeeByEmailPassword(string email,string password)
+        [Route("GetEmployeeByPasswordEmail/{email}/{password}")]
+        public IActionResult GetEmployeeByEmailPassword(string email, string password)
         {
-            return _IEmployeesBL.GetEmployeeByEmailPassword(email,password);
+            try
+            {
+                return Ok(_IEmployeesBL.GetEmployeeByEmailPassword(email, password));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
         [HttpGet]
-        [Route("GetEmployeeName")]
-
-        public string GetEmployeeName(string email, string pass)
+        [Route("GetEmployeeByEmail/{email}")]
+        public IActionResult GetEmployeeByEmail(string email)
         {
-            return _IEmployeesBL.GetEmployeeName(email, pass);
+            try
+            {
+                return Ok(_IEmployeesBL.GetEmployeeByEmail(email));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+        [HttpGet]
+        [Route("GetEmployeeName/{email}/{password}")]
+
+        public IActionResult GetEmployeeName(string email, string password)
+        {
+            try
+            {
+                return Ok(_IEmployeesBL.GetEmployeeName(email, password));
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet]
@@ -63,10 +114,18 @@ namespace Hazinu.Controllers
         }
         [HttpPut]
         [Route("UpdateEmployeeCode")]
-        public bool put(EmployeesDTO employees)
+        public IActionResult put(EmployeesDTO employees)
         {
-            _IEmployeesBL.put(employees);
-            return true;
+            try
+            {
+                _IEmployeesBL.put(employees);
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+           ;
         }
 
 

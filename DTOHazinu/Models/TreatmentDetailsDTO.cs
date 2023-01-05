@@ -15,6 +15,11 @@ namespace DTOHazinu.Models
         public int? NextStepId { get; set; }
         public DateTime? DateTask { get; set; }
         public int Id { get; set; }
+        public virtual ApplyDTO Apply { get; set; }
+        public virtual TaskDTO NextStep { get; set; }
+        public virtual StatusDTO Status { get; set; }
+        public virtual TaskDTO Task { get; set; }
+        public virtual EmployeesDTO Therapist { get; set; }
 
     }
 }

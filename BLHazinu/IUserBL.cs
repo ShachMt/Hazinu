@@ -5,9 +5,11 @@ namespace BLHazinu
 {
     public interface IUserBL
     {
-        bool AddUser(UserDTO u);
+        int AddUser(UserDTO u);
         bool DeleatUser(string phone);
         bool UpdateUser(string phon, UserDTO u);
         List<UserDTO> GetUsers();
+        UserDTO GetUserByPhone(string phone);
+
     }
 }

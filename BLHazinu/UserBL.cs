@@ -28,8 +28,14 @@ namespace BLHazinu
             return mapper.Map<List<User>, List<UserDTO>>(users);
 
         }
+        public UserDTO GetUserByPhone(string phone)
+        {
+            User user = _UserDL.GetUserByPhone(phone);
+            return mapper.Map<User, UserDTO>(user);
 
-        public bool AddUser(UserDTO u)
+        }
+
+        public int AddUser(UserDTO u)
         {
 
             return _UserDL.AddUsers(mapper.Map<UserDTO, User>(u));
@@ -44,6 +50,7 @@ namespace BLHazinu
         {
             return _UserDL.UpdateUser(phon, mapper.Map<UserDTO, User>(u));
         }
+        
 
     }
 }

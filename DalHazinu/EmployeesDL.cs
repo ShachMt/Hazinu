@@ -3,13 +3,21 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
+using Microsoft.Graph;
+using System.Net.Http.Headers;
+using Outlook = Microsoft.Office.Interop.Outlook;
+
+// First, install the Microsoft Graph .NET Client Library using NuGet:
+// Install-Package Microsoft.Graph
 
 namespace DalHazinu
 {
    public class EmployeesDL
     {
+
         HazinuProjectContext _context = new HazinuProjectContext();
         //RETURN NALL EMPLOYEES
        
@@ -34,16 +42,28 @@ namespace DalHazinu
                         return em;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return null;
             }
 
         }
+       public Employees GetEmployeeByEmail(string email)
+        {
+            try
+            {
+                Employees e = _context.Employees.Include(x => x.IdUserNavigation).Include(x => x.Job).FirstOrDefault(x => x.Email == email);
+                return e;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+        }
         public string GetEmployeeName(string email, string pass)
         {
-            Employees e = GetEmployeeByEmailPassword(email,pass);
-            return "שלום לך "+e.IdUserNavigation.FirstName+e.IdUserNavigation.LastName;
+            //Employees e = GetEmployeeByEmailPassword(email,pass);
+            return "שלום לך ";
         }
         public List<Employees> GetAllEmployees()
         {
@@ -51,7 +71,7 @@ namespace DalHazinu
             {
                 return _context.Employees.Include(x=>x.IdUserNavigation).Include(x=>x.Job).ToList();
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 throw ex;
             }
@@ -65,7 +85,7 @@ namespace DalHazinu
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return false;
             }
@@ -75,11 +95,12 @@ namespace DalHazinu
 
             try
             {
+                
                 _context.Employees.Add(e);
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 throw ex;
             }
@@ -93,7 +114,7 @@ namespace DalHazinu
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return false;
             }
@@ -101,46 +122,101 @@ namespace DalHazinu
 
         }
 
-        public static void CreateTestMessage3()
+
+        public void  SendEmailTochoose(Employees employees, string s)
         {
-            MailAddress to = new MailAddress("adinamilg879@gmail.com");
-            MailAddress from = new MailAddress("adinamilg879@gmail.com");
-            MailMessage message = new MailMessage(from, to);
-            message.Subject = "Using the new SMTP client.";
-            message.Body = @"Using this new feature, you can send an e-mail message from an application very easily.";
-            // Use the application or machine configuration to get the  
-            // host, port, and credentials.
-            SmtpClient client = new SmtpClient();
-            Console.WriteLine("Sending an e-mail message to {0} at {1} by using the SMTP host={2}.",
-                to.User, to.Host, client.Host);
-            try
-            {
-                client.Send(message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception caught in CreateTestMessage3(): {0}", ex.ToString());
-            }
-        }
+            Outlook.Application app = new Outlook.Application();
+            Outlook.MailItem mail = (Outlook.MailItem)app.CreateItem(Outlook.OlItemType.olMailItem);
+            mail.To = "Project@0772260000.co.il";
+            mail.Subject = "Hello, World!";
+            mail.Body = "This is a test email sent from the Outlook API in C#.";
+            mail.Importance = Outlook.OlImportance.olImportanceHigh;
+            mail.Send();
+
+
+            //// Create an Outlook application.
+            //Microsoft.Office.Interop.Outlook.Application oApp = new Microsoft.Office.Interop.Outlook.Application();
+
+            //// Create a new mail item.
+            //Microsoft.Office.Interop.Outlook.MailItem oMsg = (Microsoft.Office.Interop.Outlook.MailItem)oApp.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
+
+            //    // Set the subject.
+            //    oMsg.Subject = "Your subject here";
+
+            //    // Set the body.
+            //    oMsg.Body = "Your message body here";
+
+            //// Add a recipient.
+            //Microsoft.Office.Interop.Outlook.Recipient oRecip = (Microsoft.Office.Interop.Outlook.Recipient)oMsg.Recipients.Add("Project@0772260000.co.il");
+
+            //    // Set the recipient as a CC.
+            //    oRecip.Type = (int)Microsoft.Office.Interop.Outlook.OlMailRecipientType.olCC;
+
+            //    // Set the recipient as high importance.
+            //    oMsg.Importance = Microsoft.Office.Interop.Outlook.OlImportance.olImportanceHigh;
+
+            //    // Save the message.
+            //    oMsg.Save();
+
+            //    // Send the message.
+            //    oMsg.Send();
 
 
 
-        public void SendEmailTochoose(Employees employees,string s)
-        {
-            string _password = "AI@345345";//לשנות לכתובת ששולחת
-            string _sender = "adi@bemuna.co.il";//לשנות לכתובת ששולחת
-            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
-            client.Port = 587;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = true;
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(_sender, _password);
-            client.Host = "smtp-mail.outlook.com";
-            client.EnableSsl = true;
-            client.Credentials = credentials;
-            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(_sender, "adi@bemuna.co.il");
-            message.Subject = "קוד אימות ממרכז האזינו";
-            message.Body = s;
-            client.Send(message);
+
+
+            //        // Set up the email message.
+            //        Message message = new Message
+            //        {
+            //            Body = new ItemBody
+            //            {
+            //                Content = "This is the body of the email.",
+            //                ContentType = BodyType.Text
+            //            },
+            //            Subject = "Test Email",
+            //            ToRecipients = new List<Recipient>
+            //{
+            //    new Recipient
+            //    {
+            //        EmailAddress = new EmailAddress
+            //        {
+            //            Address = "Project@0772260000.co.il"
+            //        }
+            //    }
+            //}
+            //        };
+
+            //        // Set up the client.
+            //        GraphServiceClient client = new GraphServiceClient(
+            //            new DelegateAuthenticationProvider(
+            //                async (requestMessage) =>
+            //                {
+            //        // Set the access token in the Authorization header of the request.
+            //        requestMessage.Headers.Authorization =
+            //                        new AuthenticationHeaderValue("Bearer", "YOUR_ACCESS_TOKEN");
+            //                }));
+
+            //        // Send the email.
+            //        await client.Me.SendMail(message, true).Request().PostAsync();
+
+            /////////////////////////////////////////////////
+            //string _password = "M4501";//סיסמת מייל השולח
+            //string _sender = "Project@0772260000.co.il";//לשנות לכתובת ששולחת
+            //SmtpClient client = new SmtpClient();
+            //client.Host = "smtp.office365.com";
+            //client.Port = 25;
+            //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //client.UseDefaultCredentials = false;
+            //System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(_sender, _password);
+            //client.EnableSsl = true;
+            //client.Credentials = credentials;
+            ////MailMessage message;
+            //var message = new MailMessage();// = new MailMessage(_sender, "Project@0772260000.co.il");
+            //message.From = new MailAddress("Project@0772260000.co.il");
+            //message.CC.Add(new MailAddress("Project@0772260000.co.il"));
+            //message.Subject = "קוד אימות ממרכז האזינו";
+            //message.Body = s;
+            //client.Send(message);
         }
         public void put(Employees employees)
         {
@@ -162,8 +238,8 @@ namespace DalHazinu
                 Employees currentEmployee = _context.Employees.Where(x => x.IdUser == employees.IdUser).FirstOrDefault();
                 employees.VerificationCode = code;
                 _context.Entry(currentEmployee).CurrentValues.SetValues(employees);
-                CreateTestMessage3();
-                SendEmailTochoose(employees, s);
+                //CreateTestMessage3();
+                SendEmailTochoose(employees,s);
 
                 _context.SaveChanges();
             }

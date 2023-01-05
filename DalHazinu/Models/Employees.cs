@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DalHazinu.Models
 {
@@ -18,7 +20,6 @@ namespace DalHazinu.Models
         public string Email { get; set; }
         public int Id { get; set; }
         public string VerificationCode { get; set; }
-
         public virtual User IdUserNavigation { get; set; }
         public virtual Jobs Job { get; set; }
         public virtual ICollection<Apply> Apply { get; set; }

@@ -39,6 +39,18 @@ namespace DalHazinu
                 throw ex;
             }
         }
+        public User GetUserByPhone(string phone)
+        {
+            try
+            {
+                User u = _context.User.FirstOrDefault(x => x.Phone == phone);
+                return u;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
         public bool DeleteUser(string phone)
@@ -55,14 +67,14 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddUsers(User u)
+        public int AddUsers(User u)
         {
 
             try
             {
                 _context.User.Add(u);
                 _context.SaveChanges();
-                return true;
+                return u.Id;
             }
             catch (Exception ex)
             {

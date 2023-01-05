@@ -24,25 +24,52 @@ namespace Hazinu.Controllers
         {
             return _IUserBL.GetUsers();
         }
-
+        [HttpGet]
+        [Route("GetUserByPhone/{phone}")]
+        public UserDTO GetUserByPhone(string phone)
+        {
+           
+             return  _IUserBL.GetUserByPhone(phone);
+        }
         [HttpPost]
         [Route("AddUser")]
-        public bool AddUser([FromBody] UserDTO u)
+        public IActionResult AddUser([FromBody] UserDTO u)
         {
-            return _IUserBL.AddUser(u);
+            try
+            {
+                return Ok(_IUserBL.AddUser(u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("DeleatUser /{phone}")]
-        public bool DeleatUser([FromBody] string phone)
+        public IActionResult DeleatUser([FromBody] string phone)
         {
-            return _IUserBL.DeleatUser(phone);
+            try
+            {
+                return Ok(_IUserBL.DeleatUser(phone));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
         [HttpPut]
         [Route("UpdateUser/{phone}")]
-        public bool UpdateUser(string phone, UserDTO u)
+        public IActionResult UpdateUser(string phone, UserDTO u)
         {
-            return _IUserBL.UpdateUser(phone, u);
+            try
+            {
+                return Ok(_IUserBL.UpdateUser(phone, u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
     }

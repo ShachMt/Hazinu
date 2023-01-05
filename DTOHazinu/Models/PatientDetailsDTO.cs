@@ -21,6 +21,14 @@ namespace DTOHazinu.Models
         public int Id { get; set; }
         public int? TherapeuticId { get; set; }
         public bool? IsStillTerapist { get; set; }
+        public int? MatureCharacterId { get; set; }
+
+        public virtual AddressDTO Address { get; set; }
+        public virtual FamilyDTO Family { get; set; }
+        public virtual MatureCharacterDTO MatureCharacter { get; set; }
+        public virtual SectorDTO Sector { get; set; }
+        public virtual EmployeesDTO Therapeutic { get; set; }
+        public virtual UserDTO User { get; set; }
 
 
     }

@@ -22,6 +22,9 @@ namespace BLHazinu
             mapper = config.CreateMapper();
         }
         TreatmentDetailsDL _TreatmentDetailsDL = new TreatmentDetailsDL();
+        //החזרת פניות לפי סטטוס
+
+
 
         public List<TreatmentDetailsDTO> GetAllTreatmentDetails(int applyId)
         {

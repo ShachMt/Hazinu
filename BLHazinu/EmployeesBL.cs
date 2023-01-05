@@ -28,6 +28,11 @@ namespace BLHazinu
             Employees e = _EmployeesDL.GetEmployeeByEmailPassword(email,pass);
             return mapper.Map<Employees, EmployeesDTO>(e);
         }
+      public  EmployeesDTO GetEmployeeByEmail(string email)
+        {
+            Employees e = _EmployeesDL.GetEmployeeByEmail(email);
+            return mapper.Map<Employees, EmployeesDTO>(e);
+        }
         public string GetEmployeeName(string email, string pass)
         {
             return _EmployeesDL.GetEmployeeName(email, pass);

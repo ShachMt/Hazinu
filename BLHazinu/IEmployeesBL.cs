@@ -12,6 +12,7 @@ namespace BLHazinu
         EmployeesDTO GetEmployeeByEmailPassword(string email, string pass);
         string GetEmployeeName(string email, string pass);
         bool UpdateEmployee(string email, EmployeesDTO e);
+        EmployeesDTO GetEmployeeByEmail(string email);
         void put(EmployeesDTO employees);
 
     }

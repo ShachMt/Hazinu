@@ -12,6 +12,9 @@ namespace DTOHazinu.Models
         public bool? PermissionContact { get; set; }
         public int Id { get; set; }
 
+        public virtual ApplyDTO IdApplicantNavigation { get; set; }
+        public virtual UserDTO IdMatureNavigation { get; set; }
+
 
     }
 }

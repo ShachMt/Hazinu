@@ -80,7 +80,8 @@ namespace DalHazinu
         {
             try
             {
-                Employees e = _context.Employees.Include(x => x.IdUserNavigation).Include(x => x.Job).SingleOrDefault(x => x.Email == email);
+                Employees e = new Employees();
+                    //_context.Employees.Include(x => x.IdUserNavigation).Include(x => x.Job).SingleOrDefault(x => x.Email == email);
                 _context.Employees.Remove(e);
                 _context.SaveChanges();
                 return true;

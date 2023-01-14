@@ -46,9 +46,9 @@ namespace BLHazinu
             return _UserDL.DeleteUser(phone);
 
         }
-        public bool UpdateUser(string phon, UserDTO u)
+        public bool UpdateUser(int id, UserDTO u)
         {
-            return _UserDL.UpdateUser(phon, mapper.Map<UserDTO, User>(u));
+            return _UserDL.UpdateUser(id, mapper.Map<UserDTO, User>(u));
         }
         
 

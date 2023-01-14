@@ -29,22 +29,46 @@ namespace Hazinu.Controllers
 
         [HttpPost]
         [Route("AddPatientDetails")]
-        public bool AddPatientDetails([FromBody] PatientDetailsDTO u)
+        public IActionResult AddPatientDetails([FromBody] PatientDetailsDTO u)
         {
-            return _IPatientDetailsBL.AddPatientDetails(u);
+            try
+            {
+                return Ok(_IPatientDetailsBL.AddPatientDetails(u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("DeleatPatientDetails")]
-        public bool DeleatPatientDetails([FromBody] string id)
+        public IActionResult DeleatPatientDetails([FromBody] string id)
         {
-            return _IPatientDetailsBL.DeleatPatientDetails(int.Parse(id));
+            try
+            {
+                return Ok(_IPatientDetailsBL.DeleatPatientDetails(int.Parse(id)));
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+        
         [HttpPut]
-        [Route("UpdatePatientDetails")]
-        public bool UpdatePatientDetails(string id, PatientDetailsDTO u)
+        [Route("UpdatePatientDetails/{id}")]
+        public IActionResult UpdatePatientDetails(string id, PatientDetailsDTO u)
         {
-            return _IPatientDetailsBL.UpdatePatientDetails(int.Parse(id), u);
+            try
+            {
+                return Ok(_IPatientDetailsBL.UpdatePatientDetails(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+        
     }
 }

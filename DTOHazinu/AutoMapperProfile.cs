@@ -64,8 +64,9 @@ namespace DTOHazinu
 
             CreateMap<TreatmentDetailsDTO, TreatmentDetails>();
             CreateMap<TreatmentDetails, TreatmentDetailsDTO>();
-            
 
+            CreateMap<FamilyDTO, Family>();
+            CreateMap<Family, FamilyDTO>();
 
 
         }

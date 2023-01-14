@@ -42,7 +42,7 @@ namespace DalHazinu.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=WIN-PEQ4MMCHCT3;Database=HazinuProject;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server= WIN-PEQ4MMCHCT3;Database= HazinuProject;Trusted_Connection=True;");
             }
         }
 
@@ -240,7 +240,7 @@ namespace DalHazinu.Models
 
                 entity.Property(e => e.Password)
                     .HasColumnName("password")
-                    .HasMaxLength(20)
+                    .HasMaxLength(15)
                     .IsFixedLength();
 
                 entity.Property(e => e.VerificationCode)
@@ -251,13 +251,12 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.IdUserNavigation)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.IdUser)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_employees_User");
 
                 entity.HasOne(d => d.Job)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.JobId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_employees_jobs");
             });
 
@@ -370,6 +369,10 @@ namespace DalHazinu.Models
 
                 entity.Property(e => e.AddressId).HasColumnName("addressId");
 
+                entity.Property(e => e.DateNow)
+                    .HasColumnName("dateNow")
+                    .HasColumnType("date");
+
                 entity.Property(e => e.FamilyId).HasColumnName("familyId");
 
                 entity.Property(e => e.FamilyPlace).HasColumnName("familyPlace");
@@ -411,6 +414,11 @@ namespace DalHazinu.Models
                     .HasForeignKey(d => d.AddressId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_Address");
+
+                entity.HasOne(d => d.Apply)
+                    .WithMany(p => p.PatientDetails)
+                    .HasForeignKey(d => d.ApplyId)
+                    .HasConstraintName("FK_patientDetails_Apply");
 
                 entity.HasOne(d => d.Family)
                     .WithMany(p => p.PatientDetails)

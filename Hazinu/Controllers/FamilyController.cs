@@ -11,33 +11,29 @@ namespace Hazinu.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class FamilyController : ControllerBase
     {
-        private IUserBL _IUserBL;
-        public UsersController(IUserBL u)
+        private IFamilyBL _IFamilyBL;
+        public FamilyController(IFamilyBL e)
         {
-            _IUserBL = u;
+            _IFamilyBL = e;
         }
+
         [HttpGet]
-        [Route("GetUsers")]
-        public List<UserDTO> GetUsers()
+        [Route("GetAllFamily")]
+        public List<FamilyDTO> GetAllFamilies()
         {
-            return _IUserBL.GetUsers();
+            return _IFamilyBL.GetAllFamily();
         }
-        [HttpGet]
-        [Route("GetUserByPhone/{phone}")]
-        public UserDTO GetUserByPhone(string phone)
-        {
-           
-             return  _IUserBL.GetUserByPhone(phone);
-        }
+
+
         [HttpPost]
-        [Route("AddUser")]
-        public IActionResult AddUser([FromBody] UserDTO u)
+        [Route("AddFamily")]
+        public IActionResult AddFamily([FromBody] FamilyDTO f)
         {
             try
             {
-                return Ok(_IUserBL.AddUser(u));
+                return Ok(_IFamilyBL.AddFamily(f));
             }
             catch (Exception ex)
             {
@@ -46,25 +42,12 @@ namespace Hazinu.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleatUser /{phone}")]
-        public IActionResult DeleatUser([FromBody] string phone)
+        [Route("DeleatFamily")]
+        public IActionResult DeleatFamily([FromBody] string id)
         {
             try
             {
-                return Ok(_IUserBL.DeleatUser(phone));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-        [HttpPut]
-        [Route("UpdateUser/{id}")]
-        public IActionResult UpdateUser(string id, UserDTO u)
-        {
-            try
-            {
-                return Ok(_IUserBL.UpdateUser(int.Parse(id), u));
+                return Ok(_IFamilyBL.DeleatFamily(int.Parse(id)));
             }
             catch (Exception ex)
             {
@@ -72,5 +55,18 @@ namespace Hazinu.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("UpdateFamily/{id}")]
+        public IActionResult UpdateFamily(string id, FamilyDTO u)
+        {
+            try
+            {
+                return Ok(_IFamilyBL.UpdateFamily(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

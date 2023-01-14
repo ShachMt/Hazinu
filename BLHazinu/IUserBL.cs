@@ -7,7 +7,7 @@ namespace BLHazinu
     {
         int AddUser(UserDTO u);
         bool DeleatUser(string phone);
-        bool UpdateUser(string phon, UserDTO u);
+        bool UpdateUser(int id, UserDTO u);
         List<UserDTO> GetUsers();
         UserDTO GetUserByPhone(string phone);
 

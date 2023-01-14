@@ -32,7 +32,7 @@ namespace BLHazinu
         {
             return _SectorDL.DeleteSector(id);
         }
-        public bool AddSector(SectorDTO a)
+        public int AddSector(SectorDTO a)
         {
             return _SectorDL.AddSector(mapper.Map<SectorDTO, Sector>(a));
 

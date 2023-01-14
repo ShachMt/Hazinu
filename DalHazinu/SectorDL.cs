@@ -25,13 +25,13 @@ namespace DalHazinu
         }
 
         //הוספת סטטוס
-        public bool AddSector(Sector s)
+        public int AddSector(Sector s)
         {
             try
             {
                 _context.Sector.Add(s);
                 _context.SaveChanges();
-                return true;
+                return s.Id;
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace DalHazinu
             }
         }
 
-        ////מחיקת סטטוס
+        ////מחיקה
         public bool DeleteSector(int id)
         {
             try

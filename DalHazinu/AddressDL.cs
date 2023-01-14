@@ -48,14 +48,14 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddAddress(Address a)
+        public int AddAddress(Address a)
         {
 
             try
             {
                 _context.Address.Add(a);
                 _context.SaveChanges();
-                return true;
+                return a.Id;
             }
             catch (Exception ex)
             {
@@ -66,9 +66,9 @@ namespace DalHazinu
         {
             try
             {
-                Address currentUsers = _context.Address.SingleOrDefault(x => x.Id == id);
+                Address currentAddress = _context.Address.SingleOrDefault(x => x.Id == id);
 
-                _context.Entry(currentUsers).CurrentValues.SetValues(a);
+                _context.Entry(currentAddress).CurrentValues.SetValues(a);
                 _context.SaveChanges();
                 return true;
             }

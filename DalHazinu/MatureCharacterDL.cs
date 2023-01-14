@@ -16,6 +16,8 @@ namespace DalHazinu
             try
             {
                 return _context.MatureCharacter.Include(x => x.IdApplicantNavigation).ThenInclude(x => x.Employees).ThenInclude(x => x.Job).ThenInclude(x => x.Employees).ThenInclude(x => x.IdUserNavigation).ToList();            }
+
+            
             catch (Exception ex)
             {
                 throw ex;

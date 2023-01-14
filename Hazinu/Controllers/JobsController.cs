@@ -29,22 +29,45 @@ namespace Hazinu.Controllers
 
         [HttpPost]
         [Route("AddJob")]
-        public bool AddJob([FromBody] JobsDTO u)
+        public IActionResult AddJob([FromBody] JobsDTO s)
         {
-            return _IJobsBL.AddJobs(u);
+            try
+            {
+                return Ok(_IJobsBL.AddJobs(s));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("DeleatJob")]
-        public bool DeleatJobs([FromBody] string id)
+        public IActionResult DeleatJobs([FromBody] string id)
         {
-            return _IJobsBL.DeleatJobs(int.Parse(id));
+            try
+            {
+                return Ok(_IJobsBL.DeleatJobs(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+       
         [HttpPut]
-        [Route("UpdateJobs")]
-        public bool UpdateUser(string id, JobsDTO u)
+        [Route("UpdateJobs/{id}")]
+        public IActionResult UpdateJobs(string id, JobsDTO u)
         {
-            return _IJobsBL.UpdateJobs(int.Parse(id), u);
+            try
+            {
+                return Ok(_IJobsBL.UpdateJobs(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+        
     }
 }

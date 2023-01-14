@@ -30,23 +30,46 @@ namespace Hazinu.Controllers
 
             [HttpPost]
             [Route("AddSector")]
-            public bool AddJob([FromBody] SectorDTO u)
+
+        public IActionResult AddSector([FromBody] SectorDTO s)
+        {
+            try
             {
-                return _ISectorBL.AddSector(u);
+                return Ok(_ISectorBL.AddSector(s));
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
             [HttpDelete]
             [Route("DeleatSector")]
-            public bool DeleatSector([FromBody] string id)
+        public IActionResult DeleatSector([FromBody] string id)
+        {
+            try
             {
-                return _ISectorBL.DeleteSector(int.Parse(id));
+                return Ok(_ISectorBL.DeleteSector(int.Parse(id)));
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
             [HttpPut]
-            [Route("UpdateSector")]
-            public bool UpdateSector(string id, SectorDTO u)
+            [Route("UpdateSector/{id}")]
+        public IActionResult UpdateSector(string id, SectorDTO u)
+        {
+            try
             {
-                return _ISectorBL.UpdateSector(int.Parse(id), u);
+                return Ok(_ISectorBL.UpdateSector(int.Parse(id),u));
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
 
         }

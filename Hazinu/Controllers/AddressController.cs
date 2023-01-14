@@ -34,24 +34,46 @@ namespace Hazinu.Controllers
 
         [HttpPost]
             [Route("AddAddress")]
-            public bool AddAddress([FromBody] AddressDTO u)
+        public IActionResult AddAddress([FromBody] AddressDTO u)
+        {
+            try
             {
-                return _IAddressBL.AddAddress(u);
+                return Ok(_IAddressBL.AddAddress(u));
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
             [HttpDelete]
             [Route("DeleatAddress")]
-            public bool DeleatAddress([FromBody] string  id)
+        public IActionResult DeleatAddress([FromBody] string id)
+        {
+            try
             {
-                return _IAddressBL.DeleatAddress(int.Parse(id));
-            }
-            [HttpPut]
-            [Route("UpdateAddress")]
-            public bool UpdateAddress(string id, AddressDTO u)
-            {
-                return _IAddressBL.UpdateAddress(int.Parse(id), u);
-            }
+                return Ok(_IAddressBL.DeleatAddress(int.Parse(id)));
 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+    
+            [HttpPut]
+            [Route("UpdateAddress/{id}")]
+        public IActionResult UpdateAddress(string id, AddressDTO u)
+        {
+            try
+            {
+                return Ok(_IAddressBL.UpdateAddress(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         }
 }

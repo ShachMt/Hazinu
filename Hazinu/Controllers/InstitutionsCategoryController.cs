@@ -21,7 +21,7 @@ namespace Hazinu.Controllers
 
             //סיווג קטגוריות מוסדות לימוד לפי מין
             [HttpGet]
-            [Route("GetAllInstitutionsCategoriesByGenderAndAge")]
+            [Route("GetAllInstitutionsCategoriesByGenderAndAge/{gender}/{age}")]
             public List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByGender(string gender,string age)
             {
                 return _IInstitutionsBL.GetAllInstitutionsCategoriesByGender(gender,int.Parse(age));
@@ -37,26 +37,48 @@ namespace Hazinu.Controllers
             //הוספת קטגוריית מוסד לימוד
             [HttpPost]
             [Route("AddInstitutionsCategory")]
-            public bool AddInstitutionsCategory([FromBody] InstitutionsCategoryDTO u)
+        public IActionResult AddInstitutionsCategory( InstitutionsCategoryDTO u)
+        {
+            try
             {
-                return _IInstitutionsBL.AddInstitutionsCategory(u);
+                return Ok(_IInstitutionsBL.AddInstitutionsCategory(u));
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        
             [HttpDelete]
-            [Route("DeleatInstitutionsCategory")]
-            //מחיקת קטגוריה
-            public bool DeleteInstitutionsCategory([FromBody] string id)
+            [Route("DeleatInstitutionsCategory/{id}")]
+        //מחיקת קטגוריה
+        public IActionResult DeleteInstitutionsCategory(string id)
+        {
+            try
             {
-                return _IInstitutionsBL.DeleteInstitutionsCategory(int.Parse(id));
-
+                return Ok(_IInstitutionsBL.DeleteInstitutionsCategory(int.Parse(id)));
             }
-            [HttpPut]
-            [Route("UpdateInstitutionsCategory/{id}")]
-            //ועדכון קטגוריה
-            public bool UpdateInstitutionsCategory(string id, [FromBody] InstitutionsCategoryDTO u)
+            catch (Exception ex)
             {
-                return _IInstitutionsBL.UpdateInstitutionsCategory(int.Parse(id), u);
-
+                return StatusCode(500, ex.Message);
             }
+        }
+        //ועדכון קטגוריה
+
+        [HttpPut]
+        [Route("UpdateInstitutionsCategory/{id}")]
+        public IActionResult UpdateInstitutionsCategory(string id, InstitutionsCategoryDTO u)
+        {
+            try
+            {
+                return Ok(_IInstitutionsBL.UpdateInstitutionsCategory(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+       
 
         }
     }

@@ -10,5 +10,7 @@ namespace DTOHazinu.Models
         public string DetailsCategory { get; set; }
         public string Gender { get; set; }
         public string AgeRange { get; set; }
+        public virtual AgeRangeDTO AgeRangeNavigation { get; set; }
+
     }
 }

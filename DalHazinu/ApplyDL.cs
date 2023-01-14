@@ -16,9 +16,10 @@ namespace DalHazinu
         {
             try
             {
-                List<Apply> applies = _context.Apply.Include(x=>x.Employees).ThenInclude(x=>x.IdUserNavigation).
-                Include(x=>x.Employees).ThenInclude(x => x.Job).  
-                Include(x=>x.Asker).Include(x => x.ApplyCaused).ToList();
+                List<Apply> applies =
+                    _context.Apply.Include(x => x.Employees).ThenInclude(x => x.IdUserNavigation).
+                Include(x => x.Employees).ThenInclude(x => x.Job).
+                Include(x => x.Asker).Include(x => x.ApplyCaused).ToList();
 
                 return applies;
             }

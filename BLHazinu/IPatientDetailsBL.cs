@@ -5,7 +5,7 @@ namespace BLHazinu
 {
     public interface IPatientDetailsBL
     {
-        bool AddPatientDetails(PatientDetailsDTO u);
+        int AddPatientDetails(PatientDetailsDTO u);
         bool DeleatPatientDetails(int id);
         List<PatientDetailsDTO> GetAllPatientDetails();
         bool UpdatePatientDetails(int id, PatientDetailsDTO u);

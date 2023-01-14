@@ -81,11 +81,11 @@ namespace DalHazinu
                 throw ex;
             }
         }
-        public bool UpdateUser(string phon, User u)
+        public bool UpdateUser(int id, User u)
         {
             try
             {
-                User currentUsers = _context.User.FirstOrDefault(x => x.Phone == phon);
+                User currentUsers = _context.User.FirstOrDefault(x => x.Id == id);
                 
                 _context.Entry(currentUsers).CurrentValues.SetValues(u);
                 _context.SaveChanges();

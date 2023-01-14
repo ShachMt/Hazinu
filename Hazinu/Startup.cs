@@ -53,13 +53,7 @@ namespace Hazinu
             services.AddScoped<IMatureCharacterBL, MatureCharacterBL>();
             services.AddScoped<IPatientDetailsBL, PatientDetailsBL>();
             services.AddScoped<ITreatmentDetailsBL, TreatmentDetailsBL>();
-
-
-            
-
-
-
-
+            services.AddScoped<IFamilyBL, FamilyBL>();
 
             services.AddSwaggerGen(c =>
             {

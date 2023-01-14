@@ -21,8 +21,11 @@ namespace DalHazinu.Models
         public int? TherapeuticId { get; set; }
         public bool? IsStillTerapist { get; set; }
         public int? MatureCharacterId { get; set; }
+        public int? ApplyId { get; set; }
+        public DateTime? DateNow { get; set; }
 
         public virtual Address Address { get; set; }
+        public virtual Apply Apply { get; set; }
         public virtual Family Family { get; set; }
         public virtual MatureCharacter MatureCharacter { get; set; }
         public virtual Sector Sector { get; set; }

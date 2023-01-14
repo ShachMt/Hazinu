@@ -9,6 +9,7 @@ namespace DalHazinu.Models
         {
             Files = new HashSet<Files>();
             MatureCharacter = new HashSet<MatureCharacter>();
+            PatientDetails = new HashSet<PatientDetails>();
             TreatmentDetails = new HashSet<TreatmentDetails>();
         }
 
@@ -23,6 +24,7 @@ namespace DalHazinu.Models
         public virtual Employees Employees { get; set; }
         public virtual ICollection<Files> Files { get; set; }
         public virtual ICollection<MatureCharacter> MatureCharacter { get; set; }
+        public virtual ICollection<PatientDetails> PatientDetails { get; set; }
         public virtual ICollection<TreatmentDetails> TreatmentDetails { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace BLHazinu
             return mapper.Map<List<InstitutionsCategory>, List<InstitutionsCategoryDTO>>(listInstitutionsCategory);
         }
         //הוספת קטגוריית מוסד לימוד
-        public bool AddInstitutionsCategory(InstitutionsCategoryDTO u)
+        public int AddInstitutionsCategory(InstitutionsCategoryDTO u)
         {
             return _InstitutionsCategoryDL.AddInstitutionsCategory(mapper.Map<InstitutionsCategoryDTO, InstitutionsCategory>(u));
         }

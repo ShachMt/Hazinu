@@ -1,5 +1,4 @@
 ﻿using DalHazinu.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,33 +6,28 @@ using System.Text;
 
 namespace DalHazinu
 {
-  public  class PatientDetailsDL
+  public  class FamilyDL
     {
         HazinuProjectContext _context = new HazinuProjectContext();
-
-        //החזרת פרטי הפונים
-        public List<PatientDetails> GetAllPatientDetails()
+        public List<Family> GetAllFamilies()
         {
             try
             {
-                return _context.PatientDetails.
-                Include(x=>x.Address).
-                Include(x=>x.Family).
-                Include(x=>x.Sector).
-                Include(x=>x.Therapeutic).
-                Include(x=>x.User).ToList();
+
+                return _context.Family.ToList();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public bool DeletePatientDetails(int id)
+       
+        public bool DeleteFamily(int id)
         {
             try
             {
-                PatientDetails u = _context.PatientDetails.SingleOrDefault(x => x.Id == id);
-                _context.PatientDetails.Remove(u);
+                Family family = _context.Family.SingleOrDefault(x => x.Id == id);
+                _context.Family.Remove(family);
                 _context.SaveChanges();
                 return true;
             }
@@ -42,26 +36,27 @@ namespace DalHazinu
                 return false;
             }
         }
-        public int AddPatientDetails(PatientDetails u)
+        public int AddAFamily(Family f)
         {
 
             try
             {
-                _context.PatientDetails.Add(u);
+                _context.Family.Add(f);
                 _context.SaveChanges();
-                return u.Id;
+                return f.Id;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public bool UpdatePatientDetails(int id, PatientDetails u)
+        public bool UpdateFamily(int id, Family f)
         {
             try
             {
-                PatientDetails currentPatientDetails = _context.PatientDetails.SingleOrDefault(x => x.Id == id);
-                _context.Entry(currentPatientDetails).CurrentValues.SetValues(u);
+                Family currentFamily = _context.Family.SingleOrDefault(x => x.Id == id);
+
+                _context.Entry(currentFamily).CurrentValues.SetValues(f);
                 _context.SaveChanges();
                 return true;
             }

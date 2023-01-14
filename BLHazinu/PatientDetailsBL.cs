@@ -29,7 +29,7 @@ namespace BLHazinu
             return mapper.Map<List<PatientDetails>, List<PatientDetailsDTO>>(AllPatientDetails);
         }
 
-        public bool AddPatientDetails(PatientDetailsDTO u)
+        public int AddPatientDetails(PatientDetailsDTO u)
         {
 
             return _PatientDetailsDL.AddPatientDetails(mapper.Map<PatientDetailsDTO, PatientDetails>(u));

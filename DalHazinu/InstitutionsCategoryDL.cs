@@ -38,14 +38,14 @@ namespace DalHazinu
             }
         }
         //הוספת קטגוריית מוסד לימוד
-        public bool AddInstitutionsCategory(InstitutionsCategory u)
+        public int AddInstitutionsCategory(InstitutionsCategory u)
         {
 
             try
             {
                 _context.InstitutionsCategory.Add(u);
                 _context.SaveChanges();
-                return true;
+                return u.Id;
             }
             catch (Exception ex)
             {

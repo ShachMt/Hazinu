@@ -33,7 +33,7 @@ namespace BLHazinu
             List<Address> listAddress = _AddressDL.GetAllAddressByNameCity(city);
             return mapper.Map<List<Address>, List<AddressDTO>>(listAddress);
         }
-        public bool AddAddress(AddressDTO a)
+        public int AddAddress(AddressDTO a)
         {
 
             return _AddressDL.AddAddress(mapper.Map<AddressDTO, Address>(a));

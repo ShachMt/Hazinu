@@ -5,10 +5,10 @@ namespace BLHazinu
 {
     public interface IEducationalInstitutionsApplicantBL
     {
-        bool AddEducational(EducationalInstitutionsApplicantDTO u);
+        int AddEducational(EducationalInstitutionsApplicantDTO u);
         bool DeletEducational(int idEdu);
         List<EducationalInstitutionsApplicantDTO> GetAllEducationalInstitution(int id);
-        List<EducationalInstitutionDTO> GetAllNameEducationalInstitution(int id, string status);
+        List<EducationalInstitutionsApplicantDTO> GetAllNameEducationalInstitution(int id, string status);
         bool UpdateEducational(int id, EducationalInstitutionsApplicantDTO u);
     }
 }

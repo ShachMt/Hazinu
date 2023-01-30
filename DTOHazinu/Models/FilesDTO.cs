@@ -10,6 +10,8 @@ namespace DTOHazinu.Models
         public string FilesName { get; set; }
         public string Url { get; set; }
         public int Id { get; set; }
+        public virtual ApplyDTO IdApplyNavigation { get; set; }
+
 
     }
 }

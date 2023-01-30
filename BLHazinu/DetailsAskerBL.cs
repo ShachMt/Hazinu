@@ -34,7 +34,7 @@ namespace BLHazinu
             List<DetailsAsker> listDetailsAsker = _DetailsAskerDL.GetAllDetailsAskerByResone(resone);
             return mapper.Map<List<DetailsAsker>, List<DetailsAskerDTO>>(listDetailsAsker);
         }
-        public bool AddDetailsAsker(DetailsAskerDTO u)
+        public int AddDetailsAsker(DetailsAskerDTO u)
         {
 
             return _DetailsAskerDL.AddDetailsAsker(mapper.Map<DetailsAskerDTO, DetailsAsker>(u));

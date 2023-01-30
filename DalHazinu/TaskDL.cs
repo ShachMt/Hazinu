@@ -36,14 +36,14 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddTask(Task a)
+        public int AddTask(Task a)
         {
 
             try
             {
                 _context.Task.Add(a);
                 _context.SaveChanges();
-                return true;
+                return a.Id;
             }
             catch (Exception ex)
             {

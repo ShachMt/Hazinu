@@ -22,7 +22,7 @@ namespace Hazinu.Controllers
 
         [HttpGet]
         [Route("GetAllStylesInstitution")]
-        public List<StylesInstitutionDTO> GetAllApplies()
+        public List<StylesInstitutionDTO> GetAllStylesInstitution()
         {
             return _IStylesInstitutionBL.GetAllStylesInstitution();
         }
@@ -30,22 +30,45 @@ namespace Hazinu.Controllers
 
         [HttpPost]
         [Route("AddStylesInstitution")]
-        public bool AddStylesInstitution([FromBody] StylesInstitutionDTO u)
+        public IActionResult AddStylesInstitution([FromBody] StylesInstitutionDTO u)
         {
-            return _IStylesInstitutionBL.AddStylesInstitution(u);
+            try
+            {
+                return Ok(_IStylesInstitutionBL.AddStylesInstitution(u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
-        [Route("DeleatStylesInstitution")]
-        public bool DeleatJobs([FromBody] string id)
+        [Route("DeleatStylesInstitution/{id}")]
+
+        public IActionResult DeleatJobs(string id)
         {
-            return _IStylesInstitutionBL.DeleteStylesInstitution(int.Parse(id));
+            try
+            {
+                return Ok(_IStylesInstitutionBL.DeleteStylesInstitution(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
         [HttpPut]
-        [Route("UpdateStylesInstitution")]
-        public bool UpdateStylesInstitution(string id, StylesInstitutionDTO u)
+        [Route("UpdateStylesInstitution/{id}")]
+        public IActionResult UpdateStylesInstitution(string id, StylesInstitutionDTO u)
         {
-            return _IStylesInstitutionBL.UpdateStylesInstitution(int.Parse(id), u);
+            try
+            {
+                return Ok(_IStylesInstitutionBL.UpdateStylesInstitution(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

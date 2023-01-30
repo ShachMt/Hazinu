@@ -29,22 +29,43 @@ namespace Hazinu.Controllers
 
         [HttpPost]
         [Route("AddTask")]
-        public bool AddTask([FromBody] TaskDTO u)
+        public IActionResult AddTask([FromBody] TaskDTO u)
         {
-            return _ITaskBL.AddTask(u);
+            try
+            {
+                return Ok(_ITaskBL.AddTask(u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
-        [Route("DeleatTask")]
-        public bool DeleatTask([FromBody] string id)
+        [Route("DeleatTask/{id}")]
+        public IActionResult DeleatTask( string id)
         {
-            return _ITaskBL.DeleteTask(int.Parse(id));
+            try
+            {
+                return Ok(_ITaskBL.DeleteTask(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
         [HttpPut]
-        [Route("UpdateTask")]
-        public bool UpdateUser(string id, TaskDTO u)
+        [Route("UpdateTask/{id}")]
+        public IActionResult UpdateUser(string id, TaskDTO u)
         {
-            return _ITaskBL.UpdateTask(int.Parse(id), u);
+            try
+            {
+                return Ok(_ITaskBL.UpdateTask(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
     }

@@ -18,42 +18,83 @@ namespace Hazinu.Controllers
         {
             _IEducationalInstitutionsApplicantBL = e;
         }
+        //החזרת רשימת מוסדות לפי היוזר
+        [HttpGet]
+        [Route("GetAllEducationalInstitution/{id}")]
 
-        [HttpGet]
-        [Route("GetAllEducationalInstitution")]
-        public List<EducationalInstitutionsApplicantDTO> GetAllEducationalInstitution(string id)
+        public IActionResult GetAllEducationalInstitution(string id)
         {
-            return _IEducationalInstitutionsApplicantBL.GetAllEducationalInstitution(int.Parse(id));
+            try
+            {
+                return Ok(_IEducationalInstitutionsApplicantBL.GetAllEducationalInstitution(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
+       
         [HttpGet]
-        [Route("GetAllNameEducationalInstitution")]
-        public List<EducationalInstitutionDTO> GetAllNameEducationalInstitution(string id, string status)
+        [Route("GetAllNameEducationalInstitution/{id}/{status}")]
+        public IActionResult GetAllNameEducationalInstitution(string id, string status)
         {
-            return _IEducationalInstitutionsApplicantBL.GetAllNameEducationalInstitution(int.Parse(id),status);
+            try
+            {
+                return Ok(_IEducationalInstitutionsApplicantBL.GetAllNameEducationalInstitution(int.Parse(id), status));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
+        
 
         [HttpDelete]
-        [Route("DeletEducational")]
-        public bool DeletEducational([FromBody] string idEdu)
-        {
-            return _IEducationalInstitutionsApplicantBL.DeletEducational(int.Parse(idEdu));
+        [Route("DeletEducational/{id}")]
+        public IActionResult DeletEducational(string id)
+        { 
+                try
+                {
+                    return Ok(_IEducationalInstitutionsApplicantBL.DeletEducational(int.Parse(id)));
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, ex.Message);
+                }
+            
         }
 
         // הוספת מוסד לימוד לפונה
         [HttpPost]
         [Route("AddEducational")]
-        public bool AddEducational([FromBody] EducationalInstitutionsApplicantDTO u)
+        public IActionResult AddEducational([FromBody] EducationalInstitutionsApplicantDTO u)
         {
-            return _IEducationalInstitutionsApplicantBL.AddEducational(u);
+            try
+            {
+                return Ok(_IEducationalInstitutionsApplicantBL.AddEducational(u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
 
         }
         //עדכון מוסד לימוד
         [HttpPut]
-        [Route("UpdateAgeRange")]
-        public bool UpdateEducational(int id, EducationalInstitutionsApplicantDTO u)
+        [Route("UpdateAgeRange/{id}")]
+        public IActionResult UpdateEducational(string id, EducationalInstitutionsApplicantDTO u)
         {
-            return _IEducationalInstitutionsApplicantBL.UpdateEducational(id,u);
 
+            try
+            {
+                return Ok(_IEducationalInstitutionsApplicantBL.UpdateEducational(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

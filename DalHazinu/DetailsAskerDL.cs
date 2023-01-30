@@ -46,14 +46,14 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddDetailsAsker(DetailsAsker u)
+        public int AddDetailsAsker(DetailsAsker u)
         {
 
             try
             {
                 _context.DetailsAsker.Add(u);
                 _context.SaveChanges();
-                return true;
+                return u.Id;
             }
             catch (Exception ex)
             {

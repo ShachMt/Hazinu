@@ -42,8 +42,8 @@ namespace Hazinu.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleatFamily")]
-        public IActionResult DeleatFamily([FromBody] string id)
+        [Route("DeleatFamily/{id}")]
+        public IActionResult DeleatFamily(string id)
         {
             try
             {

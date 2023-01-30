@@ -5,7 +5,7 @@ namespace BLHazinu
 {
     public interface IFilesBL
     {
-        bool AddFiles(FilesDTO u);
+        int AddFiles(FilesDTO u);
         bool DeleatFiles(int id);
         List<FilesDTO> GetAllFiles();
         bool UpdateFiles(int id, FilesDTO u);

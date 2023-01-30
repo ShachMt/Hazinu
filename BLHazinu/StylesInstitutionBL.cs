@@ -32,7 +32,7 @@ namespace BLHazinu
         {
             return _StylesInstitutionDL.DeleteStylesInstitution(id);
         }
-        public bool AddStylesInstitution(StylesInstitutionDTO a)
+        public int AddStylesInstitution(StylesInstitutionDTO a)
         {
             return _StylesInstitutionDL.AddStylesInstitution(mapper.Map<StylesInstitutionDTO, StylesInstitution>(a));
 

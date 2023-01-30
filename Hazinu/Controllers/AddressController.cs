@@ -26,10 +26,22 @@ namespace Hazinu.Controllers
             return _IAddressBL.GetAllAddress();
         }
         [HttpGet]
+        [Route("GetAllCities")]
+        public  List<string> GetAllCities()
+        {
+            return _IAddressBL.GetAllCities();
+        }
+        [HttpGet]
         [Route("GetAllAddressByCity")]
         public List<AddressDTO> GetAllAddressByCity([FromBody] string city)
         {
             return _IAddressBL.GetAllAddressByCityId(city);
+        }
+        [HttpGet]
+        [Route("GetIdAddressByCity")]
+        public int GetIdAddressByCity(string nameCity)
+        {
+            return _IAddressBL.GetIdAddressByCity(nameCity);
         }
 
         [HttpPost]

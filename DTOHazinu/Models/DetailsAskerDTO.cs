@@ -11,6 +11,8 @@ namespace DTOHazinu.Models
         public string ReferredBy { get; set; }
         public int? IdResone { get; set; }
         public int Id { get; set; }
+        public virtual TheCauseReferralDTO IdResoneNavigation { get; set; }
+        public virtual UserDTO User { get; set; }
 
     }
 }

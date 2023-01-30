@@ -26,25 +26,48 @@ namespace Hazinu.Controllers
             return _IFilessBL.GetAllFiles();
         }
 
-
         [HttpPost]
         [Route("AddFiles")]
-        public bool AddFiles([FromBody] FilesDTO u)
+        public IActionResult AddJob([FromBody] FilesDTO s)
         {
-            return _IFilessBL.AddFiles(u);
+            try
+            {
+                return Ok(_IFilessBL.AddFiles(s));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
+        
         [HttpDelete]
-        [Route("DeleatFiles")]
-        public bool DeleatFiles([FromBody] string id)
+        [Route("DeleatFiles/{id}")]
+        public IActionResult DeleatJobs(string id)
         {
-            return _IFilessBL.DeleatFiles(int.Parse(id));
+            try
+            {
+                return Ok(_IFilessBL.DeleatFiles(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+      
         [HttpPut]
-        [Route("UpdateFiles")]
-        public bool UpdateUser(string id, FilesDTO u)
+        [Route("UpdateFiles/{id}")]
+        public IActionResult UpdateJobs(string id, FilesDTO u)
         {
-            return _IFilessBL.UpdateFiles(int.Parse(id), u);
+            try
+            {
+                return Ok(_IFilessBL.UpdateFiles(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+
     }
 }

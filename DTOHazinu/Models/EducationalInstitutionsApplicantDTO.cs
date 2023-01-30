@@ -11,6 +11,8 @@ namespace DTOHazinu.Models
         public string Status { get; set; }
         public string Details { get; set; }
         public int Id { get; set; }
+        public virtual EducationalInstitutionDTO Institution { get; set; }
+        public virtual UserDTO User { get; set; }
 
     }
 }

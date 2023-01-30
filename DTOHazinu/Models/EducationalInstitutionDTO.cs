@@ -17,5 +17,9 @@ namespace DTOHazinu.Models
         public bool? IsExterny { get; set; }
         public int? IdStyle { get; set; }
         public int? NumStudent { get; set; }
+        public virtual AddressDTO Address { get; set; }
+        public virtual InstitutionsCategoryDTO IdCategoryNavigation { get; set; }
+        public virtual StylesInstitutionDTO IdStyleNavigation { get; set; }
+        public virtual SectorDTO Sector { get; set; }
     }
 }

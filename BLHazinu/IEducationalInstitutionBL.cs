@@ -6,12 +6,12 @@ namespace BLHazinu
 {
     public interface IEducationalInstitutionBL
     {
-        bool AddEducationalInstitution(EducationalInstitutionDTO u);
-        bool DeleteEducationalInstitution(string nameI);
+        int AddEducationalInstitution(EducationalInstitutionDTO u);
+        bool DeleteEducationalInstitution(int id);
         List<EducationalInstitutionDTO> GetAllEducationalInstitution();
-        List<EducationalInstitutionDTO> GetAllInstitutionsCategoriesByGender(string gender, int age);
-        bool UpdateEducationalInstitution(string nameI, EducationalInstitutionDTO u);
-        public List<EducationalInstitutionDTO> GetAllInstitutionsCategoriesByGenderCity(string gender, int age, string city);
+        List<EducationalInstitutionDTO> GetAllInstitutionsCategories(int idCategory);
+        bool UpdateEducationalInstitution(int id, EducationalInstitutionDTO u);
+        public List<EducationalInstitutionDTO> GetAllInstitutionsCategoriesByGenderCity(int idCategory, string city);
 
     }
 }

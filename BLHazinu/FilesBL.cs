@@ -29,7 +29,7 @@ namespace BLHazinu
             return mapper.Map<List<Files>, List<FilesDTO>>(AllFiles);
         }
 
-        public bool AddFiles(FilesDTO u)
+        public int AddFiles(FilesDTO u)
         {
 
             return _FilesDL.AddFiles(mapper.Map<FilesDTO, Files>(u));

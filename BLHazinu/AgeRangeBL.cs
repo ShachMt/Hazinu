@@ -28,7 +28,10 @@ namespace BLHazinu
             List<AgeRange> AllAgeRange = _AgeRangeDL.GetAllAgeRange();
             return mapper.Map<List<AgeRange>, List<AgeRangeDTO>>(AllAgeRange);
         }
-
+        public int GetIdAgeRangeByAge(int age)
+        {
+          return  _AgeRangeDL.GetIdAgeRangeByAge(age);
+        }
         public bool AddJobsAgeRange(AgeRangeDTO u)
         {
 

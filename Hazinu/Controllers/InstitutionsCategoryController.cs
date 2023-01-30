@@ -34,8 +34,15 @@ namespace Hazinu.Controllers
             {
                 return _IInstitutionsBL.GetAllInstitutionsCategories();
             }
-            //הוספת קטגוריית מוסד לימוד
-            [HttpPost]
+        [HttpGet]
+        [Route("GetAllInstitutionsCategoriesByAgeGange")]
+        public List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByAgeGange(int id)
+        {
+            return _IInstitutionsBL.GetAllInstitutionsCategoriesByAgeGange(id);
+        }
+
+        //הוספת קטגוריית מוסד לימוד
+        [HttpPost]
             [Route("AddInstitutionsCategory")]
         public IActionResult AddInstitutionsCategory( InstitutionsCategoryDTO u)
         {

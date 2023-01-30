@@ -37,14 +37,14 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddFiles(Files u)
+        public int AddFiles(Files u)
         {
 
             try
             {
                 _context.Files.Add(u);
                 _context.SaveChanges();
-                return true;
+                return u.Id;
             }
             catch (Exception ex)
             {

@@ -18,9 +18,8 @@ namespace DalHazinu
             {
                 List<EducationalInstitutionsApplicant> educationalInstitutions1 = _context.EducationalInstitutionsApplicant
                      .Include(x => x.User)
-                    .Include(x => x.Institution).ToList();
-                List<EducationalInstitutionsApplicant> educationalInstitutions = educationalInstitutions1.Where(x => x.UserId == id).ToList();
-                return educationalInstitutions;
+                    .Include(x => x.Institution).Where(x=>x.UserId==id).ToList();
+                return educationalInstitutions1;
             }
             catch (Exception ex)
             {
@@ -28,23 +27,13 @@ namespace DalHazinu
             }
         }
 
-        //החזרת שמות לימודים לפי סטטוס- עבר או הווה
-        public List<EducationalInstitution> GetAllNameEducationalInstitution(int id,string status)
+        //החזרת  לימודים לפי סטטוס- עבר או הווה
+        public List<EducationalInstitutionsApplicant> GetAllNameEducationalInstitution(int id,string status)
         {
             try
             {
                 List<EducationalInstitutionsApplicant> educationalInstitutions = GetAllEducationalInstitution(id).Where(x=>x.Status==status).ToList();
-                EducationalInstitutionDL ed=new EducationalInstitutionDL();
-
-                List<EducationalInstitution> educationalInstitution = ed.GetAllEducationalInstitution();
-                List<EducationalInstitution> e= new List<EducationalInstitution>();
-                EducationalInstitution eN;
-                foreach (var item in educationalInstitutions)
-                {
-                    eN = educationalInstitution.SingleOrDefault(x => x.Id == item.InstitutionId);
-                    e.Add(eN);
-                }
-                return e;
+                return educationalInstitutions;
 
             }
             catch (Exception ex)
@@ -69,14 +58,14 @@ namespace DalHazinu
         }
         // הוספת מוסד לימוד לפונה
 
-        public bool AddEducational(EducationalInstitutionsApplicant u)
+        public int AddEducational(EducationalInstitutionsApplicant u)
         {
 
             try
             {
                 _context.EducationalInstitutionsApplicant.Add(u);
                 _context.SaveChanges();
-                return true;
+                return u.Id;
             }
             catch (Exception ex)
             {

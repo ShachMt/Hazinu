@@ -25,26 +25,59 @@ namespace Hazinu.Controllers
         {
             return _IAgeRangeBL.GetAllAgeRange();
         }
-
+        [HttpGet]
+        [Route("GetIdAgeRangeByAge/{age}")]
+        public IActionResult GetIdAgeRangeByAge(string age)
+        {
+            try
+            {
+                return Ok(_IAgeRangeBL.GetIdAgeRangeByAge(int.Parse(age)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         [HttpPost]
         [Route("AddAgeRange")]
-        public bool AddAgeRange([FromBody] AgeRangeDTO u)
+        public IActionResult AddAgeRange([FromBody] AgeRangeDTO u)
         {
-            return _IAgeRangeBL.AddJobsAgeRange(u);
+            try
+            {
+                return Ok(_IAgeRangeBL.AddJobsAgeRange(u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
-        [Route("DeleatAgeRange")]
-        public bool DeleatAgeRange([FromBody] string id)
+        [Route("DeleatAgeRange/{id}")]
+        public IActionResult DeleatAgeRange(string id)
         {
-            return _IAgeRangeBL.DeleatAgeRange(int.Parse(id));
+            try
+            {
+                return Ok(_IAgeRangeBL.DeleatAgeRange(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
         [HttpPut]
-        [Route("UpdateAgeRange")]
-        public bool UpdateAgeRange(string id, AgeRangeDTO u)
+        [Route("UpdateAgeRange/{id}")]
+        public IActionResult UpdateAgeRange(string id, AgeRangeDTO u)
         {
-            return _IAgeRangeBL.UpdateAgeRange(int.Parse(id), u);
+            try
+            {
+                return Ok(_IAgeRangeBL.UpdateAgeRange(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

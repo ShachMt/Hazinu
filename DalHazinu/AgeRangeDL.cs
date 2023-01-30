@@ -10,7 +10,7 @@ namespace DalHazinu
     {
         HazinuProjectContext _context = new HazinuProjectContext();
 
-        //החזרת כלל סוגי עבודות
+        //החזרת כלל טווחים 
         public List<AgeRange> GetAllAgeRange()
         {
             try
@@ -22,6 +22,12 @@ namespace DalHazinu
             {
                 throw ex;
             }
+        }
+        public int GetIdAgeRangeByAge(int age)
+        {
+            List<AgeRange> l = GetAllAgeRange();
+            return l.FirstOrDefault(x => x.From <= age && x.To >= age).Id;
+
         }
         public bool DeleteAgeRange(int id)
         {

@@ -34,14 +34,14 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddStylesInstitution(StylesInstitution a)
+        public int AddStylesInstitution(StylesInstitution a)
         {
 
             try
             {
                 _context.StylesInstitution.Add(a);
                 _context.SaveChanges();
-                return true;
+                return a.Id;
             }
             catch (Exception ex)
             {

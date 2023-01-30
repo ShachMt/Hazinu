@@ -27,6 +27,14 @@ namespace BLHazinu
             List<Address> listAddress = _AddressDL.GetAllAddress();
             return mapper.Map<List<Address>, List<AddressDTO>>(listAddress);
         }
+        public List<string> GetAllCities()
+        {
+            return _AddressDL.GetAllCities();
+        }
+        public int GetIdAddressByCity(string nameCity)
+        {
+            return _AddressDL.GetIdAddressByCity(nameCity);
+        }
         public List<AddressDTO> GetAllAddressByCityId(string city)
 
         {

@@ -33,7 +33,7 @@ namespace BLHazinu
         {
             return _TaskDL.DeleteTask(id);
         }
-        public bool AddTask(TaskDTO a)
+        public int AddTask(TaskDTO a)
         {
             return _TaskDL.AddTask(mapper.Map<TaskDTO, Task>(a));
 

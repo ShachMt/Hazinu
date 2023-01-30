@@ -5,7 +5,7 @@ namespace BLHazinu
 {
     public interface IStylesInstitutionBL
     {
-        bool AddStylesInstitution(StylesInstitutionDTO a);
+        int AddStylesInstitution(StylesInstitutionDTO a);
         bool DeleteStylesInstitution(int id);
         List<StylesInstitutionDTO> GetAllStylesInstitution();
         bool UpdateStylesInstitution(int id, StylesInstitutionDTO a);

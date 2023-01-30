@@ -25,26 +25,48 @@ namespace Hazinu.Controllers
         {
             return _IMatureCharacterBL.GetAllMatureCharacter();
         }
-     
 
         [HttpPost]
         [Route("AddMatureCharacter")]
-        public bool AddMatureCharacter([FromBody] MatureCharacterDTO u)
+        public IActionResult AddMatureCharacter([FromBody] MatureCharacterDTO s)
         {
-            return _IMatureCharacterBL.AddMatureCharacter(u);
+            try
+            {
+                return Ok(_IMatureCharacterBL.AddMatureCharacter(s));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+       
 
         [HttpDelete]
-        [Route("DeleatMatureCharacter")]
-        public bool DeleatAddress([FromBody] string id)
+        [Route("DeleatMatureCharacter/{id}")]
+        public IActionResult DeleatMatureCharacter(string id)
         {
-            return _IMatureCharacterBL.DeleatMatureCharacter(int.Parse(id));
+            try
+            {
+                return Ok(_IMatureCharacterBL.DeleatMatureCharacter(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+        
         [HttpPut]
-        [Route("UpdateMatureCharacter")]
-        public bool UpdateMatureCharacter(string id, MatureCharacterDTO u)
+        [Route("UpdateMatureCharacter/{id}")]
+        public IActionResult UpdateMatureCharacter(string id, MatureCharacterDTO u)
         {
-            return _IMatureCharacterBL.UpdateMatureCharacter(int.Parse(id), u);
+            try
+            {
+                return Ok(_IMatureCharacterBL.UpdateMatureCharacter(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

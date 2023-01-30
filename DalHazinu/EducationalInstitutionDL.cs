@@ -30,12 +30,12 @@ namespace DalHazinu
             }
         }
         //החזרת מוסדות לימוד לפי לפי טווח גילאים וגיל
-        public List<EducationalInstitution> GetAllInstitutionsCategoriesByGender(string gender,int age)
+        public List<EducationalInstitution> GetAllInstitutionsCategories(int idCategory)
         {
             try
             {
-                List<EducationalInstitution> educationalInstitutions = GetAllEducationalInstitution().Where(x=>x.IdCategoryNavigation.Gender==gender&&
-                (x.IdCategoryNavigation.AgeRangeNavigation.From <= age&& x.IdCategoryNavigation.AgeRangeNavigation.To>=age)).ToList();
+                List<EducationalInstitution> educationalInstitutions = GetAllEducationalInstitution().
+                    Where(x=>x.IdCategory==idCategory).ToList();
                 return educationalInstitutions;
             }
             catch (Exception ex)
@@ -45,19 +45,19 @@ namespace DalHazinu
         }
 
         // החזרת מוסדות לימוד לפי עיר וכן, לפי טווח גילאים ומין
-        public List<EducationalInstitution> GetAllInstitutionsCategoriesByGenderCity(string gender, int age,string city)
+        public List<EducationalInstitution> GetAllInstitutionsCategoriesByGenderCity(int idCategory,string city)
         {
-            List<EducationalInstitution> educationalInstitutions = GetAllInstitutionsCategoriesByGender(gender, age).Where(x => x.Address.City == city).ToList();
+            List<EducationalInstitution> educationalInstitutions = GetAllInstitutionsCategories(idCategory).Where(x => x.Address.City == city).ToList();
             return educationalInstitutions;
         }
 
 
 
-        public bool DeleteEducationalInstitution(string nameI)
+        public bool DeleteEducationalInstitution(int id)
         {
             try
             {
-                EducationalInstitution u = _context.EducationalInstitution.SingleOrDefault(x => x.InstitutionName == nameI);
+                EducationalInstitution u = _context.EducationalInstitution.SingleOrDefault(x => x.Id == id);
                 _context.EducationalInstitution.Remove(u);
                 _context.SaveChanges();
                 return true;
@@ -67,25 +67,25 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddEducationalInstitution(EducationalInstitution u)
+        public int AddEducationalInstitution(EducationalInstitution u)
         {
 
             try
             {
                 _context.EducationalInstitution.Add(u);
                 _context.SaveChanges();
-                return true;
+                return u.Id;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public bool UpdateEducationalInstitution(string nameI, EducationalInstitution u)
+        public bool UpdateEducationalInstitution(int id, EducationalInstitution u)
         {
             try
             {
-                EducationalInstitution currentEducationalInstitution = _context.EducationalInstitution.SingleOrDefault(x => x.InstitutionName == nameI);
+                EducationalInstitution currentEducationalInstitution = _context.EducationalInstitution.SingleOrDefault(x => x.Id == id);
 
                 _context.Entry(currentEducationalInstitution).CurrentValues.SetValues(u);
                 _context.SaveChanges();

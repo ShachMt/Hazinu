@@ -5,6 +5,7 @@ namespace BLHazinu
 {
     public interface IAgeRangeBL
     {
+        int GetIdAgeRangeByAge(int age);
         bool AddJobsAgeRange(AgeRangeDTO u);
         bool DeleatAgeRange(int id);
         List<AgeRangeDTO> GetAllAgeRange();

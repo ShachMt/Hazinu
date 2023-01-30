@@ -68,7 +68,9 @@ namespace DTOHazinu
             CreateMap<FamilyDTO, Family>();
             CreateMap<Family, FamilyDTO>();
 
-
+            CreateMap<EducationalInstitutionsApplicantDTO, EducationalInstitutionsApplicant>();
+            CreateMap<EducationalInstitutionsApplicant, EducationalInstitutionsApplicantDTO>();
+            
         }
     }
 }

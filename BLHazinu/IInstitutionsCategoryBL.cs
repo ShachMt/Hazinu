@@ -10,5 +10,7 @@ namespace BLHazinu
         List<InstitutionsCategoryDTO> GetAllInstitutionsCategories();
         List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByGender(string gender,int age);
         bool UpdateInstitutionsCategory(int id, InstitutionsCategoryDTO u);
+        List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByAgeGange(int id);
+
     }
 }

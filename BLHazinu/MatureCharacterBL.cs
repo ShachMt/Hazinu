@@ -29,7 +29,7 @@ namespace BLHazinu
             return mapper.Map<List<MatureCharacter>, List<MatureCharacterDTO>>(AllMatureCharacter);
         }
 
-        public bool AddMatureCharacter(MatureCharacterDTO u)
+        public int AddMatureCharacter(MatureCharacterDTO u)
         {
 
             return _MatureCharacterDL.AddMatureCharacter(mapper.Map<MatureCharacterDTO, MatureCharacter>(u));

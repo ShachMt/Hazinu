@@ -36,6 +36,12 @@ namespace BLHazinu
             List<InstitutionsCategory> listInstitutionsCategory = _InstitutionsCategoryDL.GetAllInstitutionsCategories();
             return mapper.Map<List<InstitutionsCategory>, List<InstitutionsCategoryDTO>>(listInstitutionsCategory);
         }
+        public List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByAgeGange(int id)
+        {
+            List<InstitutionsCategory> listInstitutionsCategory = _InstitutionsCategoryDL.GetAllInstitutionsCategoriesByAgeGange(id);
+            return mapper.Map<List<InstitutionsCategory>, List<InstitutionsCategoryDTO>>(listInstitutionsCategory);
+        }
+
         //הוספת קטגוריית מוסד לימוד
         public int AddInstitutionsCategory(InstitutionsCategoryDTO u)
         {

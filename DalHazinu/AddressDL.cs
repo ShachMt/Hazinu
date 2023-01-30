@@ -21,6 +21,38 @@ namespace DalHazinu
                 throw ex;
             }
         }
+
+        public List<string> GetAllCities()
+        {
+            try
+            {
+                List<string> cities = new List<string>();
+                cities.Add("לא מעוניין למסור פרטים");
+                foreach (var item in GetAllAddress())
+                {
+                    if (item.City != "")
+                        cities.Add(item.City);
+                }
+                cities.Add("אחר");
+                return cities;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int GetIdAddressByCity(string nameCity)
+        {
+            try
+            {
+                Address a = GetAllAddress().FirstOrDefault(x => x.City == nameCity);
+                return a.Id;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public List<Address> GetAllAddressByNameCity(string city)
         {
             try

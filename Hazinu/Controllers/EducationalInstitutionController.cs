@@ -26,47 +26,77 @@ namespace Hazinu.Controllers
             return _IEducationalInstitutionBL.GetAllEducationalInstitution();
         }
         [HttpGet]
-        [Route("GetAllInstitutionsCategoriesByGender")]
-        public List<EducationalInstitutionDTO> GetAllInstitutionsCategoriesByGender(string gender, string age)
+        [Route("GetAllInstitutionsCategoriesByGender/{idCategory}")]
+
+        public IActionResult GetAllInstitutionsCategoriesByGender(string idCategory)
         {
-            return _IEducationalInstitutionBL.GetAllInstitutionsCategoriesByGender(gender,int.Parse(age));
+            try
+            {
+                return Ok(_IEducationalInstitutionBL.GetAllInstitutionsCategories(int.Parse(idCategory)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
 
         [HttpGet]
-        [Route("GetAllInstitutionsCategoriesByGenderCity")]
-        public List<EducationalInstitutionDTO> GetAllInstitutionsCategoriesByGenderCity(string gender, string age, string city)
+        [Route("GetAllInstitutionsCategoriesByGenderCity/{idCategory}/{city}")]
+
+        public IActionResult GetAllInstitutionsCategoriesByGenderCity(string idCategory, string city)
         {
-            return _IEducationalInstitutionBL.GetAllInstitutionsCategoriesByGenderCity(gender, int.Parse(age),city);
+            try
+            {
+                return Ok(_IEducationalInstitutionBL.GetAllInstitutionsCategoriesByGenderCity(int.Parse(idCategory), city));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
-
-
-
-
         [HttpPost]
         [Route("AddEducationalInstitution")]
-        public bool AddEducationalInstitution([FromBody] EducationalInstitutionDTO u)
+        public IActionResult AddEducationalInstitution([FromBody] EducationalInstitutionDTO e)
         {
-            return _IEducationalInstitutionBL.AddEducationalInstitution(u);
+            try
+            {
+                return Ok(_IEducationalInstitutionBL.AddEducationalInstitution(e));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
-        [Route("DeleteEducationalInstitution")]
-        public bool DeleteEducationalInstitution([FromBody] string nameI)
+        [Route("DeleteEducationalInstitution/{id}")]
+        public IActionResult DeleteEducationalInstitution(string id)
         {
-            return _IEducationalInstitutionBL.DeleteEducationalInstitution(nameI);
+            try
+            {
+                return Ok(_IEducationalInstitutionBL.DeleteEducationalInstitution(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+            [HttpPut]
+            [Route("UpdateEducationalInstitution/{id}")]
 
+            public IActionResult UpdateEducationalInstitution(string id, EducationalInstitutionDTO u)
+            {
+                try
+                {
+                    return Ok(_IEducationalInstitutionBL.UpdateEducationalInstitution(int.Parse(id), u));
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, ex.Message);
+                }
+            }
 
-        [HttpPut]
-        [Route("UpdateEducationalInstitution")]
-        public bool UpdateEducationalInstitution(string nameI, EducationalInstitutionDTO u)
-        {
-            return _IEducationalInstitutionBL.UpdateEducationalInstitution(nameI, u);
-        }
+        } } 
 
-
-
-
-
-    }
-}

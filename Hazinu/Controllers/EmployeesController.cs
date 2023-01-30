@@ -34,8 +34,8 @@ namespace Hazinu.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleatEmployee")]
-        public IActionResult DeleatEmployee([FromBody] string email)
+        [Route("DeleatEmployee/{email}")]
+        public IActionResult DeleatEmployee(string email)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Hazinu.Controllers
 
         [HttpPut]
         [Route("UpdateEmployee/{email}")]
-        public IActionResult UpdateFlight(string email, EmployeesDTO e)
+        public IActionResult UpdateEmployee(string email, EmployeesDTO e)
         {
             try
             {

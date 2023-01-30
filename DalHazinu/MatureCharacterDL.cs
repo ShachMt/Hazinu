@@ -37,14 +37,14 @@ namespace DalHazinu
                 return false;
             }
         }
-        public bool AddMatureCharacter(MatureCharacter u)
+        public int AddMatureCharacter(MatureCharacter u)
         {
 
             try
             {
                 _context.MatureCharacter.Add(u);
                 _context.SaveChanges();
-                return true;
+                return u.Id;
             }
             catch (Exception ex)
             {

@@ -30,28 +30,28 @@ namespace BLHazinu
         }
 
         //החזרת מוסדות לימוד לפי לפי טווח גילאים וגיל
-        public List<EducationalInstitutionDTO> GetAllInstitutionsCategoriesByGender(string gender, int age)
+        public List<EducationalInstitutionDTO> GetAllInstitutionsCategories(int idCadegory)
         {
-            List<EducationalInstitution> AllEducationalInstitution = _EducationalInstitutionDL.GetAllInstitutionsCategoriesByGender(gender, age);
+            List<EducationalInstitution> AllEducationalInstitution = _EducationalInstitutionDL.GetAllInstitutionsCategories(idCadegory);
             return mapper.Map<List<EducationalInstitution>, List<EducationalInstitutionDTO>>(AllEducationalInstitution);
         }
         //בשביל המילוי מוסד לימודים חדש
-        public List<EducationalInstitutionDTO> GetAllInstitutionsCategoriesByGenderCity(string gender, int age, string city)
+        public List<EducationalInstitutionDTO> GetAllInstitutionsCategoriesByGenderCity(int idCategory, string city)
         {
-            List<EducationalInstitution> AllEducationalInstitution = _EducationalInstitutionDL.GetAllInstitutionsCategoriesByGenderCity(gender, age,city);
+            List<EducationalInstitution> AllEducationalInstitution = _EducationalInstitutionDL.GetAllInstitutionsCategoriesByGenderCity(idCategory, city);
             return mapper.Map<List<EducationalInstitution>, List<EducationalInstitutionDTO>>(AllEducationalInstitution);
     }
-        public bool DeleteEducationalInstitution(string nameI)
+        public bool DeleteEducationalInstitution(int id)
         {
-            return _EducationalInstitutionDL.DeleteEducationalInstitution(nameI);
+            return _EducationalInstitutionDL.DeleteEducationalInstitution(id);
         }
-        public bool AddEducationalInstitution(EducationalInstitutionDTO u)
+        public int AddEducationalInstitution(EducationalInstitutionDTO u)
         {
             return _EducationalInstitutionDL.AddEducationalInstitution(mapper.Map<EducationalInstitutionDTO, EducationalInstitution>(u));
         }
-        public bool UpdateEducationalInstitution(string nameI, EducationalInstitutionDTO u)
+        public bool UpdateEducationalInstitution(int id, EducationalInstitutionDTO u)
         {
-            return _EducationalInstitutionDL.UpdateEducationalInstitution(nameI, mapper.Map<EducationalInstitutionDTO, EducationalInstitution>(u));
+            return _EducationalInstitutionDL.UpdateEducationalInstitution(id, mapper.Map<EducationalInstitutionDTO, EducationalInstitution>(u));
         }
 
     }

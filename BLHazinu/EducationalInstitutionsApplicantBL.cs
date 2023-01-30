@@ -31,10 +31,10 @@ namespace BLHazinu
             return mapper.Map<List<EducationalInstitutionsApplicant>, List<EducationalInstitutionsApplicantDTO>>(listEducationalInstitutionsApplicant);
         }
         //החזרת שמות לימודים לפי סטטוס- עבר או הווה
-        public List<EducationalInstitutionDTO> GetAllNameEducationalInstitution(int id, string status)
+        public List<EducationalInstitutionsApplicantDTO> GetAllNameEducationalInstitution(int id, string status)
         {
-            List<EducationalInstitution> listEducationalInstitutionsApplicant = _EducationalInstitutionsApplicantDL.GetAllNameEducationalInstitution(id, status);
-            return mapper.Map<List<EducationalInstitution>, List<EducationalInstitutionDTO>>(listEducationalInstitutionsApplicant);
+            List<EducationalInstitutionsApplicant> listEducationalInstitutionsApplicant = _EducationalInstitutionsApplicantDL.GetAllNameEducationalInstitution(id, status);
+            return mapper.Map<List<EducationalInstitutionsApplicant>, List<EducationalInstitutionsApplicantDTO>>(listEducationalInstitutionsApplicant);
         }
 
 
@@ -44,7 +44,7 @@ namespace BLHazinu
             return _EducationalInstitutionsApplicantDL.DeletEducational(idEdu);
         }
         // הוספת מוסד לימוד לפונה
-        public bool AddEducational(EducationalInstitutionsApplicantDTO u)
+        public int AddEducational(EducationalInstitutionsApplicantDTO u)
         {
             return _EducationalInstitutionsApplicantDL.AddEducational(mapper.Map<EducationalInstitutionsApplicantDTO, EducationalInstitutionsApplicant>(u));
 

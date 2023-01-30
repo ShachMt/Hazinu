@@ -42,8 +42,8 @@ namespace Hazinu.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleatJob")]
-        public IActionResult DeleatJobs([FromBody] string id)
+        [Route("DeleatJob/{id}")]
+        public IActionResult DeleatJobs(string id)
         {
             try
             {

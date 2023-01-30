@@ -27,32 +27,64 @@ namespace Hazinu.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllDetailsAskerByResone")]
-        public List<DetailsAskerDTO> GetAllDetailsAskerByResone(string id)
+        [Route("GetAllDetailsAskerByResone/{id}")]
+        public IActionResult GetAllDetailsAskerByResone(string id)
         {
-            return _IDetailsAskerBL.GetAllDetailsAskerByResone(int.Parse(id));
+            try
+            {
+                return Ok(_IDetailsAskerBL.GetAllDetailsAskerByResone(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("AddDetailsAsker")]
-        public bool AddDetailsAsker([FromBody] DetailsAskerDTO u)
+
+
+        public IActionResult AddDetailsAsker([FromBody] DetailsAskerDTO u)
         {
-            return _IDetailsAskerBL.AddDetailsAsker(u);
+            try
+            {
+                return Ok(_IDetailsAskerBL.AddDetailsAsker(u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
-        [Route("DeleatDetailsAsker")]
-        public bool DeleatJobs([FromBody] string id)
-        {
-            return _IDetailsAskerBL.DeleatDetailsAsker(int.Parse(id));
-        }
-        [HttpPut]
-        [Route("UpdateDetailsAsker")]
-        public bool UpdateUser(string id, DetailsAskerDTO u)
-        {
-            return _IDetailsAskerBL.UpdateDetailsAsker(int.Parse(id), u);
-        }
+        [Route("DeleatDetailsAsker/{id}")]
 
+        public IActionResult DeleatDetailsAsker(string id)
+        {
+            try
+            {
+                return Ok(_IDetailsAskerBL.DeleatDetailsAsker(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+       
+        [HttpPut]
+        [Route("UpdateDetailsAsker/{id}")]
+
+        public IActionResult UpdateDetailsAsker(string id, DetailsAskerDTO u)
+        {
+            try
+            {
+                return Ok(_IDetailsAskerBL.UpdateDetailsAsker(int.Parse(id), u));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
     }
 }

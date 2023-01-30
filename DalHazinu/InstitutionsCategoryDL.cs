@@ -16,8 +16,23 @@ namespace DalHazinu
         {
             try
             {
-                return _context.InstitutionsCategory.Include(x=>x.AgeRangeNavigation).
-                Where(x=>x.Gender==gender&& x.AgeRangeNavigation.From <= age && x.AgeRangeNavigation.To >= age).ToList();
+                List<InstitutionsCategory> l= _context.InstitutionsCategory.Include(x => x.AgeRangeNavigation).
+                Where(x => x.Gender == gender && x.AgeRangeNavigation.From <= age && x.AgeRangeNavigation.To >= age).ToList();
+                return l;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        //
+        //החזרת רשימת קטגוריות החל וכולל איידי טווח הגילאיים שהתקבל 
+        public List<InstitutionsCategory> GetAllInstitutionsCategoriesByAgeGange(int id)
+        {
+            try
+            {
+
+                return _context.InstitutionsCategory.Include(x => x.AgeRangeNavigation).Where(x=>x.AgeRangeNavigation.Id>=id).ToList();
             }
             catch (Exception ex)
             {
@@ -25,6 +40,7 @@ namespace DalHazinu
             }
         }
         //החזרת כל הקטגוריות
+
         public List<InstitutionsCategory> GetAllInstitutionsCategories()
         {
             try

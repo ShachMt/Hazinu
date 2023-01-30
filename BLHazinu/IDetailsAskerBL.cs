@@ -5,7 +5,7 @@ namespace BLHazinu
 {
     public interface IDetailsAskerBL
     {
-        bool AddDetailsAsker(DetailsAskerDTO u);
+        int AddDetailsAsker(DetailsAskerDTO u);
         bool DeleatDetailsAsker(int id);
         List<DetailsAskerDTO> GetAllDetailsAsker();
         List<DetailsAskerDTO> GetAllDetailsAskerByResone(int resone);

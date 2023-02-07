@@ -26,7 +26,12 @@ namespace Hazinu.Controllers
             return _IPatientDetailsBL.GetAllPatientDetails();
         }
 
-
+        [HttpGet]
+        [Route("GetPatientDetailsByApplyId/{id}")]
+        public PatientDetailsDTO GetPatientDetailsByApplyId(string id)
+        {
+            return _IPatientDetailsBL.GetPatientDetailsByApplyId(int.Parse(id));
+        }
         [HttpPost]
         [Route("AddPatientDetails")]
         public IActionResult AddPatientDetails([FromBody] PatientDetailsDTO u)

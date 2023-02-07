@@ -28,7 +28,11 @@ namespace BLHazinu
             List<PatientDetails> AllPatientDetails = _PatientDetailsDL.GetAllPatientDetails();
             return mapper.Map<List<PatientDetails>, List<PatientDetailsDTO>>(AllPatientDetails);
         }
-
+        public PatientDetailsDTO GetPatientDetailsByApplyId(int id)
+        {
+            PatientDetails p = _PatientDetailsDL.GetPatientDetailsByApplyId(id);
+            return mapper.Map<PatientDetails, PatientDetailsDTO>(p);
+        }
         public int AddPatientDetails(PatientDetailsDTO u)
         {
 

@@ -33,6 +33,7 @@ namespace Hazinu.Controllers
             }
         }
 
+
         [HttpDelete]
         [Route("DeleatEmployee/{email}")]
         public IActionResult DeleatEmployee(string email)
@@ -69,6 +70,20 @@ namespace Hazinu.Controllers
             try
             {
                 return Ok(_IEmployeesBL.GetEmployeeByEmailPassword(email, password));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetEmployeeById(int id)
+        {
+            try
+            {
+                return Ok(_IEmployeesBL.GetEmployeeById(id));
             }
             catch (Exception ex)
             {

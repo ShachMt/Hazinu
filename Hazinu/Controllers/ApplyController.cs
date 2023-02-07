@@ -26,7 +26,7 @@ namespace Hazinu.Controllers
             return _IApplyBL.GetAllApplies();
         }
         [HttpGet]
-        [Route("GetAllAppliesByPhone")]
+        [Route("GetAllAppliesByPhone/{phon}")]
         public IActionResult GetAllAppliesByPhone(string phon)
         {
             try

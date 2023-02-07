@@ -10,6 +10,12 @@ namespace DalHazinu
    public class ApplyDL
     {
         HazinuProjectContext _context = new HazinuProjectContext();
+        static String removeSpace(String str)
+        {
+
+            str = str.Replace(" ", "");
+            return str;
+        }
 
         //החזרת כלל הפניות כולל הפרטים של הממלא המטופל וסיבת הפניה
         public List<Apply> GetAllApplies()
@@ -20,7 +26,32 @@ namespace DalHazinu
                     _context.Apply.Include(x => x.Employees).ThenInclude(x => x.IdUserNavigation).
                 Include(x => x.Employees).ThenInclude(x => x.Job).
                 Include(x => x.Asker).Include(x => x.ApplyCaused).ToList();
-
+                foreach (var item in applies)
+                {
+                    if (item.Employees != null)
+                    {
+                        if (item.Employees.IdUserNavigation != null)
+                        {
+                            if (item.Employees.IdUserNavigation.FirstName != null) { 
+                                item.Employees.IdUserNavigation.FirstName= removeSpace(item.Employees.IdUserNavigation.FirstName); }
+                            if (item.Employees.IdUserNavigation.LastName != null)
+                            { item.Employees.IdUserNavigation.LastName= removeSpace(item.Employees.IdUserNavigation.LastName); }
+                            if (item.Employees.IdUserNavigation.Phone != null)
+                            { item.Employees.IdUserNavigation.Phone=removeSpace(item.Employees.IdUserNavigation.Phone); }
+                        }
+                    }
+                    if (item.ApplyCaused != null)
+                    {
+                        if (item.ApplyCaused.Details != null) { item.ApplyCaused.Details=removeSpace(item.ApplyCaused.Details); }
+                        if (item.ApplyCaused.Descreption != null) { item.ApplyCaused.Descreption= removeSpace(item.ApplyCaused.Descreption); }
+                    }
+                    if (item.Asker != null)
+                    {
+                        if (item.Asker.FirstName != null) { item.Asker.FirstName= removeSpace(item.Asker.FirstName); }
+                        if (item.Asker.LastName != null) { item.Asker.LastName= removeSpace(item.Asker.LastName); }
+                        if (item.Asker.Phone != null) { item.Asker.Phone=removeSpace(item.Asker.Phone); }
+                    }
+                }
                 return applies;
             }
             catch (Exception ex)
@@ -34,8 +65,14 @@ namespace DalHazinu
         {
             try
             {
-                List<Apply> applies = GetAllApplies().Where(x=>x.Asker.Phone==phon).ToList();
-                return applies;
+                List<Apply> applies = GetAllApplies();
+                List<Apply> appliesL=new List<Apply>();
+                foreach (var item in applies)
+                {
+                    if (item.Asker.Phone.Equals(phon))
+                        appliesL.Add(item);
+                }
+                return appliesL;
             }
             catch (Exception ex)
             {

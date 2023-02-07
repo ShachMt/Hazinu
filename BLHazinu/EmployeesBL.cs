@@ -64,7 +64,10 @@ namespace BLHazinu
 
         }
 
-
-
+        public EmployeesDTO GetEmployeeById(int id)
+        {
+            Employees employees = _EmployeesDL.GetEmployeeById(id);
+            return mapper.Map<Employees, EmployeesDTO>(employees);
+        }
     }
 }

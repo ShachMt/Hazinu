@@ -9,5 +9,6 @@ namespace BLHazinu
         bool DeleatPatientDetails(int id);
         List<PatientDetailsDTO> GetAllPatientDetails();
         bool UpdatePatientDetails(int id, PatientDetailsDTO u);
+        public PatientDetailsDTO GetPatientDetailsByApplyId(int id);
     }
 }

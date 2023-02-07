@@ -123,6 +123,10 @@ namespace DalHazinu
 
         }
 
+        public Employees GetEmployeeById(int id) {
+            return _context.Employees.Include(x => x.IdUserNavigation).Include(x => x.Job).FirstOrDefault(e => e.Id == id);      
+        }
+
 
         public void  SendEmailTochoose(Employees employees, string s)
         {

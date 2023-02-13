@@ -18,7 +18,7 @@ namespace DalHazinu
                 List<TreatmentDetails> treatmentDetails = _context.TreatmentDetails.Where(x => x.ApplyId == apply)
                 .Include(x => x.NextStep).
                 Include(x => x.Status).Include(x => x.Task).
-                Include(x => x.Therapist).OrderBy(x=> x.DateNow).ToList();
+                Include(x => x.Therapist).ThenInclude(x=>x.IdUserNavigation).OrderBy(x=> x.DateNow).ToList();
                 return treatmentDetails;
             }
             catch (Exception ex)
@@ -33,7 +33,7 @@ namespace DalHazinu
         {
             try
             {
-                TreatmentDetails t = _context.TreatmentDetails.Where(x => x.ApplyId == ApplyId && x.State == true).FirstOrDefault();
+                TreatmentDetails t = GetAllTreatmentDetailsByApply(ApplyId).Where(x => x.ApplyId == ApplyId && x.State == true).FirstOrDefault();
                 return t;
             }
             catch (Exception ex)

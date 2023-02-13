@@ -8,6 +8,8 @@ namespace BLHazinu
         bool AddTreatmentDetails(TreatmentDetailsDTO u);
         bool DeleatTreatmentDetails(int id);
         List<TreatmentDetailsDTO> GetAllTreatmentDetails(int applyId);
+        TreatmentDetailsDTO GetTreatmentDetailsByApplyState(int applyId);
+
         bool UpdateTreatmentDetails(int id, TreatmentDetailsDTO u);
     }
 }

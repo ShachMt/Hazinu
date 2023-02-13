@@ -42,7 +42,7 @@ namespace DalHazinu.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server= WIN-PEQ4MMCHCT3;Database= HazinuProject;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=WIN-PEQ4MMCHCT3;Database=HazinuProject;Trusted_Connection=True;");
             }
         }
 
@@ -94,6 +94,11 @@ namespace DalHazinu.Models
                     .HasColumnType("date");
 
                 entity.Property(e => e.EmployeesId).HasColumnName("employeesId");
+
+                entity.Property(e => e.LevelUrgency)
+                    .HasColumnName("levelUrgency")
+                    .HasMaxLength(10)
+                    .IsFixedLength();
 
                 entity.HasOne(d => d.ApplyCaused)
                     .WithMany(p => p.Apply)

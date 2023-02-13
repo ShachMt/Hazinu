@@ -78,12 +78,12 @@ namespace Hazinu.Controllers
 
         }
         [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetEmployeeById(int id)
+        [Route("GetEmployeeById/{id}")]
+        public IActionResult GetEmployeeById(string id)
         {
             try
             {
-                return Ok(_IEmployeesBL.GetEmployeeById(id));
+                return Ok(_IEmployeesBL.GetEmployeeById(int.Parse(id)));
             }
             catch (Exception ex)
             {

@@ -31,6 +31,11 @@ namespace BLHazinu
             List<TreatmentDetails> AllTreatmentDetails = _TreatmentDetailsDL.GetAllTreatmentDetailsByApply(applyId);
             return mapper.Map<List<TreatmentDetails>, List<TreatmentDetailsDTO>>(AllTreatmentDetails);
         }
+        public TreatmentDetailsDTO GetTreatmentDetailsByApplyState(int applyId)
+        {
+            TreatmentDetails treatmentDetails = _TreatmentDetailsDL.GetTreatmentDetailsByApplyState(applyId);
+            return mapper.Map<TreatmentDetails, TreatmentDetailsDTO>(treatmentDetails);
+        }
 
         public bool AddTreatmentDetails(TreatmentDetailsDTO u)
         {

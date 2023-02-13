@@ -25,7 +25,12 @@ namespace Hazinu.Controllers
         {
             return _ITreatmentDetailsBL.GetAllTreatmentDetails(int.Parse(applyId));
         }
-
+        [HttpGet]
+        [Route("GetTreatmentDetailsByApplyState/{applyId}")]
+        public TreatmentDetailsDTO GetTreatmentDetailsByApplyState(string applyId)
+        {
+            return _ITreatmentDetailsBL.GetTreatmentDetailsByApplyState(int.Parse(applyId));
+        }
 
         [HttpPost]
         [Route("AddTreatmentDetails")]

@@ -8,6 +8,5 @@ namespace DTOHazinu.Models
     {
         public int Id { get; set; }
         public string TaskName { get; set; }
-        public string Descreption { get; set; }
     }
 }

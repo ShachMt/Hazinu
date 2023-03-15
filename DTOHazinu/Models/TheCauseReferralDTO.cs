@@ -8,7 +8,6 @@ namespace DTOHazinu.Models
     {
         public int Id { get; set; }
         public string Descreption { get; set; }
-        public string Details { get; set; }
 
     }
 }

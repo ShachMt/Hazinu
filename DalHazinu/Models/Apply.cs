@@ -19,6 +19,8 @@ namespace DalHazinu.Models
         public int? AskerId { get; set; }
         public int? ApplyCausedId { get; set; }
         public string LevelUrgency { get; set; }
+        public string DetailsCausedRefferal { get; set; }
+        public string DetailsAnotherCause { get; set; }
 
         public virtual TheCauseReferral ApplyCaused { get; set; }
         public virtual User Asker { get; set; }

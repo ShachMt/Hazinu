@@ -38,7 +38,7 @@ namespace Hazinu.Controllers
             return _IAddressBL.GetAllAddressByCityId(city);
         }
         [HttpGet]
-        [Route("GetIdAddressByCity")]
+        [Route("GetIdAddressByCity/{nameCity}")]
         public int GetIdAddressByCity(string nameCity)
         {
             return _IAddressBL.GetIdAddressByCity(nameCity);

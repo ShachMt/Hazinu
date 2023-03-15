@@ -9,6 +9,9 @@ using System.Text;
 using Microsoft.Graph;
 using System.Net.Http.Headers;
 using Outlook = Microsoft.Office.Interop.Outlook;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio;
+
 
 // First, install the Microsoft Graph .NET Client Library using NuGet:
 // Install-Package Microsoft.Graph
@@ -76,12 +79,11 @@ namespace DalHazinu
                 throw ex;
             }
         }
-        public bool DeleteEmployee(string email)
+        public bool DeleteEmployee(int id)
         {
             try
             {
-                Employees e = new Employees();
-                    //_context.Employees.Include(x => x.IdUserNavigation).Include(x => x.Job).SingleOrDefault(x => x.Email == email);
+                Employees e = _context.Employees.FirstOrDefault(x => x.Id == id);
                 _context.Employees.Remove(e);
                 _context.SaveChanges();
                 return true;
@@ -106,11 +108,11 @@ namespace DalHazinu
                 throw ex;
             }
         }
-        public bool UpdateEmployee(string email, Employees e)
+        public bool UpdateEmployee(int id, Employees e)
         {
             try
             {
-                Employees currentEmployee = _context.Employees.Include(x => x.IdUserNavigation).Include(x => x.Job).SingleOrDefault(x => x.Email == email);
+                Employees currentEmployee = _context.Employees.FirstOrDefault(x => x.Id == id);
                 _context.Entry(currentEmployee).CurrentValues.SetValues(e);
                 _context.SaveChanges();
                 return true;
@@ -240,13 +242,28 @@ namespace DalHazinu
 
             try
             {
-                Employees currentEmployee = _context.Employees.Where(x => x.IdUser == employees.IdUser).FirstOrDefault();
-                employees.VerificationCode = code;
-                _context.Entry(currentEmployee).CurrentValues.SetValues(employees);
-                //CreateTestMessage3();
-                SendEmailTochoose(employees,s);
+                
+                    var accountSid = "ACc193a76e5e4ddc7eddf08e6aece1e2bd";
+                // Your Auth Token from twilio.com/console
+                var authToken = "0898e3113cac443296a6f19e5aa9209a";
 
-                _context.SaveChanges();
+                TwilioClient.Init(accountSid, authToken);
+
+                var message = MessageResource.Create(
+                    body: "Hello from C#", 
+                    from: new Twilio.Types.PhoneNumber("+972526070199"),
+                    to: new Twilio.Types.PhoneNumber  ("+972527473156")
+                );
+
+
+                Console.WriteLine(message.Sid);
+                //Employees currentEmployee = _context.Employees.Where(x => x.IdUser == employees.IdUser).FirstOrDefault();
+                //employees.VerificationCode = code;
+                //_context.Entry(currentEmployee).CurrentValues.SetValues(employees);
+                ////CreateTestMessage3();
+                //SendEmailTochoose(employees,s);
+
+                //_context.SaveChanges();
             }
             catch (Exception ex)
             {

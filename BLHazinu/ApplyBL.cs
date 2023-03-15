@@ -33,10 +33,15 @@ namespace BLHazinu
             List<Apply> allApplies = _ApplyDL.GetAllAppliesByPhone(phon);
             return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
         }
-        public List<ApplyDTO> GetAllAppliesUserEmployee(string email)
+        public List<ApplyDTO> GetAllAppliesUserEmployee(int idEmployees)
         {
-            List<Apply> allApplies = _ApplyDL.GetAllAppliesUserEmployee(email);
+            List<Apply> allApplies = _ApplyDL.GetAllAppliesUserEmployee(idEmployees);
             return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
+        }
+      public  ApplyDTO GetApplyById(int applyId)
+        {
+            Apply apply = _ApplyDL.GetApplyById(applyId);
+            return mapper.Map<Apply, ApplyDTO>(apply);
         }
 
         public int AddApply(ApplyDTO u)
@@ -55,9 +60,9 @@ namespace BLHazinu
             return _ApplyDL.UpdateApply(id, mapper.Map<ApplyDTO, Apply>(u));
         }
 
-        public List<ApplyDTO> GetAllApplyByStatusEmailTerapist(int status, string email)
+        public List<ApplyDTO> GetAllApplyByStatusEmailTerapist(int status, int idEmployees)
         {
-            List<Apply> allApplies = _ApplyDL.GetAllApplyByStatusEmailTerapist(status, email);
+            List<Apply> allApplies = _ApplyDL.GetAllApplyByStatusEmailTerapist(status, idEmployees);
             return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
         }
         //החזרת פניות לפי ססטוס- בשביל מנהל הפניות לסיווג ובשביל האינטייק 
@@ -66,5 +71,11 @@ namespace BLHazinu
             List<Apply> allApplies = _ApplyDL.GetAllApplyByStatus(status);
             return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
         }
+        public List<ApplyDTO> GetAllAppliesByEmployee(int id)
+        {
+            List<Apply> allApplies = _ApplyDL.GetAllAppliesByEmployee(id);
+            return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
+        }
+
     }
 }

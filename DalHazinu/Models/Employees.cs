@@ -9,7 +9,8 @@ namespace DalHazinu.Models
         {
             Apply = new HashSet<Apply>();
             PatientDetails = new HashSet<PatientDetails>();
-            TreatmentDetails = new HashSet<TreatmentDetails>();
+            TreatmentDetailsNextEmployees = new HashSet<TreatmentDetails>();
+            TreatmentDetailsTherapist = new HashSet<TreatmentDetails>();
         }
 
         public int? IdUser { get; set; }
@@ -23,6 +24,7 @@ namespace DalHazinu.Models
         public virtual Jobs Job { get; set; }
         public virtual ICollection<Apply> Apply { get; set; }
         public virtual ICollection<PatientDetails> PatientDetails { get; set; }
-        public virtual ICollection<TreatmentDetails> TreatmentDetails { get; set; }
+        public virtual ICollection<TreatmentDetails> TreatmentDetailsNextEmployees { get; set; }
+        public virtual ICollection<TreatmentDetails> TreatmentDetailsTherapist { get; set; }
     }
 }

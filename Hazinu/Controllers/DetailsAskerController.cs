@@ -39,7 +39,33 @@ namespace Hazinu.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet]
+        [Route("GetDetailsAskerByUserAskerId/{userId}")]
+        public IActionResult GetDetailsAskerByUserAskerId(string userId)
+        {
+            try
+            {
+                return Ok(_IDetailsAskerBL.GetDetailsAskerByUserAskerId(int.Parse(userId)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
+        [HttpGet]
+        [Route("GetDetailsAskerByApplyId/{id}")]
+        public IActionResult GetDetailsAskerByApplyId(string id)
+        {
+            try
+            {
+                return Ok(_IDetailsAskerBL.GetDetailsAskerByApplyId(int.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpPost]
         [Route("AddDetailsAsker")]
 
@@ -74,7 +100,7 @@ namespace Hazinu.Controllers
         [HttpPut]
         [Route("UpdateDetailsAsker/{id}")]
 
-        public IActionResult UpdateDetailsAsker(string id, DetailsAskerDTO u)
+        public IActionResult UpdateDetailsAsker(string id, [FromBody] DetailsAskerDTO u)
         {
             try
             {

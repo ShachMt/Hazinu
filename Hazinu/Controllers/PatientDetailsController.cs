@@ -47,8 +47,8 @@ namespace Hazinu.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleatPatientDetails")]
-        public IActionResult DeleatPatientDetails([FromBody] string id)
+        [Route("DeleatPatientDetails/{id}")]
+        public IActionResult DeleatPatientDetails( string id)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Hazinu.Controllers
         
         [HttpPut]
         [Route("UpdatePatientDetails/{id}")]
-        public IActionResult UpdatePatientDetails(string id, PatientDetailsDTO u)
+        public IActionResult UpdatePatientDetails(string id, [FromBody] PatientDetailsDTO u)
         {
             try
             {

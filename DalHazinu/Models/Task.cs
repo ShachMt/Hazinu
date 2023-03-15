@@ -13,7 +13,6 @@ namespace DalHazinu.Models
 
         public int Id { get; set; }
         public string TaskName { get; set; }
-        public string Descreption { get; set; }
 
         public virtual ICollection<TreatmentDetails> TreatmentDetailsNextStep { get; set; }
         public virtual ICollection<TreatmentDetails> TreatmentDetailsTask { get; set; }

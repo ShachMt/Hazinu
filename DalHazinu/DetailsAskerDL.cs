@@ -31,7 +31,16 @@ namespace DalHazinu
             List<DetailsAsker> b = GetAllDetailsAsker().Where(x => x.IdResoneNavigation.Id == resone).ToList();
             return b;
         }
+        public DetailsAsker GetDetailsAskerByUserAskerId(int askerId)
+        {
+            return GetAllDetailsAsker().FirstOrDefault(x => x.UserId == askerId);
 
+        }
+        //שגוי!! לא להשתמש
+        public DetailsAsker GetDetailsAskerByApplyId(int applyId)
+        {
+            return GetAllDetailsAsker().FirstOrDefault(x => x.Id == applyId);
+        }
         public bool DeleteDetailsAsker(int id)
         {
             try
@@ -64,7 +73,7 @@ namespace DalHazinu
         {
             try
             {
-                DetailsAsker currentDetailsAsker = _context.DetailsAsker.SingleOrDefault(x => x.UserId == id);
+                DetailsAsker currentDetailsAsker = _context.DetailsAsker.SingleOrDefault(x => x.Id== id);
 
                 _context.Entry(currentDetailsAsker).CurrentValues.SetValues(u);
                 _context.SaveChanges();
@@ -72,6 +81,7 @@ namespace DalHazinu
             }
             catch (Exception ex)
             {
+                throw ex;
                 return false;
             }
 

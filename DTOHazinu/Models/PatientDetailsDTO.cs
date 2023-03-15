@@ -24,15 +24,23 @@ namespace DTOHazinu.Models
         public int? MatureCharacterId { get; set; }
         public int? ApplyId { get; set; }
         public DateTime? DateNow { get; set; }
-
+        public int? IdDetailsAsker { get; set; }
+        public int? FillEmloyeesId { get; set; }
+        public string DetailsAnotherSector { get; set; }
+        public string ParentPhone { get; set; }
+        public int? AgeFillApply { get; set; }
+        public string DatailsJobTerapist { get; set; }
         public virtual ApplyDTO Apply { get; set; }
+        public virtual DetailsAskerDTO IdDetailsAskerNavigation { get; set; }
+        public virtual EmployeesDTO FillEmloyees { get; set; }
 
         public virtual AddressDTO Address { get; set; }
         public virtual FamilyDTO Family { get; set; }
         public virtual MatureCharacterDTO MatureCharacter { get; set; }
         public virtual SectorDTO Sector { get; set; }
-        public virtual EmployeesDTO Therapeutic { get; set; }
+        public virtual UserDTO Therapeutic { get; set; }
         public virtual UserDTO User { get; set; }
+
 
 
     }

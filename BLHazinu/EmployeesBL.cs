@@ -49,14 +49,14 @@ namespace BLHazinu
             return _EmployeesDL.AddEmployee(mapper.Map<EmployeesDTO, Employees>(e));
 
         }
-        public bool DeleatEmployee(string email)
+        public bool DeleatEmployee(int id)
         {
-            return _EmployeesDL.DeleteEmployee(email);
+            return _EmployeesDL.DeleteEmployee(id);
 
         }
-        public bool UpdateEmployee(string email, EmployeesDTO e)
+        public bool UpdateEmployee(int id, EmployeesDTO e)
         {
-            return _EmployeesDL.UpdateEmployee(email, mapper.Map<EmployeesDTO, Employees>(e));
+            return _EmployeesDL.UpdateEmployee(id, mapper.Map<EmployeesDTO, Employees>(e));
         }
         public void put(EmployeesDTO employees)
         {

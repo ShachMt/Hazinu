@@ -26,12 +26,26 @@ namespace Hazinu.Controllers
             return _IApplyBL.GetAllApplies();
         }
         [HttpGet]
-        [Route("GetAllAppliesByPhone/{phon}")]
-        public IActionResult GetAllAppliesByPhone(string phon)
+        [Route("GetApplyById/{applyId}")]
+        public IActionResult GetApplyById(string applyId)
         {
             try
             {
-                return Ok(_IApplyBL.GetAllAppliesByPhone(phon));
+                return Ok(_IApplyBL.GetApplyById(int.Parse(applyId)));
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpGet]
+        [Route("GetAllAppliesByPhone/{phone}")]
+        public IActionResult GetAllAppliesByPhone(string phone)
+        {
+            try
+            {
+                return Ok(_IApplyBL.GetAllAppliesByPhone(phone));
             }
 
             catch (Exception ex)
@@ -41,12 +55,12 @@ namespace Hazinu.Controllers
             
         }
         [HttpGet]
-        [Route("GetAllAppliesUserEmployee")]
-        public IActionResult GetAllAppliesUserEmployee(string email)
+        [Route("GetAllAppliesUserEmployee/{idEmployees}")]
+        public IActionResult GetAllAppliesUserEmployee(string idEmployees)
         {
             try
             {
-                return Ok(_IApplyBL.GetAllAppliesUserEmployee(email));
+                return Ok(_IApplyBL.GetAllAppliesUserEmployee(int.Parse(idEmployees)));
             }
 
             catch (Exception ex)
@@ -54,6 +68,21 @@ namespace Hazinu.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet]
+        [Route("GetAllAppliesByEmployee/{idEmployees}")]
+        public IActionResult GetAllAppliesByEmployee(string idEmployees)
+        {
+            try
+            {
+                return Ok(_IApplyBL.GetAllAppliesByEmployee(int.Parse(idEmployees)));
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         [Route("AddApply")]
         public IActionResult AddApply([FromBody] ApplyDTO u)
@@ -69,8 +98,8 @@ namespace Hazinu.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleatApply")]
-        public IActionResult DeleatApply([FromBody] string id)
+        [Route("DeleatApply/{id}")]
+        public IActionResult DeleatApply( string id)
         {
              try
             {
@@ -97,10 +126,11 @@ namespace Hazinu.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllAppliesByStatusEmailTerapist/{email}")]
-        public List<ApplyDTO> GetAllApplyByStatusEmailTerapist(string status, string email)
+        [Route("GetAllAppliesByStatusEmailTerapist/{idEmployees}/{status}")]
+        public List<ApplyDTO> GetAllApplyByStatusEmailTerapist(string idEmployees, string status)
         {
-            return _IApplyBL.GetAllApplyByStatusEmailTerapist(int.Parse(status),email);
+
+            return _IApplyBL.GetAllApplyByStatusEmailTerapist(int.Parse(status),int.Parse(idEmployees));
         }
         [HttpGet]
         [Route("GetAllApplyByStatus/{status}")]

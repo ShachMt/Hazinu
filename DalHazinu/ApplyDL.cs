@@ -23,35 +23,10 @@ namespace DalHazinu
             try
             {
                 List<Apply> applies =
-                    _context.Apply.Include(x => x.Employees).ThenInclude(x => x.IdUserNavigation).
+                 _context.Apply.Include(x => x.Employees).ThenInclude(x => x.IdUserNavigation).
                 Include(x => x.Employees).ThenInclude(x => x.Job).
-                Include(x => x.Asker).Include(x => x.ApplyCaused).ToList();
-                foreach (var item in applies)
-                {
-                    if (item.Employees != null)
-                    {
-                        if (item.Employees.IdUserNavigation != null)
-                        {
-                            if (item.Employees.IdUserNavigation.FirstName != null) { 
-                                item.Employees.IdUserNavigation.FirstName= removeSpace(item.Employees.IdUserNavigation.FirstName); }
-                            if (item.Employees.IdUserNavigation.LastName != null)
-                            { item.Employees.IdUserNavigation.LastName= removeSpace(item.Employees.IdUserNavigation.LastName); }
-                            if (item.Employees.IdUserNavigation.Phone != null)
-                            { item.Employees.IdUserNavigation.Phone=removeSpace(item.Employees.IdUserNavigation.Phone); }
-                        }
-                    }
-                    if (item.ApplyCaused != null)
-                    {
-                        if (item.ApplyCaused.Details != null) { item.ApplyCaused.Details=removeSpace(item.ApplyCaused.Details); }
-                        if (item.ApplyCaused.Descreption != null) { item.ApplyCaused.Descreption= removeSpace(item.ApplyCaused.Descreption); }
-                    }
-                    if (item.Asker != null)
-                    {
-                        if (item.Asker.FirstName != null) { item.Asker.FirstName= removeSpace(item.Asker.FirstName); }
-                        if (item.Asker.LastName != null) { item.Asker.LastName= removeSpace(item.Asker.LastName); }
-                        if (item.Asker.Phone != null) { item.Asker.Phone=removeSpace(item.Asker.Phone); }
-                    }
-                }
+                Include(x => x.Asker).Include(x => x.ApplyCaused).OrderByDescending(x=>x.DateNow).ThenBy(x=> x.LevelUrgency).ToList();
+             
                 return applies;
             }
             catch (Exception ex)
@@ -59,7 +34,15 @@ namespace DalHazinu
                 throw ex;
             }
         }
-
+        public Apply GetApplyById(int applyId)
+        {
+            try {
+            return GetAllApplies().FirstOrDefault(x => x.Id == applyId); }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         //החזרת פניות לפי טלפון הפונה-בשביל המזכיר 
         public List<Apply> GetAllAppliesByPhone(string phon)
         {
@@ -83,12 +66,36 @@ namespace DalHazinu
        
 
         //החזרת פניות לפי אימייל הפעיל
-        public List<Apply> GetAllAppliesUserEmployee(string email)
+        public List<Apply> GetAllAppliesUserEmployee(int id)
         {
             try
             {
-                List<Apply> applies = GetAllApplies().Where(x => x.Employees.Email == email).ToList();
+                List<Apply> applies = GetAllApplies().Where(x => x.EmployeesId == id).ToList();
                 return applies;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<Apply> GetAllAppliesByEmployee(int id)
+        {
+            try
+            {
+                List<Apply> applies = GetAllApplies();
+                TreatmentDetailsDL treatmentDetailsDL=new TreatmentDetailsDL();
+                List<Apply> lt=new List<Apply>();
+                foreach (var item in applies)
+                {
+                    treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id);
+                    if (treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id)!=null)
+                    if (treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).NextEmployeesId!=null && treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).NextEmployeesId == id ||
+                       (treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).NextEmployeesId == null &&
+                       treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).TherapistId == null&&
+                       treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).TherapistId == id))
+                        lt.Add(item);
+                }
+                return lt;
             }
             catch (Exception ex)
             {
@@ -157,20 +164,21 @@ namespace DalHazinu
         //{
 
         //}
-        //החזרת פניות לפי סטטוס ואימייל פעיל
-        public List<Apply> GetAllApplyByStatusEmailTerapist(int status, string email)
+        //החזרת פניות לפי סטטוס ופעיל
+        public List<Apply> GetAllApplyByStatusEmailTerapist(int status, int idEmployees)
         {
             try
             {
                 //מחזיר את כל הרשימה של הפניות הקיימות
-                List<Apply> lstApplies = GetAllAppliesUserEmployee(email);
+                List<Apply> lstApplies = GetAllApplies();
                 //רשימה חדשה אשר תשמור בתוכה את הפניות שעומדות על הסטטוס המתקבל
                 List<Apply> lstAppliesNew = new List<Apply>();
                 TreatmentDetailsDL treatmentDetailsDL = new TreatmentDetailsDL();
                 //מעבר על כל הפניות הקיימות והכנסה לרשימה החדשה במידה שתענה על הדרישה
                 foreach (var item in lstApplies)
                 {
-                    if (treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id)?.StatusId == status)
+                    if (treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id)?.StatusId == status&&
+                        treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id)?.NextEmployeesId==idEmployees)
                         lstAppliesNew.Add(item);
                 }
                 return lstAppliesNew;

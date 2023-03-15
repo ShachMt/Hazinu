@@ -47,8 +47,8 @@ namespace Hazinu.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleatTreatmentDetails")]
-        public IActionResult DeleatTreatmentDetails([FromBody] string id)
+        [Route("DeleatTreatmentDetails/{id}")]
+        public IActionResult DeleatTreatmentDetails( string id)
         {
             try
             {

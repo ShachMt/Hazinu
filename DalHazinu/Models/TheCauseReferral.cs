@@ -13,7 +13,6 @@ namespace DalHazinu.Models
 
         public int Id { get; set; }
         public string Descreption { get; set; }
-        public string Details { get; set; }
 
         public virtual ICollection<Apply> Apply { get; set; }
         public virtual ICollection<DetailsAsker> DetailsAsker { get; set; }

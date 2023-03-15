@@ -35,12 +35,12 @@ namespace Hazinu.Controllers
 
 
         [HttpDelete]
-        [Route("DeleatEmployee/{email}")]
-        public IActionResult DeleatEmployee(string email)
+        [Route("DeleatEmployee/{id}")]
+        public IActionResult DeleatEmployee(string id)
         {
             try
             {
-                return Ok(_IEmployeesBL.DeleatEmployee(email));
+                return Ok(_IEmployeesBL.DeleatEmployee(int.Parse(id)));
             }
             catch (Exception ex)
             {
@@ -49,12 +49,12 @@ namespace Hazinu.Controllers
         }
 
         [HttpPut]
-        [Route("UpdateEmployee/{email}")]
-        public IActionResult UpdateEmployee(string email, EmployeesDTO e)
+        [Route("UpdateEmployee/{id}")]
+        public IActionResult UpdateEmployee(string id, EmployeesDTO e)
         {
             try
             {
-                return Ok(_IEmployeesBL.UpdateEmployee(email, e));
+                return Ok(_IEmployeesBL.UpdateEmployee(int.Parse(id), e));
             }
             catch (Exception ex)
             {

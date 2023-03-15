@@ -12,7 +12,8 @@ namespace DalHazinu.Models
             EducationalInstitutionsApplicant = new HashSet<EducationalInstitutionsApplicant>();
             Employees = new HashSet<Employees>();
             MatureCharacter = new HashSet<MatureCharacter>();
-            PatientDetails = new HashSet<PatientDetails>();
+            PatientDetailsTherapeutic = new HashSet<PatientDetails>();
+            PatientDetailsUser = new HashSet<PatientDetails>();
             StffDetails = new HashSet<StffDetails>();
         }
 
@@ -26,7 +27,8 @@ namespace DalHazinu.Models
         public virtual ICollection<EducationalInstitutionsApplicant> EducationalInstitutionsApplicant { get; set; }
         public virtual ICollection<Employees> Employees { get; set; }
         public virtual ICollection<MatureCharacter> MatureCharacter { get; set; }
-        public virtual ICollection<PatientDetails> PatientDetails { get; set; }
+        public virtual ICollection<PatientDetails> PatientDetailsTherapeutic { get; set; }
+        public virtual ICollection<PatientDetails> PatientDetailsUser { get; set; }
         public virtual ICollection<StffDetails> StffDetails { get; set; }
     }
 }

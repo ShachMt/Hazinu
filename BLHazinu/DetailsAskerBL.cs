@@ -28,6 +28,17 @@ namespace BLHazinu
             List<DetailsAsker> listDetailsAsker = _DetailsAskerDL.GetAllDetailsAsker();
             return mapper.Map<List<DetailsAsker>, List<DetailsAskerDTO>>(listDetailsAsker);
         }
+        public DetailsAskerDTO GetDetailsAskerByApplyId(int applyId)
+        {
+            DetailsAsker detailsAsker = _DetailsAskerDL.GetDetailsAskerByApplyId(applyId);
+            return mapper.Map<DetailsAsker, DetailsAskerDTO>(detailsAsker);
+
+        }
+        public DetailsAskerDTO GetDetailsAskerByUserAskerId(int userId)
+        {
+            DetailsAsker detailsAsker = _DetailsAskerDL.GetDetailsAskerByUserAskerId(userId);
+            return mapper.Map<DetailsAsker, DetailsAskerDTO>(detailsAsker);
+        }
         public List<DetailsAskerDTO> GetAllDetailsAskerByResone(int resone)
         {
 

@@ -21,6 +21,7 @@ namespace DalHazinu
                 throw ex;
             }
         }
+        
 
         public List<string> GetAllCities()
         {
@@ -30,6 +31,7 @@ namespace DalHazinu
                 cities.Add("לא מעוניין למסור פרטים");
                 foreach (var item in GetAllAddress())
                 {
+                   if(!cities.Contains(item.City))
                     if (item.City != "")
                         cities.Add(item.City);
                 }
@@ -46,6 +48,7 @@ namespace DalHazinu
             try
             {
                 Address a = GetAllAddress().FirstOrDefault(x => x.City == nameCity);
+
                 return a.Id;
             }
             catch (Exception ex)

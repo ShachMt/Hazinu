@@ -16,7 +16,7 @@ namespace DalHazinu
             try
             {
                 List<TreatmentDetails> treatmentDetails = _context.TreatmentDetails.Where(x => x.ApplyId == apply)
-                .Include(x => x.NextStep).
+                .Include(x => x.NextStep).Include(x=>x.NextEmployees).ThenInclude(x=>x.IdUserNavigation).
                 Include(x => x.Status).Include(x => x.Task).
                 Include(x => x.Therapist).ThenInclude(x=>x.IdUserNavigation).OrderBy(x=> x.DateNow).ToList();
                 return treatmentDetails;
@@ -43,6 +43,7 @@ namespace DalHazinu
         }
 
 
+
       
         ///////////////////////////////////////////////////////
         //הוספת פירוט לפניה כאשר לוחץ על עדכון נכנס למערכת
@@ -50,6 +51,7 @@ namespace DalHazinu
         {
             try
             {
+              
                 TreatmentDetails lastTD= GetTreatmentDetailsByApplyState(u.ApplyId);
                 if (lastTD != null)
                 {
@@ -57,6 +59,7 @@ namespace DalHazinu
                     UpdateTreatmentDetails(lastTD, lastTD.ApplyId);
                 }
                 u.State = true;
+                
                 _context.TreatmentDetails.Add(u);
                 _context.SaveChanges();
                 return true;
@@ -87,7 +90,7 @@ namespace DalHazinu
         {
             try
             {
-                TreatmentDetails currentTreatmentDetails = _context.TreatmentDetails.SingleOrDefault(x => x.Id == id);
+                TreatmentDetails currentTreatmentDetails = _context.TreatmentDetails.SingleOrDefault(x => x.ApplyId == id);
                 _context.Entry(currentTreatmentDetails).CurrentValues.SetValues(u);
                 _context.SaveChanges();
                 return true;

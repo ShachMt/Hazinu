@@ -9,6 +9,10 @@ namespace BLHazinu
         bool DeleatDetailsAsker(int id);
         List<DetailsAskerDTO> GetAllDetailsAsker();
         List<DetailsAskerDTO> GetAllDetailsAskerByResone(int resone);
+        DetailsAskerDTO GetDetailsAskerByApplyId(int applyId);
         bool UpdateDetailsAsker(int id, DetailsAskerDTO u);
+        DetailsAskerDTO GetDetailsAskerByUserAskerId(int userId);
+
+
     }
 }

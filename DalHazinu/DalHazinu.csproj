@@ -18,6 +18,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Graph" Version="4.49.0" />
     <PackageReference Include="Microsoft.Office.Interop.Outlook" Version="15.0.4797.1004" />
+    <PackageReference Include="Twilio" Version="6.2.5" />
   </ItemGroup>
 
 </Project>

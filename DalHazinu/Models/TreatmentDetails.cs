@@ -15,8 +15,11 @@ namespace DalHazinu.Models
         public DateTime? DateTask { get; set; }
         public int Id { get; set; }
         public bool? State { get; set; }
+        public int? NextEmployeesId { get; set; }
+        public string NextDocumentation { get; set; }
 
         public virtual Apply Apply { get; set; }
+        public virtual Employees NextEmployees { get; set; }
         public virtual Task NextStep { get; set; }
         public virtual Status Status { get; set; }
         public virtual Task Task { get; set; }

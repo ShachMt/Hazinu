@@ -26,6 +26,25 @@ namespace DalHazinu
                 throw ex;
             }
         }
+        ///////החזרה למי משיוכת הפנייה
+        public int EmployeesApply(int apply)
+        {
+            TreatmentDetails t = GetAllTreatmentDetailsByApply(apply).FirstOrDefault(x => x.StatusId == 7);
+            try
+            {
+                if (t != null)
+                    return (int)t.NextEmployeesId;
+                else
+                    return default;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           
+        }
+
+
        ////////////////////////////////////////////////////////////////////////////
       
        //מחזיר את הטיפול האחרון שבוצע בפניה

@@ -26,6 +26,20 @@ namespace Hazinu.Controllers
             return _IApplyBL.GetAllApplies();
         }
         [HttpGet]
+        [Route("GetAllAppliesEmployee/{EmpId}")]
+        public IActionResult GetAllAppliesEmployee(string EmpId)
+        {
+            try
+            {
+                return Ok(_IApplyBL.GetAllAppliesEmployee(int.Parse(EmpId)));
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpGet]
         [Route("GetApplyById/{applyId}")]
         public IActionResult GetApplyById(string applyId)
         {

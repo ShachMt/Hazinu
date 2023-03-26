@@ -65,7 +65,7 @@ namespace DalHazinu
 
        
 
-        //החזרת פניות לפי אימייל הפעיל
+        //החזרת פניות לפי id הפעיל
         public List<Apply> GetAllAppliesUserEmployee(int id)
         {
             try
@@ -78,6 +78,28 @@ namespace DalHazinu
                 throw ex;
             }
         }
+        //כלל הפניות לפי שיוך הפנייה
+        public List<Apply> GetAllAppliesEmployee(int EmployeesId)
+        {
+            List<Apply> Napplies = new List<Apply>();
+            List<Apply> applies = GetAllApplies();
+            TreatmentDetailsDL treatmentDetailsDL = new TreatmentDetailsDL();
+            try
+            {
+                foreach (var item in applies)
+                {
+                    if (treatmentDetailsDL.EmployeesApply(item.Id) == EmployeesId)
+                        Napplies.Add(item);
+                }
+                return Napplies;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        //ממתין לביצוע
         public List<Apply> GetAllAppliesByEmployee(int id)
         {
             try

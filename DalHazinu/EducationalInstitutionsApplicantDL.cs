@@ -18,7 +18,8 @@ namespace DalHazinu
             {
                 List<EducationalInstitutionsApplicant> educationalInstitutions1 = _context.EducationalInstitutionsApplicant
                      .Include(x => x.User)
-                    .Include(x => x.Institution).Where(x=>x.UserId==id).ToList();
+                    .Include(x => x.Institution).ThenInclude(x=>x.IdCategoryNavigation).Where(x=>x.UserId==id).OrderByDescending(x => x.Id).ToList();
+                
                 return educationalInstitutions1;
             }
             catch (Exception ex)

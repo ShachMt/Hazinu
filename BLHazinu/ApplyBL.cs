@@ -59,7 +59,11 @@ namespace BLHazinu
         {
             return _ApplyDL.UpdateApply(id, mapper.Map<ApplyDTO, Apply>(u));
         }
-
+        public List<ApplyDTO> GetAllAppliesEmployee(int EmpId)
+        {
+            List<Apply> allApplies = _ApplyDL.GetAllAppliesEmployee(EmpId);
+            return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
+        }
         public List<ApplyDTO> GetAllApplyByStatusEmailTerapist(int status, int idEmployees)
         {
             List<Apply> allApplies = _ApplyDL.GetAllApplyByStatusEmailTerapist(status, idEmployees);

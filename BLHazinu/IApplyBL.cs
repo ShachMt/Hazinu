@@ -14,7 +14,7 @@ namespace BLHazinu
         List<ApplyDTO> GetAllApplyByStatus(int status);
         ApplyDTO GetApplyById(int applyId);
         List<ApplyDTO> GetAllAppliesByEmployee(int id);
-
+        List<ApplyDTO> GetAllAppliesEmployee(int EmpId);
         bool UpdateApply(int id, ApplyDTO u);
     }
 }

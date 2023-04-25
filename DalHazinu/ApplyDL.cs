@@ -48,14 +48,13 @@ namespace DalHazinu
         {
             try
             {
+
                 List<Apply> applies = GetAllApplies();
-                List<Apply> appliesL=new List<Apply>();
-                foreach (var item in applies)
-                {
-                    if (item.Asker.Phone.Equals(phon))
-                        appliesL.Add(item);
-                }
+
+                List<Apply> appliesL = applies.Where(x => x.Asker.Phone == phon).ToList();
+                if(appliesL.Count()>0)
                 return appliesL;
+                return null;
             }
             catch (Exception ex)
             {
@@ -78,7 +77,7 @@ namespace DalHazinu
                 throw ex;
             }
         }
-        //כלל הפניות לפי שיוך הפנייה
+        //כלל הפניות שלך לפי שיוך הפנייה+ממתין לביצוע 
         public List<Apply> GetAllAppliesEmployee(int EmployeesId)
         {
             List<Apply> Napplies = new List<Apply>();
@@ -90,7 +89,32 @@ namespace DalHazinu
                 {
                     if (treatmentDetailsDL.EmployeesApply(item.Id) == EmployeesId)
                         Napplies.Add(item);
-                }
+                    TreatmentDetails t = treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id);
+                    if (t != null)
+                    {
+                        if (t.NextEmployeesId != null && t.NextEmployeesId == EmployeesId)
+                        {
+                            if(!Napplies.Contains(item))
+                                Napplies.Add(item);
+                            if (t.DateTask.Value.Date == DateTime.Today.Date && t.StatusId != 3)
+                            {
+                                t.StatusId = 3;
+                                treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
+                            }
+                            else if (t.DateTask.Value.Date < DateTime.Today.Date && t.StatusId == 3)
+                            {
+                                t.StatusId = 3007;
+                                treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
+                            }
+                        }
+                        if (t.NextEmployeesId == null && t.TherapistId == EmployeesId)
+                        {
+                            if (!Napplies.Contains(item))
+                                Napplies.Add(item);
+                        }
+                    }
+                }     
+                
                 return Napplies;
             }
             catch (Exception ex)
@@ -99,8 +123,8 @@ namespace DalHazinu
             }
         }
 
-        //ממתין לביצוע
-        public List<Apply> GetAllAppliesByEmployee(int id)
+        //לפי התאריך של היום- שינוי סטטוס לממתין לביצוע
+        public bool GetAllAppliesByEmployee(int id)
         {
             try
             {
@@ -109,15 +133,25 @@ namespace DalHazinu
                 List<Apply> lt=new List<Apply>();
                 foreach (var item in applies)
                 {
-                    treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id);
-                    if (treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id)!=null)
-                    if (treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).NextEmployeesId!=null && treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).NextEmployeesId == id ||
-                       (treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).NextEmployeesId == null &&
-                       treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).TherapistId == null&&
-                       treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id).TherapistId == id))
-                        lt.Add(item);
-                }
-                return lt;
+                    TreatmentDetails t= treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id);
+                    if (t != null) { 
+                    if (t.NextEmployeesId!=null &&  t.NextEmployeesId == id)
+                        {
+                            if (t.DateTask.Value.Date == DateTime.Today.Date && t.StatusId != 3)
+                            {
+                                t.StatusId = 3;
+                                treatmentDetailsDL.UpdateTreatmentDetailsI(t,item.Id);
+                            }
+                            //lt.Add(item);
+                          else  if (t.DateTask.Value.Date < DateTime.Today.Date && t.StatusId == 3)
+                            {
+                                t.StatusId = 3007;
+                                treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
+                            }
+                        }
+                       
+                }}
+                return true;
             }
             catch (Exception ex)
             {

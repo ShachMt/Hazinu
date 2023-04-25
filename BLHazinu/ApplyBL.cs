@@ -75,10 +75,10 @@ namespace BLHazinu
             List<Apply> allApplies = _ApplyDL.GetAllApplyByStatus(status);
             return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
         }
-        public List<ApplyDTO> GetAllAppliesByEmployee(int id)
+        public bool GetAllAppliesByEmployee(int id)
         {
-            List<Apply> allApplies = _ApplyDL.GetAllAppliesByEmployee(id);
-            return mapper.Map<List<Apply>, List<ApplyDTO>>(allApplies);
+            //List<Apply> allApplies = _ApplyDL.GetAllAppliesByEmployee(id);
+            return _ApplyDL.GetAllAppliesByEmployee(id);
         }
 
     }

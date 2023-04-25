@@ -19,6 +19,7 @@ namespace DalHazinu.Models
         public string Email { get; set; }
         public int Id { get; set; }
         public string VerificationCode { get; set; }
+        public bool? LockOutEnabled { get; set; }
 
         public virtual User IdUserNavigation { get; set; }
         public virtual Jobs Job { get; set; }

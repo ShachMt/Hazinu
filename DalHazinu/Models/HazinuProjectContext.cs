@@ -94,9 +94,7 @@ namespace DalHazinu.Models
                     .HasColumnName("detailsAnotherCause")
                     .HasMaxLength(20);
 
-                entity.Property(e => e.DetailsCausedRefferal)
-                    .HasColumnName("detailsCausedRefferal")
-                    .HasMaxLength(4000);
+                entity.Property(e => e.DetailsCausedRefferal).HasColumnName("detailsCausedRefferal");
 
                 entity.Property(e => e.EmployeesId).HasColumnName("employeesId");
 
@@ -215,6 +213,7 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.EducationalInstitutionsApplicant)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_EducationalInstitutionsApplicant_User");
             });
 
@@ -234,6 +233,8 @@ namespace DalHazinu.Models
                 entity.Property(e => e.IdUser).HasColumnName("idUser");
 
                 entity.Property(e => e.JobId).HasColumnName("jobId");
+
+                entity.Property(e => e.LockOutEnabled).HasColumnName("lockOutEnabled");
 
                 entity.Property(e => e.Password)
                     .HasColumnName("password")

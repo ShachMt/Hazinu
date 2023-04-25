@@ -9,11 +9,11 @@ namespace DTOHazinu.Models
         public int ApplyId { get; set; }
         public int? TherapistId { get; set; }
         public int? StatusId { get; set; }
-        public DateTime? DateNow { get; set; }
+        public DateTime? DateNow { get; set; } = new DateTime();
         public int? TaskId { get; set; }
         public string Documentation { get; set; }
         public int? NextStepId { get; set; }
-        public DateTime? DateTask { get; set; }
+        public DateTime? DateTask { get; set; } = new DateTime();
         public int Id { get; set; }
         public int? NextEmployeesId { get; set; }
         public string NextDocumentation { get; set; }

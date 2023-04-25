@@ -39,6 +39,8 @@ namespace DalHazinu
                     {
                         Employees employees = new Employees();
                         employees.Email = email;
+                        employees.Id = em.Id;
+                        employees.LockOutEnabled = em.LockOutEnabled;
                         return employees;
                     }
                     else
@@ -98,7 +100,6 @@ namespace DalHazinu
 
             try
             {
-                
                 _context.Employees.Add(e);
                 _context.SaveChanges();
                 return true;

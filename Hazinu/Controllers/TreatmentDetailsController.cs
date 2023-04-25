@@ -38,6 +38,12 @@ namespace Hazinu.Controllers
         {
             try
             {
+                t.DateNow = t.DateNow.Value.AddHours(3);
+                t.DateNow = t.DateNow.Value.AddMilliseconds(477);
+
+                t.DateTask= t.DateTask.Value.AddHours(3);
+                t.DateTask = t.DateTask.Value.AddMilliseconds(477);
+                t.DateTask = t.DateTask.Value.AddSeconds(5);
                 return Ok(_ITreatmentDetailsBL.AddTreatmentDetails(t));
             }
             catch (Exception ex)

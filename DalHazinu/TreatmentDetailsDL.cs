@@ -18,7 +18,7 @@ namespace DalHazinu
                 List<TreatmentDetails> treatmentDetails = _context.TreatmentDetails.Where(x => x.ApplyId == apply)
                 .Include(x => x.NextStep).Include(x=>x.NextEmployees).ThenInclude(x=>x.IdUserNavigation).
                 Include(x => x.Status).Include(x => x.Task).
-                Include(x => x.Therapist).ThenInclude(x=>x.IdUserNavigation).OrderBy(x=> x.DateNow).ToList();
+                Include(x => x.Therapist).ThenInclude(x=>x.IdUserNavigation).OrderByDescending(x=> x.DateNow).ToList();
                 return treatmentDetails;
             }
             catch (Exception ex)
@@ -75,7 +75,7 @@ namespace DalHazinu
                 if (lastTD != null)
                 {
                     lastTD.State = false;
-                    UpdateTreatmentDetails(lastTD, lastTD.ApplyId);
+                    UpdateTreatmentDetailsI(lastTD, lastTD.ApplyId);
                 }
                 u.State = true;
                 
@@ -104,12 +104,27 @@ namespace DalHazinu
             }
         }
 
-        //עדכון שלב טיפול
-        public bool UpdateTreatmentDetails( TreatmentDetails u,int id)
+        public bool UpdateTreatmentDetails(TreatmentDetails u, int id)
         {
             try
             {
-                TreatmentDetails currentTreatmentDetails = _context.TreatmentDetails.SingleOrDefault(x => x.ApplyId == id);
+                TreatmentDetails lastTD = GetTreatmentDetailsByApplyState(u.ApplyId);
+                u.State = true;
+                _context.Entry(lastTD).CurrentValues.SetValues(u);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        //עדכון שלב טיפול
+        public bool UpdateTreatmentDetailsI( TreatmentDetails u,int id)
+        {
+            try
+            {
+                TreatmentDetails currentTreatmentDetails = _context.TreatmentDetails.SingleOrDefault(x => x.ApplyId == id&&x.State==true);
                 _context.Entry(currentTreatmentDetails).CurrentValues.SetValues(u);
                 _context.SaveChanges();
                 return true;

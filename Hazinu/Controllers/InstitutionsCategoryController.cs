@@ -18,7 +18,7 @@ namespace Hazinu.Controllers
             {
                 _IInstitutionsBL = e;
             }
-
+        
             //סיווג קטגוריות מוסדות לימוד לפי מין
             [HttpGet]
             [Route("GetAllInstitutionsCategoriesByGenderAndAge/{gender}/{age}")]

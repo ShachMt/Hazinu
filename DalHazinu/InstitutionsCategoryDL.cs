@@ -17,7 +17,8 @@ namespace DalHazinu
             try
             {
                 List<InstitutionsCategory> l= _context.InstitutionsCategory.Include(x => x.AgeRangeNavigation).
-                Where(x => x.Gender == gender && x.AgeRangeNavigation.From <= age && x.AgeRangeNavigation.To >= age).OrderBy(x => x.AgeRange)
+                Where(x => x.Gender == gender && x.AgeRangeNavigation.From <= age && x.AgeRangeNavigation.To >= age).
+                OrderBy(x => x.AgeRange)
                 .ToList();
                 return l;
             }
@@ -26,7 +27,7 @@ namespace DalHazinu
                 throw ex;
             }
         }
-        //
+        
         //החזרת רשימת קטגוריות החל וכולל איידי טווח הגילאיים שהתקבל 
         public List<InstitutionsCategory> GetAllInstitutionsCategoriesByAgeGange(int id)
         {

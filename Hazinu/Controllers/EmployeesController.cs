@@ -127,13 +127,13 @@ namespace Hazinu.Controllers
         {
             return _IEmployeesBL.GetAllEmployees().ToList();
         }
-        [HttpPut]
+        [HttpPost]
         [Route("UpdateEmployeeCode")]
-        public IActionResult put(EmployeesDTO employees)
+        public IActionResult put()
         {
             try
             {
-                _IEmployeesBL.put(employees);
+                _IEmployeesBL.put();
                 return Ok(true);
             }
             catch (Exception ex)

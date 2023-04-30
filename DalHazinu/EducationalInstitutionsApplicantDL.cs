@@ -57,11 +57,10 @@ namespace DalHazinu
                 return false;
             }
         }
-        // הוספת מוסד לימוד לפונה
 
+        // הוספת מוסד לימוד למטופל
         public int AddEducational(EducationalInstitutionsApplicant u)
         {
-
             try
             {
                 _context.EducationalInstitutionsApplicant.Add(u);
@@ -73,6 +72,7 @@ namespace DalHazinu
                 throw ex;
             }
         }
+
         //עדכון מוסד לימוד
 
         public bool UpdateEducational(int id, EducationalInstitutionsApplicant u)

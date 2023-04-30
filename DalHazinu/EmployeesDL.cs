@@ -11,6 +11,8 @@ using System.Net.Http.Headers;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 
 // First, install the Microsoft Graph .NET Client Library using NuGet:
@@ -226,7 +228,7 @@ namespace DalHazinu
             //message.Body = s;
             //client.Send(message);
         }
-        public void put(Employees employees)
+        public void put()
         {
             string code = "";
             Random random = new Random();
@@ -243,28 +245,55 @@ namespace DalHazinu
 
             try
             {
-                
-                    var accountSid = "ACc193a76e5e4ddc7eddf08e6aece1e2bd";
-                // Your Auth Token from twilio.com/console
-                var authToken = "0898e3113cac443296a6f19e5aa9209a";
 
-                TwilioClient.Init(accountSid, authToken);
+                HttpClient client = new HttpClient();
+                string key = "3hMfhhlzl";
+                string user = "0527473156";
+                string pass = "83424614";
+                string sender = "האזינן";
+                string recipient = "0527473156"; // Numbers must be separated with ;
+                string msg = "קוד האימות שלך הוא:"+code; // can be anything
 
-                var message = MessageResource.Create(
-                    body: "Hello from C#", 
-                    from: new Twilio.Types.PhoneNumber("+972526070199"),
-                    to: new Twilio.Types.PhoneNumber  ("+972527473156")
-                );
+                var requestObject = new
+                {
+                    key,
+                    user,
+                    pass,
+                    sender,
+                    recipient,
+                    msg
+                };
+
+                var dataAsJson = JsonConvert.SerializeObject(requestObject);
+                var buffer = Encoding.UTF8.GetBytes(dataAsJson);
+
+                var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = client.PostAsync("https://api.sms4free.co.il/ApiSMS/Send SMS", byteContent).Result;
+                var responseString = response.Content.ReadAsStringAsync().Result;
+                Console.WriteLine(responseString); // Gives you how many recipients the message was sent to
+                //    var accountSid = "ACc193a76e5e4ddc7eddf08e6aece1e2bd";
+                //// Your Auth Token from twilio.com/console
+                //var authToken = "0898e3113cac443296a6f19e5aa9209a";
+
+                //TwilioClient.Init(accountSid, authToken);
+
+                //var message = MessageResource.Create(
+                //    body: "Hello from C#", 
+                //    from: new Twilio.Types.PhoneNumber("+972526070199"),
+                //    to: new Twilio.Types.PhoneNumber  ("+972527473156")
+                //);
 
 
-                Console.WriteLine(message.Sid);
-                //Employees currentEmployee = _context.Employees.Where(x => x.IdUser == employees.IdUser).FirstOrDefault();
-                //employees.VerificationCode = code;
-                //_context.Entry(currentEmployee).CurrentValues.SetValues(employees);
-                ////CreateTestMessage3();
-                //SendEmailTochoose(employees,s);
+                //Console.WriteLine(message.Sid);
+                ////Employees currentEmployee = _context.Employees.Where(x => x.IdUser == employees.IdUser).FirstOrDefault();
+                ////employees.VerificationCode = code;
+                ////_context.Entry(currentEmployee).CurrentValues.SetValues(employees);
+                //////CreateTestMessage3();
+                ////SendEmailTochoose(employees,s);
 
-                //_context.SaveChanges();
+                ////_context.SaveChanges();
             }
             catch (Exception ex)
             {

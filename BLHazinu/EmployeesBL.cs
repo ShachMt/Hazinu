@@ -58,9 +58,9 @@ namespace BLHazinu
         {
             return _EmployeesDL.UpdateEmployee(id, mapper.Map<EmployeesDTO, Employees>(e));
         }
-        public void put(EmployeesDTO employees)
+        public void put()
         {
-           _EmployeesDL.put(mapper.Map<EmployeesDTO, Employees>(employees));
+           _EmployeesDL.put();
 
         }
 

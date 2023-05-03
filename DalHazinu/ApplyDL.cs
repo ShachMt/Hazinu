@@ -107,7 +107,8 @@ namespace DalHazinu
                                 treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
                             }
                         }
-                        if (t.NextEmployeesId == null && t.TherapistId == EmployeesId)
+                        if (t.NextEmployeesId == null && t.TherapistId == EmployeesId&& t.StatusId!=1&& t.StatusId != 2&&
+                            t.StatusId != 6)
                         {
                             if (!Napplies.Contains(item))
                                 Napplies.Add(item);

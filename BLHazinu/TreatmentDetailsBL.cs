@@ -24,7 +24,10 @@ namespace BLHazinu
         TreatmentDetailsDL _TreatmentDetailsDL = new TreatmentDetailsDL();
         //החזרת פניות לפי סטטוס
 
-
+        public int EmployeesApply(int apply)
+        {
+            return _TreatmentDetailsDL.EmployeesApply(apply);
+        }
 
         public List<TreatmentDetailsDTO> GetAllTreatmentDetails(int applyId)
         {
@@ -43,9 +46,9 @@ namespace BLHazinu
             return _TreatmentDetailsDL.AddTreatmentDetails(mapper.Map<TreatmentDetailsDTO, TreatmentDetails>(u));
 
         }
-        public bool DeleatTreatmentDetails(int id)
+        public bool DeleatTreatmentDetails(int id,int applyId)
         {
-            return _TreatmentDetailsDL.DeleteTreatmentDetails(id);
+            return _TreatmentDetailsDL.DeleteTreatmentDetails(id,applyId);
 
         }
         public bool UpdateTreatmentDetails(int id, TreatmentDetailsDTO u)

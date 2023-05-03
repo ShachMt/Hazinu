@@ -21,10 +21,17 @@ namespace Hazinu.Controllers
         
             //סיווג קטגוריות מוסדות לימוד לפי מין
             [HttpGet]
-            [Route("GetAllInstitutionsCategoriesByGenderAndAge/{gender}/{age}")]
-            public List<InstitutionsCategoryDTO> GetAllInstitutionsCategoriesByGender(string gender,string age)
+    [          Route("GetAllInstitutionsCategoriesByGenderAndAge/{gender}/{age}")]
+            public IActionResult GetAllInstitutionsCategoriesByGender(string gender,string age)
             {
-                return _IInstitutionsBL.GetAllInstitutionsCategoriesByGender(gender,int.Parse(age));
+            try
+            {
+                return Ok( _IInstitutionsBL.GetAllInstitutionsCategoriesByGender(gender,int.Parse(age)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
             }
 
             //החזרת כל הקטגוריות

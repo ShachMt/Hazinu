@@ -25,6 +25,15 @@ namespace Hazinu.Controllers
         {
             return _ITreatmentDetailsBL.GetAllTreatmentDetails(int.Parse(applyId));
         }
+
+        [HttpGet]
+        [Route("EmployeesApply/{applyId}")]
+        public int EmployeesApply(string applyId)
+        {
+            return _ITreatmentDetailsBL.EmployeesApply(int.Parse(applyId));
+        }
+
+
         [HttpGet]
         [Route("GetTreatmentDetailsByApplyState/{applyId}")]
         public TreatmentDetailsDTO GetTreatmentDetailsByApplyState(string applyId)
@@ -53,12 +62,12 @@ namespace Hazinu.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleatTreatmentDetails/{id}")]
-        public IActionResult DeleatTreatmentDetails( string id)
+        [Route("DeleatTreatmentDetails/{id}/{applyId}")]
+        public IActionResult DeleatTreatmentDetails( string id, string applyId)
         {
             try
             {
-                return Ok(_ITreatmentDetailsBL.DeleatTreatmentDetails(int.Parse(id)));
+                return Ok(_ITreatmentDetailsBL.DeleatTreatmentDetails(int.Parse(id), int.Parse(applyId)));
             }
             catch (Exception ex)
             {

@@ -89,14 +89,37 @@ namespace DalHazinu
             }
         }
         //מחיקת שלב טיפול
-        public bool DeleteTreatmentDetails(int id)
+        public bool DeleteTreatmentDetails(int id,int applyId)
         {
             try
             {
+
                 TreatmentDetails u = _context.TreatmentDetails.SingleOrDefault(x => x.Id == id);
-                _context.TreatmentDetails.Remove(u);
-                _context.SaveChanges();
-                return true;
+
+                List<TreatmentDetails> t = GetAllTreatmentDetailsByApply(applyId);
+                TreatmentDetails uLast;
+                if (t.Count() > 1&& u.State == true) { 
+                  uLast = t[1];
+                    uLast.State = true;
+                    UpdateTreatmentDetailsII(uLast, uLast.Id);
+                        _context.TreatmentDetails.Remove(u);
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                    else if (t.Count() == 1)
+                    {
+                        return false;
+                    }
+                
+               else if (t.Count() > 1 && u.State != true)
+                {
+                 _context.TreatmentDetails.Remove(u);
+                    _context.SaveChanges();
+
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -119,6 +142,23 @@ namespace DalHazinu
                 return false;
             }
         }
+        public bool UpdateTreatmentDetailsII(TreatmentDetails u, int id)
+        {
+            try
+            {
+                TreatmentDetails currentTreatmentDetails = _context.TreatmentDetails.SingleOrDefault(x => x.Id == id);
+                _context.Entry(currentTreatmentDetails).CurrentValues.SetValues(u);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+
+        }
+        //עדכון מטפל עכשוי-כאשר מעבירים את הפנ
         //עדכון שלב טיפול
         public bool UpdateTreatmentDetailsI( TreatmentDetails u,int id)
         {

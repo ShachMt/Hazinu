@@ -80,6 +80,7 @@ namespace DalHazinu
         //כלל הפניות שלך לפי שיוך הפנייה+ממתין לביצוע 
         public List<Apply> GetAllAppliesEmployee(int EmployeesId)
         {
+            Boolean isS = false;
             List<Apply> Napplies = new List<Apply>();
             List<Apply> applies = GetAllApplies();
             TreatmentDetailsDL treatmentDetailsDL = new TreatmentDetailsDL();
@@ -88,32 +89,53 @@ namespace DalHazinu
                 foreach (var item in applies)
                 {
                     if (treatmentDetailsDL.EmployeesApply(item.Id) == EmployeesId)
-                        Napplies.Add(item);
+                    {
+                        if (!Napplies.Contains(item))
+                            Napplies.Add(item);
+
+                        isS = true;
+                    }
                     TreatmentDetails t = treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id);
                     if (t != null)
                     {
+                        if (isS)
+                        {
+                            t.StatusId = 1007;
+                            treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
+                        }
+
                         if (t.NextEmployeesId != null && t.NextEmployeesId == EmployeesId)
                         {
                             if(!Napplies.Contains(item))
                                 Napplies.Add(item);
-                            if (t.DateTask.Value.Date == DateTime.Today.Date && t.StatusId != 3)
+
+                            if (t.DateTask.Value.Date == DateTime.Today.Date && t.StatusId != 3&& !isS)
                             {
                                 t.StatusId = 3;
                                 treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
                             }
                             else if (t.DateTask.Value.Date < DateTime.Today.Date && t.StatusId == 3)
                             {
+                                if (isS)
+                                {
+                                    t.StatusId = 1007;
+                                    treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
+                                }
+                                else { 
                                 t.StatusId = 3007;
                                 treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
+                                }
                             }
                         }
                         if (t.NextEmployeesId == null && t.TherapistId == EmployeesId&& t.StatusId!=1&& t.StatusId != 2&&
                             t.StatusId != 6)
                         {
+                           
                             if (!Napplies.Contains(item))
                                 Napplies.Add(item);
                         }
                     }
+                    isS = false;
                 }     
                 
                 return Napplies;

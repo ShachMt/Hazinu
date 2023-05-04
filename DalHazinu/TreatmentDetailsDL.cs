@@ -29,7 +29,8 @@ namespace DalHazinu
         ///////החזרה למי משיוכת הפנייה
         public int EmployeesApply(int apply)
         {
-            TreatmentDetails t = GetAllTreatmentDetailsByApply(apply).FirstOrDefault(x => x.StatusId == 7);
+            List<TreatmentDetails> l = GetAllTreatmentDetailsByApply(apply);
+            TreatmentDetails t = GetAllTreatmentDetailsByApply(apply).Where(x => x.ApplyId == apply&&x.StatusId == 7).FirstOrDefault();
             try
             {
                 if (t != null)
@@ -52,7 +53,8 @@ namespace DalHazinu
         {
             try
             {
-                TreatmentDetails t = GetAllTreatmentDetailsByApply(ApplyId).Where(x => x.ApplyId == ApplyId && x.State == true).FirstOrDefault();
+                TreatmentDetails t = GetAllTreatmentDetailsByApply(ApplyId).Where(x => x.ApplyId == ApplyId && x.State == true)
+                    .FirstOrDefault();
                 return t;
             }
             catch (Exception ex)

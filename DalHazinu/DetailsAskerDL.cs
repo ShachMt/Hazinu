@@ -25,6 +25,20 @@ namespace DalHazinu
                 throw ex;
             }
         }
+
+//החזרה של מזהה פרטי הפונה לפי האיידי של הפונה
+        public int GetIdDetailsAsker(int idUserAsker)
+        {
+            try { 
+            DetailsAsker d = GetAllDetailsAsker().Where(x => x.UserId == idUserAsker).FirstOrDefault();
+            return d.Id;
+            }
+
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
         //החזרת כלל הפונים וכן לפי סיבת פניה מסויימת
         public List<DetailsAsker> GetAllDetailsAskerByResone(int resone)
         {

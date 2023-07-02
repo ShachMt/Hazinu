@@ -24,7 +24,7 @@ namespace DalHazinu
                 Include(x=>x.Address).
                 Include(x=>x.Family).
                 Include(x=>x.Sector).
-                Include(x=>x.Therapeutic).
+                Include(x=>x.Terapist).
                 Include(x=>x.User).ToList();
             }
             catch (Exception ex)
@@ -45,11 +45,12 @@ namespace DalHazinu
             PatientDetails u = _context.PatientDetails.Include(x => x.Address).
                 Include(x => x.Apply).
                 Include(x => x.FillEmloyees).ThenInclude(x=>x.IdUserNavigation).
-                Include(x => x.IdDetailsAskerNavigation).ThenInclude(x => x.User).
+                Include(x => x.IdDetailsAskerNavigation).
+                ThenInclude(x => x.User).
                 Include(x => x.MatureCharacter).ThenInclude(x=>x.IdMatureNavigation).
                 Include(x => x.Family).
                 Include(x => x.Sector).
-                Include(x => x.Therapeutic).
+                Include(x => x.Terapist).ThenInclude(x=>x.IdUserNavigation).
                 Include(x => x.User).FirstOrDefault(x => x.ApplyId == id);
                 return u;
             }
@@ -91,13 +92,20 @@ namespace DalHazinu
             try
             {
                 PatientDetails currentPatientDetails = _context.PatientDetails.SingleOrDefault(x => x.Id == id);
+                if (currentPatientDetails != null) { 
                 _context.Entry(currentPatientDetails).CurrentValues.SetValues(u);
                 _context.SaveChanges();
+                }
+                else
+                {
+                  int i=  this.AddPatientDetails(u);
+                    UpdatePatientDetails(i, u);
+                }
                 return true;
+
             }
             catch (Exception ex)
             {
-                throw ex;
                 return false;
             }
 

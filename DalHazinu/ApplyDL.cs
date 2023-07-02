@@ -25,7 +25,8 @@ namespace DalHazinu
                 List<Apply> applies =
                  _context.Apply.Include(x => x.Employees).ThenInclude(x => x.IdUserNavigation).
                 Include(x => x.Employees).ThenInclude(x => x.Job).
-                Include(x => x.Asker).Include(x => x.ApplyCaused).OrderByDescending(x=>x.DateNow).ThenBy(x=> x.LevelUrgency).ToList();
+                Include(x => x.Asker).Include(x => x.ApplyCaused).OrderByDescending(x=>x.DateNow).ThenBy(x=> x.LevelUrgency)
+                .ToList();
              
                 return applies;
             }
@@ -50,7 +51,6 @@ namespace DalHazinu
             {
 
                 List<Apply> applies = GetAllApplies();
-
                 List<Apply> appliesL = applies.Where(x => x.Asker.Phone == phon).ToList();
                 if(appliesL.Count()>0)
                 return appliesL;
@@ -82,12 +82,14 @@ namespace DalHazinu
         {
             Boolean isS = false;
             List<Apply> Napplies = new List<Apply>();
+            //all applies
             List<Apply> applies = GetAllApplies();
             TreatmentDetailsDL treatmentDetailsDL = new TreatmentDetailsDL();
             try
             {
                 foreach (var item in applies)
                 {
+                    //בדיקה אם הפניה משוייכת אליו
                     if (treatmentDetailsDL.EmployeesApply(item.Id) == EmployeesId)
                     {
                         if (!Napplies.Contains(item))
@@ -95,36 +97,29 @@ namespace DalHazinu
 
                         isS = true;
                     }
+                    //מחזיר את סטטוס הפניה
                     TreatmentDetails t = treatmentDetailsDL.GetTreatmentDetailsByApplyState(item.Id);
                     if (t != null)
                     {
-                        if (isS)
-                        {
-                            t.StatusId = 1007;
-                            treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
-                        }
-
+                        
+                        //בדיקה האם העבירו את הפניה הזאת אליו
                         if (t.NextEmployeesId != null && t.NextEmployeesId == EmployeesId)
                         {
                             if(!Napplies.Contains(item))
                                 Napplies.Add(item);
+                            //בדיקה אם התאריך של היום יש פגישה אז להעביר את זה לסטטוס ממתין לביצוע
 
-                            if (t.DateTask.Value.Date == DateTime.Today.Date && t.StatusId != 3&& !isS)
+                            if (t.DateTask.Value.Date == DateTime.Today.Date && t.StatusId != 3&& !isS&&t.NextStepId==2)
                             {
                                 t.StatusId = 3;
                                 treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
                             }
                             else if (t.DateTask.Value.Date < DateTime.Today.Date && t.StatusId == 3)
                             {
-                                if (isS)
-                                {
-                                    t.StatusId = 1007;
-                                    treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
-                                }
-                                else { 
+                                
                                 t.StatusId = 3007;
                                 treatmentDetailsDL.UpdateTreatmentDetailsI(t, item.Id);
-                                }
+                               
                             }
                         }
                         if (t.NextEmployeesId == null && t.TherapistId == EmployeesId&& t.StatusId!=1&& t.StatusId != 2&&
@@ -160,7 +155,7 @@ namespace DalHazinu
                     if (t != null) { 
                     if (t.NextEmployeesId!=null &&  t.NextEmployeesId == id)
                         {
-                            if (t.DateTask.Value.Date == DateTime.Today.Date && t.StatusId != 3)
+                            if (t.DateTask.Value.Date == DateTime.Today.Date && t.StatusId != 3&&t.NextStepId==2)
                             {
                                 t.StatusId = 3;
                                 treatmentDetailsDL.UpdateTreatmentDetailsI(t,item.Id);
@@ -187,6 +182,17 @@ namespace DalHazinu
             try
             {
                 Apply u = _context.Apply.SingleOrDefault(x => x.Id == id);
+                PatientDetails p = _context.PatientDetails.SingleOrDefault(x => x.ApplyId == u.Id);
+                List<TreatmentDetails> tl = _context.TreatmentDetails.Where(x => x.ApplyId == u.Id).ToList();
+                if (p!=null)
+                    _context.PatientDetails.Remove(p);
+                if (tl.Count() > 0)
+                {
+                    foreach (var item in tl)
+                    {
+                        _context.TreatmentDetails.Remove(item);
+                    }
+                }
                 _context.Apply.Remove(u);
                 _context.SaveChanges();
                 return true;

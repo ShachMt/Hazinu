@@ -12,6 +12,6 @@ namespace BLHazinu
 
         bool UpdateTreatmentDetails(int id, TreatmentDetailsDTO u);
         int EmployeesApply(int apply);
-
+        TreatmentDetailsDTO GetTreatmentDetailsByApplyTask(int apply, int idTratment);
     }
 }

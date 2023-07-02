@@ -18,7 +18,12 @@ namespace Hazinu.Controllers
         {
             _IDetailsAskerBL = d;
         }
-
+        [HttpGet]
+        [Route("GetIdDetailsAsker/{idUserAsker}")]
+        public int GetIdDetailsAsker(string idUserAsker)
+        {
+            return _IDetailsAskerBL.GetIdDetailsAsker(int.Parse(idUserAsker));
+        }
         [HttpGet]
         [Route("GetAllDetailsAsker")]
         public List<DetailsAskerDTO> GetAllDetailsAsker()

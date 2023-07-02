@@ -76,7 +76,7 @@ namespace DalHazinu
         {
             try
             {
-                return _context.Employees.Include(x=>x.IdUserNavigation).Include(x=>x.Job).ToList();
+                return _context.Employees.Where(x=>x.IsActive==true).Include(x=>x.IdUserNavigation).Include(x=>x.Job).ToList();
             }
             catch (System.Exception ex)
             {
@@ -87,9 +87,12 @@ namespace DalHazinu
         {
             try
             {
+
                 Employees e = _context.Employees.FirstOrDefault(x => x.Id == id);
-                _context.Employees.Remove(e);
-                _context.SaveChanges();
+                e.IsActive = false;
+                this.UpdateEmployee(id, e);
+                //_context.Employees.Remove(e);
+                //_context.SaveChanges();
                 return true;
             }
             catch (System.Exception ex)

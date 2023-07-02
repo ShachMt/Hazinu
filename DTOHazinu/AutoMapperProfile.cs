@@ -70,7 +70,9 @@ namespace DTOHazinu
 
             CreateMap<EducationalInstitutionsApplicantDTO, EducationalInstitutionsApplicant>();
             CreateMap<EducationalInstitutionsApplicant, EducationalInstitutionsApplicantDTO>();
-            
+
+             CreateMap<TerapistDTO, Terapist>();
+            CreateMap<Terapist, TerapistDTO>();
         }
     }
 }

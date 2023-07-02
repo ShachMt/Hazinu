@@ -28,6 +28,11 @@ namespace BLHazinu
         {
             return _TreatmentDetailsDL.EmployeesApply(apply);
         }
+        public TreatmentDetailsDTO GetTreatmentDetailsByApplyTask(int apply, int idTratment)
+        {
+            TreatmentDetails t = _TreatmentDetailsDL.GetTreatmentDetailsByApplyTask(apply, idTratment);
+             return mapper.Map<TreatmentDetails, TreatmentDetailsDTO>(t);
+        }
 
         public List<TreatmentDetailsDTO> GetAllTreatmentDetails(int applyId)
         {

@@ -21,6 +21,7 @@ namespace DalHazinu.Models
         public string LevelUrgency { get; set; }
         public string DetailsCausedRefferal { get; set; }
         public string DetailsAnotherCause { get; set; }
+        public bool? IsActive { get; set; }
 
         public virtual TheCauseReferral ApplyCaused { get; set; }
         public virtual User Asker { get; set; }

@@ -22,7 +22,10 @@ namespace BLHazinu
             mapper = config.CreateMapper();
         }
         DetailsAskerDL _DetailsAskerDL = new DetailsAskerDL();
-
+        public int GetIdDetailsAsker(int idUserAsker)
+        {
+            return _DetailsAskerDL.GetIdDetailsAsker(idUserAsker);
+        }
         public List<DetailsAskerDTO> GetAllDetailsAsker()
         {
             List<DetailsAsker> listDetailsAsker = _DetailsAskerDL.GetAllDetailsAsker();

@@ -18,6 +18,13 @@ namespace Hazinu.Controllers
         {
             _ITreatmentDetailsBL = e;
         }
+        [HttpGet]
+        [Route("GetTreatmentDetailsByApplyTask/{apply}/{idTratment}")]
+        public TreatmentDetailsDTO GetTreatmentDetailsByApplyTask(string apply, string idTratment)
+        {
+            return _ITreatmentDetailsBL.GetTreatmentDetailsByApplyTask(int.Parse(apply), int.Parse(idTratment));
+
+        }
 
         [HttpGet]
         [Route("GetAllTreatmentDetails/{applyId}")]

@@ -10,6 +10,23 @@ namespace DalHazinu
    public class TreatmentDetailsDL
     {
         HazinuProjectContext _context = new HazinuProjectContext();
+        //החזרת שלב טיפול לפי מספר הפנייה וקוד המשימה
+
+        public TreatmentDetails GetTreatmentDetailsByApplyTask(int apply,int idTratment)
+        {
+            try
+            {
+                TreatmentDetails treatmentDetail = _context.TreatmentDetails.Where
+                 (x => x.ApplyId == apply && x.TaskId == idTratment).Include(x => x.NextStep).Include(x => x.NextEmployees).ThenInclude(x => x.IdUserNavigation).
+                Include(x => x.Status).Include(x => x.Task).
+                Include(x => x.Therapist).ThenInclude(x => x.IdUserNavigation).FirstOrDefault();
+                return treatmentDetail;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         //החזרת שלבי הטיפול לפי מספר פניה
         public List<TreatmentDetails> GetAllTreatmentDetailsByApply(int apply)
         {
@@ -30,7 +47,8 @@ namespace DalHazinu
         public int EmployeesApply(int apply)
         {
             List<TreatmentDetails> l = GetAllTreatmentDetailsByApply(apply);
-            TreatmentDetails t = GetAllTreatmentDetailsByApply(apply).Where(x => x.ApplyId == apply&&x.StatusId == 7).FirstOrDefault();
+            List<TreatmentDetails> lS = GetAllTreatmentDetailsByApply(apply).Where(x => x.ApplyId == apply && x.StatusId == 7).OrderByDescending(x => x.DateNow).ToList();
+            TreatmentDetails t = lS[0];
             try
             {
                 if (t != null)
@@ -83,6 +101,7 @@ namespace DalHazinu
                 
                 _context.TreatmentDetails.Add(u);
                 _context.SaveChanges();
+
                 return true;
             }
             catch (Exception ex)
@@ -166,7 +185,8 @@ namespace DalHazinu
         {
             try
             {
-                TreatmentDetails currentTreatmentDetails = _context.TreatmentDetails.SingleOrDefault(x => x.ApplyId == id&&x.State==true);
+                TreatmentDetails currentTreatmentDetails =
+                    _context.TreatmentDetails.SingleOrDefault(x => x.ApplyId == id&&x.State==true);
                 _context.Entry(currentTreatmentDetails).CurrentValues.SetValues(u);
                 _context.SaveChanges();
                 return true;

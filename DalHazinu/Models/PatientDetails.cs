@@ -16,10 +16,8 @@ namespace DalHazinu.Models
         public bool? IsInstition { get; set; }
         public bool? IsMatureCharacter { get; set; }
         public bool? IsTherapeutic { get; set; }
-        public string IsContact { get; set; }
         public int Id { get; set; }
-        public int? TherapeuticId { get; set; }
-        public bool? IsStillTerapist { get; set; }
+        public int? TerapistId { get; set; }
         public int? MatureCharacterId { get; set; }
         public int? ApplyId { get; set; }
         public DateTime? DateNow { get; set; }
@@ -28,7 +26,16 @@ namespace DalHazinu.Models
         public string DetailsAnotherSector { get; set; }
         public string ParentPhone { get; set; }
         public int? AgeFillApply { get; set; }
-        public string DatailsJobTerapist { get; set; }
+        public string EnotherParentPhone { get; set; }
+        public string Social { get; set; }
+        public string Emotional { get; set; }
+        public string Diagnoses { get; set; }
+        public string Studies { get; set; }
+        public bool? PermissionContactM { get; set; }
+        public bool? PermissionContactT { get; set; }
+        public string Framework { get; set; }
+        public bool? IsStillTerapist { get; set; }
+        public bool? PermissionContactTm { get; set; }
 
         public virtual Address Address { get; set; }
         public virtual Apply Apply { get; set; }
@@ -37,7 +44,7 @@ namespace DalHazinu.Models
         public virtual DetailsAsker IdDetailsAskerNavigation { get; set; }
         public virtual MatureCharacter MatureCharacter { get; set; }
         public virtual Sector Sector { get; set; }
-        public virtual User Therapeutic { get; set; }
+        public virtual Terapist Terapist { get; set; }
         public virtual User User { get; set; }
     }
 }

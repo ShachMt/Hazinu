@@ -83,7 +83,7 @@ namespace Hazinu.Controllers
         }
         //עדכון מוסד לימוד
         [HttpPut]
-        [Route("UpdateAgeRange/{id}")]
+        [Route("UpdateEducational/{id}")]
         public IActionResult UpdateEducational(string id, EducationalInstitutionsApplicantDTO u)
         {
 

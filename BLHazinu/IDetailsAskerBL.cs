@@ -12,6 +12,7 @@ namespace BLHazinu
         DetailsAskerDTO GetDetailsAskerByApplyId(int applyId);
         bool UpdateDetailsAsker(int id, DetailsAskerDTO u);
         DetailsAskerDTO GetDetailsAskerByUserAskerId(int userId);
+        int GetIdDetailsAsker(int idUserAsker);
 
 
     }

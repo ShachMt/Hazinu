@@ -15,6 +15,7 @@ namespace DTOHazinu.Models
         public int Id { get; set; }
         public string VerificationCode { get; set; }
         public bool? LockOutEnabled { get; set; }
+        public bool? IsActive { get; set; }
 
         public virtual UserDTO IdUserNavigation { get; set; }
         public virtual JobsDTO Job { get; set; }

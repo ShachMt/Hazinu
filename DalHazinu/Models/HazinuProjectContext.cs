@@ -33,6 +33,7 @@ namespace DalHazinu.Models
         public virtual DbSet<StffDetails> StffDetails { get; set; }
         public virtual DbSet<StylesInstitution> StylesInstitution { get; set; }
         public virtual DbSet<Task> Task { get; set; }
+        public virtual DbSet<Terapist> Terapist { get; set; }
         public virtual DbSet<TheCauseReferral> TheCauseReferral { get; set; }
         public virtual DbSet<TreatmentDetails> TreatmentDetails { get; set; }
         public virtual DbSet<User> User { get; set; }
@@ -90,13 +91,13 @@ namespace DalHazinu.Models
                     .HasColumnName("dateNow")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.DetailsAnotherCause)
-                    .HasColumnName("detailsAnotherCause")
-                    .HasMaxLength(20);
+                entity.Property(e => e.DetailsAnotherCause).HasColumnName("detailsAnotherCause");
 
                 entity.Property(e => e.DetailsCausedRefferal).HasColumnName("detailsCausedRefferal");
 
                 entity.Property(e => e.EmployeesId).HasColumnName("employeesId");
+
+                entity.Property(e => e.IsActive).HasColumnName("isActive");
 
                 entity.Property(e => e.LevelUrgency)
                     .HasColumnName("levelUrgency")
@@ -232,6 +233,8 @@ namespace DalHazinu.Models
 
                 entity.Property(e => e.IdUser).HasColumnName("idUser");
 
+                entity.Property(e => e.IsActive).HasColumnName("isActive");
+
                 entity.Property(e => e.JobId).HasColumnName("jobId");
 
                 entity.Property(e => e.LockOutEnabled).HasColumnName("lockOutEnabled");
@@ -335,7 +338,13 @@ namespace DalHazinu.Models
 
                 entity.Property(e => e.IdMature).HasColumnName("idMature");
 
-                entity.Property(e => e.PermissionContact).HasColumnName("permissionContact");
+                entity.Property(e => e.NameCity)
+                    .HasColumnName("nameCity")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Remarks)
+                    .HasColumnName("remarks")
+                    .HasMaxLength(100);
 
                 entity.HasOne(d => d.IdApplicantNavigation)
                     .WithMany(p => p.MatureCharacter)
@@ -359,10 +368,6 @@ namespace DalHazinu.Models
 
                 entity.Property(e => e.AgeFillApply).HasColumnName("ageFillApply");
 
-                entity.Property(e => e.DatailsJobTerapist)
-                    .HasColumnName("datailsJobTerapist")
-                    .HasMaxLength(50);
-
                 entity.Property(e => e.DateNow)
                     .HasColumnName("dateNow")
                     .HasColumnType("datetime");
@@ -371,21 +376,29 @@ namespace DalHazinu.Models
                     .HasColumnName("detailsAnotherSector")
                     .HasMaxLength(20);
 
+                entity.Property(e => e.Diagnoses).HasColumnName("diagnoses");
+
+                entity.Property(e => e.Emotional).HasColumnName("emotional");
+
+                entity.Property(e => e.EnotherParentPhone)
+                    .HasColumnName("enotherParentPhone")
+                    .HasMaxLength(15);
+
                 entity.Property(e => e.FamilyId).HasColumnName("familyId");
 
                 entity.Property(e => e.FamilyPlace).HasColumnName("familyPlace");
 
                 entity.Property(e => e.FillEmloyeesId).HasColumnName("fillEmloyeesId");
 
+                entity.Property(e => e.Framework)
+                    .HasColumnName("framework")
+                    .HasMaxLength(50);
+
                 entity.Property(e => e.Gender)
                     .HasColumnName("gender")
                     .HasMaxLength(50);
 
                 entity.Property(e => e.IdDetailsAsker).HasColumnName("idDetailsAsker");
-
-                entity.Property(e => e.IsContact)
-                    .HasColumnName("isContact")
-                    .HasMaxLength(50);
 
                 entity.Property(e => e.IsInstition).HasColumnName("isInstition");
 
@@ -403,7 +416,19 @@ namespace DalHazinu.Models
                     .HasColumnName("parentPhone")
                     .HasMaxLength(15);
 
+                entity.Property(e => e.PermissionContactM).HasColumnName("permissionContactM");
+
+                entity.Property(e => e.PermissionContactT).HasColumnName("permissionContactT");
+
+                entity.Property(e => e.PermissionContactTm).HasColumnName("permissionContactTM");
+
                 entity.Property(e => e.SectorId).HasColumnName("sectorId");
+
+                entity.Property(e => e.Social).HasColumnName("social");
+
+                entity.Property(e => e.Studies).HasColumnName("studies");
+
+                entity.Property(e => e.TerapistId).HasColumnName("terapistId");
 
                 entity.Property(e => e.UserId).HasColumnName("userId");
 
@@ -414,7 +439,6 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.AddressId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_Address");
 
                 entity.HasOne(d => d.Apply)
@@ -425,13 +449,12 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.Family)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.FamilyId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_patientDetails_family");
+                    .HasConstraintName("FK_patientDetails_Family");
 
                 entity.HasOne(d => d.FillEmloyees)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.FillEmloyeesId)
-                    .HasConstraintName("FK_patientDetails_employees");
+                    .HasConstraintName("FK_patientDetails_Employees");
 
                 entity.HasOne(d => d.IdDetailsAskerNavigation)
                     .WithMany(p => p.PatientDetails)
@@ -441,24 +464,21 @@ namespace DalHazinu.Models
                 entity.HasOne(d => d.MatureCharacter)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.MatureCharacterId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_MatureCharacter");
 
                 entity.HasOne(d => d.Sector)
                     .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.SectorId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_Sector");
 
-                entity.HasOne(d => d.Therapeutic)
-                    .WithMany(p => p.PatientDetailsTherapeutic)
-                    .HasForeignKey(d => d.TherapeuticId)
-                    .HasConstraintName("FK_patientDetails_User1");
+                entity.HasOne(d => d.Terapist)
+                    .WithMany(p => p.PatientDetails)
+                    .HasForeignKey(d => d.TerapistId)
+                    .HasConstraintName("FK_patientDetails_Terapist");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.PatientDetailsUser)
+                    .WithMany(p => p.PatientDetails)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_patientDetails_User");
             });
 
@@ -546,6 +566,28 @@ namespace DalHazinu.Models
                     .HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Terapist>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.City)
+                    .HasColumnName("city")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.IdUser).HasColumnName("idUser");
+
+                entity.Property(e => e.Job)
+                    .HasColumnName("job")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Remarks).HasColumnName("remarks");
+
+                entity.HasOne(d => d.IdUserNavigation)
+                    .WithMany(p => p.Terapist)
+                    .HasForeignKey(d => d.IdUser)
+                    .HasConstraintName("FK_Terapist_User");
+            });
+
             modelBuilder.Entity<TheCauseReferral>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -623,6 +665,10 @@ namespace DalHazinu.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.EnotherPhone)
+                    .HasColumnName("enotherPhone")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.FirstName)
                     .HasColumnName("firstName")

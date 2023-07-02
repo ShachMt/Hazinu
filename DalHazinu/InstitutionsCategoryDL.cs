@@ -34,7 +34,8 @@ namespace DalHazinu
             try
             {
 
-                return _context.InstitutionsCategory.Include(x => x.AgeRangeNavigation).Where(x=>x.AgeRangeNavigation.Id>=id).ToList();
+                return _context.InstitutionsCategory.Include(x => x.AgeRangeNavigation).
+                    Where(x=>x.AgeRangeNavigation.Id>=id).ToList();
             }
             catch (Exception ex)
             {
